@@ -1,11 +1,11 @@
 <template>
     <div class="view-article-manager">
-        <article-list-view />
+        <article-list />
     </div>
 </template>
 
 <script setup>
-import ArticleListView from '@/views/articleListView'
+import ArticleList from '@/components/articleList'
 
 </script>
 

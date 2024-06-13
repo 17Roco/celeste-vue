@@ -24,7 +24,6 @@ const route = useRoute()
         width: 200px;
     }
     >.setting{
-        //width: 600px;
         display: flex;
         flex-direction: column;
     }

@@ -1,14 +1,12 @@
 <template>
     <div class="view-user-home">
         <user-info :user="store.user"/>
-        <ArticleListView/>
     </div>
 </template>
 
 <script setup>
 
 import UserInfo from "@/views/userHomeView/userInfo.vue";
-import ArticleListView from "@/views/articleListView"
 import {useUserStore} from "@/store/user";
 
 const store = useUserStore();

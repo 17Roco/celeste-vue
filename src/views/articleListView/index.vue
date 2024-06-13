@@ -1,28 +1,19 @@
 <template>
     <div class="view-article-list">
-        <filter-bar/>
-        <article-item v-for="a in store.articles" :v-key="a.title" :article="a"/>
-        <div class="page-bar">
-            <el-pagination background layout="prev, pager, next" :total="1000" />
-        </div>
+        <ArticleList v-bind="props"/>
     </div>
 </template>
 
 <script setup>
 import {useArticleStore} from "@/store/article";
-import FilterBar from "@/views/articleListView/filterBar.vue";
-import ArticleItem from "@/views/articleListView/articleItem.vue";
+import ArticleList from "@/components/articleList"
 
-const props = defineProps({"edit":Boolean})
+const props = defineProps(['tag','order','beginTime','endTime','index'])
+
 const store = useArticleStore();
+
 </script>
 
 <style>
-.view-article-list{
-    /*width: 900px;*/
-    >.page-bar{
-        display: flex;
-        justify-content: center;
-    }
-}
+
 </style>

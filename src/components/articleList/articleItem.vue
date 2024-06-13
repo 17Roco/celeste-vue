@@ -5,16 +5,19 @@
             <img :src="props.article.img" alt=""/>
             <div class="text">
                 <span>{{ props.article.context }}</span>
-                <InfoBar :article="props.article"/>
+                <InfoBar :article="props.article" :edit="props.edit"/>
             </div>
         </div>
     </router-link>
 </template>
 
 <script setup>
-import InfoBar from "@/views/articleListView/infoBar.vue";
+import InfoBar from "@/components/articleList/infoBar.vue";
 
-const props = defineProps(["article"])
+const props = defineProps({
+    "article":Object,
+    "edit":Boolean
+})
 
 
 </script>
@@ -53,6 +56,7 @@ const props = defineProps(["article"])
         >.text{
             display: flex;
             flex-direction: column;
+            flex-grow: 1;
             justify-content: space-between;
             color: #555666;
             >span{

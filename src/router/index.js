@@ -5,22 +5,15 @@ const routes = [
     {
         path: '/',
         redirect: '/article',
-        component: ()=>import('@/components/home.vue'),
-    },{
-        path: '/test',
-        component: ()=>import('@/components/frame'),
-        children:[{ path:'index',component:() => import('@/views/test') }]
-    },
-
-    {
+    }, {
         path: '/article',
-        component: ()=>import('@/components/frame'),
         redirect: '/article/new',
+        component: ()=>import('@/components/frame'),
         children:[
-            { path:'new',component:() => import('@/views/articleListView') },
             { path:'detail/:id',component:() => import('@/views/articleView') ,props:true},
-            { path:'tag/:tag',component:() => import('@/views/articleListView') },
-            { path:'editor/:id',component:() => import('@/views/editorView') },
+            { path:'editor/:aid',component:() => import('@/views/editorView'),props:true},
+            // params: tag,order,beginTime,endTime
+            { path:':index(\\d+)?',component:() => import('@/views/articleListView'),props:route=>({...route.query,...route.params }) },
         ]
     },{
         path: '/user',
