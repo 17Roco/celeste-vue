@@ -13,6 +13,7 @@ import {useArticleStore} from "@/store/article";
 import FilterBar from "@/views/articleListView/filterBar.vue";
 import ArticleItem from "@/views/articleListView/articleItem.vue";
 
+const props = defineProps({"edit":Boolean})
 const store = useArticleStore();
 </script>
 

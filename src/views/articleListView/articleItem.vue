@@ -5,16 +5,14 @@
             <img :src="props.article.img" alt=""/>
             <div class="text">
                 <span>{{ props.article.context }}</span>
-                <div class="info">
-                    <router-link to="/about">作者 : {{ props.article.user }}</router-link>
-                    <span>like:{{ props.article.like }}</span>
-                </div>
+                <InfoBar :article="props.article"/>
             </div>
         </div>
     </router-link>
 </template>
 
 <script setup>
+import InfoBar from "@/views/articleListView/infoBar.vue";
 
 const props = defineProps(["article"])
 
@@ -63,14 +61,6 @@ const props = defineProps(["article"])
                 line-height: 1.3;
                 text-overflow: ellipsis;
                 overflow: hidden;
-            }
-            >.info{
-                padding: 5px 0;
-                display: flex;
-                >*{
-                    padding: 0 10px;
-                    line-height: 1.5;
-                }
             }
         }
     }

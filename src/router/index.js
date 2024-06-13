@@ -29,7 +29,7 @@ const routes = [
         children:[
             { path:'home/:id',component:() => import('@/views/userHomeView') },
             { path:'setting',component:() => import('@/views/userSettingView') ,props:true},
-            { path:'article',component:() => import('@/views/articleListView') },
+            { path:'articles',component:() => import('@/views/articleManagerView') },
         ]
     },
 

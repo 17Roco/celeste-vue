@@ -42,7 +42,7 @@ const handleCreated = (editor) => {
 
 <style>
 .view-editor{
-    width: 1400px;
+    //width: 1400px;
     padding: 10px;
     .vuepress-markdown-body>*{
         text-align: left;

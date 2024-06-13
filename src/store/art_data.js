@@ -7,7 +7,22 @@ export const data = [
         "updateTime":"2024-6-2",
         "title": "【Websocket】服务器https协议下ws连接失败问题及解决办法5664",
         'desc':'在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。',
-        "context": "在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。",
+        "context": `
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        在服务器使用HTTPS协议下连接WebSocket时，通常会出现一些常见的问题导致连接失败。确保您的服务器上已正确配置SSL证书，并且证书有效。如果证书配置不正确或者过期，客户端可能无法建立安全连接。请检查服务器的SSL证书配置，并确保证书链完整、证书有效。WebSocket服务需要在HTTPS协议下运行时，需要WebSocket容器（如Tomcat、Jetty等）支持TLS。确保您的WebSocket容器已正确配置，以支持WebSocket over TLS（wss协议）。
+        `,
         "like": 5,
         "img":'https://media.prts.wiki/d/db/%E5%B9%B2%E5%91%98%E8%BD%AE%E6%8D%A2%E5%8D%A1%E6%B1%A0134.jpg'
     },
@@ -160,5 +175,6 @@ export const tag = ["后端", "前端", "移动开发", "编程语言", "Java", 
 export const user = {
     'uid':1,
     "username":"user",
+    'sex':'1',
     "img":"https://pinia.vuejs.org/logo.svg"
 }

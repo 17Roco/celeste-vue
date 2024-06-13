@@ -1,13 +1,13 @@
 <template>
     <div class="view-user-setting">
         <div class="setting">
-
+            <setting-group/>
         </div>
     </div>
 </template>
 
 <script setup>
-
+import SettingGroup from "@/views/userSettingView/settingGroup.vue";
 import {useRoute} from "vue-router";
 
 const route = useRoute()
@@ -24,8 +24,7 @@ const route = useRoute()
         width: 200px;
     }
     >.setting{
-        width: 600px;
-        background: saddlebrown;
+        //width: 600px;
         display: flex;
         flex-direction: column;
     }
