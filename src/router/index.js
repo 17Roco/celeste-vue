@@ -28,7 +28,7 @@ const routes = [
         // redirect: '/user/new',
         children:[
             { path:'home/:id',component:() => import('@/views/userHomeView') },
-            { path:'setting',component:() => import('@/views/articleView') ,props:true},
+            { path:'setting',component:() => import('@/views/userSettingView') ,props:true},
             { path:'article',component:() => import('@/views/articleListView') },
         ]
     },

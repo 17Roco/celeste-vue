@@ -1,6 +1,9 @@
 <template>
     <div class="com-filter-bar">
         <el-segmented v-model="order" :options="options" size="large" @change="change"/>
+
+        <el-pagination background layout="prev, pager, next" :total="1000" />
+
         <el-date-picker
             class="data-picker"
             v-model="timeRange"
@@ -38,10 +41,12 @@ let disDate = (t)=> t > new Date()
 
 <style lang="less">
 .com-filter-bar{
+    margin: 10px 20px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     .data-picker{
-        max-width: 400px;
+        max-width: 200px;
     }
 }
 </style>

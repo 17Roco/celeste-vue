@@ -11,7 +11,11 @@
                         <router-link to="/user/home/1">主页</router-link>
                     </el-dropdown-item>
                     <el-dropdown-item>我的博客</el-dropdown-item>
-                    <el-dropdown-item>账号设置</el-dropdown-item>
+                    <el-dropdown-item>
+                        <router-link to="/user/setting">
+                            账号设置
+                        </router-link>
+                    </el-dropdown-item>
                     <el-dropdown-item>退出</el-dropdown-item>
                 </el-dropdown-menu>
             </template>

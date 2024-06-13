@@ -22,6 +22,7 @@ import User from "@/components/frame/topbar/user.vue";
     justify-content: center;
     position: fixed;
     top: 0;
+    z-index: 1000;
     /**/
     background: white;
     border-bottom: 1px solid #b7b7bc;
