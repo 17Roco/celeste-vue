@@ -11,7 +11,6 @@
 
 
 <script setup>
-import {ref} from "vue";
 import {useIndexStore} from "@/store";
 
 const store = useIndexStore()
