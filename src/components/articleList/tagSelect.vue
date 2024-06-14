@@ -1,26 +1,18 @@
 <template>
     <div class="com-tag-select">
         <el-button
-            v-for="t in props.tags" :key="t.value"
-            @click="check(t.value)"
-            :type="tag === t.value?'primary':null"
+            v-for="t in store.tags" :key="t.value"
+            @click="store.filter.tag = t.value"
+            :type="store.filter.tag === t.value?'primary':null"
             round size="small"
         >{{ t.label }}</el-button>
     </div>
 </template>
 
 <script setup>
-const props = defineProps({
-    tags:Array
-})
-const tag = defineModel()
+import {useArticleStore} from "@/store/article";
 
-const check = (val)=>{
-    if(tag.value === val)
-        tag.value = null
-    else
-        tag.value = val
-}
+const store = useArticleStore()
 
 </script>
 

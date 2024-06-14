@@ -1,24 +1,14 @@
 <template>
     <div class="com-user">
         <el-button type="danger" round class="commit-but">
-            <router-link to="/article/editor/1">发表</router-link>
+            <router-link :to="store.user.but.path">{{ store.user.but.title }}</router-link>
         </el-button>
         <el-dropdown trigger="hover">
             <el-avatar :size="50" :src="img"/>
             <template #dropdown>
                 <el-dropdown-menu>
-                    <el-dropdown-item>
-                        <router-link to="/user/home/1">主页</router-link>
-                    </el-dropdown-item>
-                    <el-dropdown-item>
-                        <router-link to="/user/articles">
-                            我的博客
-                        </router-link>
-                    </el-dropdown-item>
-                    <el-dropdown-item>
-                        <router-link to="/user/setting">
-                            账号设置
-                        </router-link>
+                    <el-dropdown-item v-for="p in store.user.img" :key="p.path">
+                        <router-link :to="p.path">{{ p.title }}</router-link>
                     </el-dropdown-item>
                     <el-dropdown-item>退出</el-dropdown-item>
                 </el-dropdown-menu>
@@ -29,7 +19,9 @@
 
 <script setup>
 import {ref} from "vue";
+import {usePathStore} from "@/store/path";
 
+const store = usePathStore()
 const dropdown = ref();
 let img = ref("https://pinia.vuejs.org/logo.svg");
 

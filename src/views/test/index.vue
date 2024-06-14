@@ -4,7 +4,7 @@
 
 <template>
     <div class="view-test">
-        <h1 v-for="i in 30">test {{ i }}</h1>
+        <h1 v-for="i in 30">404 {{ i }}</h1>
     </div>
 </template>
 

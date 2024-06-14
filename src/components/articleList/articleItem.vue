@@ -1,5 +1,5 @@
 <template>
-    <router-link class="com-article-item" :to="'/article/detail/'+props.article.id">
+    <router-link class="com-article-item" :to="'/blog/detail/'+props.article.id">
         <div class="title">{{ props.article.title }}</div>
         <div class="context">
             <img :src="props.article.img" alt=""/>

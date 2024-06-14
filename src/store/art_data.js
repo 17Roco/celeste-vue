@@ -170,11 +170,50 @@ export const data = [
         "img":'https://media.prts.wiki/d/db/%E5%B9%B2%E5%91%98%E8%BD%AE%E6%8D%A2%E5%8D%A1%E6%B1%A0134.jpg'
     }
 ]
-export const tag = ["后端", "前端", "移动开发", "编程语言", "Java", "Python", "人工智能", "AIGC", "大数据", "数据库", "数据结构与算法", "音视频", "云原生", "云平台", "前沿技术", "开源", "小程序", "运维", "服务器", "操作系统", "硬件开发", "嵌入式", "微软技术", "软件工程", "测试", "网络空间安全", "网络与通信", "用户体验设计", "学习和成长", "搜索", "开发工具", "游戏", "HarmonyOS", "区块链", "数学", "3C硬件", "资讯"]
+export const tags = [
+    {"value":"后端","label":"后端"},
+    {"value":"前端","label":"前端"},
+    {"value":"移动开发","label":"移动开发"},
+    {"value":"编程语言","label":"编程语言"},
+    {"value":"Java","label":"Java"},
+    {"value":"Python","label":"Python"},
+    {"value":"人工智能","label":"人工智能"},
+    {"value":"AIGC","label":"AIGC"},
+    {"value":"大数据","label":"大数据"},
+    {"value":"数据库","label":"数据库"},
+    {"value":"数据结构与算法","label":"数据结构与算法"},
+    {"value":"音视频","label":"音视频"},
+    {"value":"云原生","label":"云原生"},
+    {"value":"云平台","label":"云平台"},
+    {"value":"前沿技术","label":"前沿技术"},
+    {"value":"开源","label":"开源"},
+    {"value":"小程序","label":"小程序"},
+    {"value":"运维","label":"运维"},
+    {"value":"服务器","label":"服务器"},
+    {"value":"操作系统","label":"操作系统"},
+    {"value":"硬件开发","label":"硬件开发"},
+    {"value":"嵌入式","label":"嵌入式"},
+    {"value":"微软技术","label":"微软技术"},
+    {"value":"软件工程","label":"软件工程"},
+    {"value":"测试","label":"测试"},
+    {"value":"网络空间安全","label":"网络空间安全"},
+    {"value":"网络与通信","label":"网络与通信"},
+    {"value":"用户体验设计","label":"用户体验设计"},
+    {"value":"学习和成长","label":"学习和成长"},
+    {"value":"搜索","label":"搜索"},
+    {"value":"开发工具","label":"开发工具"},
+    {"value":"游戏","label":"游戏"},
+    {"value":"HarmonyOS","label":"HarmonyOS"},
+    {"value":"区块链","label":"区块链"},
+    {"value":"数学","label":"数学"},
+    {"value":"3C硬件","label":"3C硬件"},
+    {"value":"资讯","label":"资讯"}
+]
 
 export const user = {
     'uid':1,
     "username":"user",
     'sex':'1',
-    "img":"https://pinia.vuejs.org/logo.svg"
+    "img":"https://pinia.vuejs.org/logo.svg",
+    "token":null
 }

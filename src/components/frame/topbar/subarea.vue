@@ -1,29 +1,22 @@
 <template>
     <div class="com-subarea">
-        <el-menu :default-active="check" mode="horizontal" :ellipsis="false" @select="handleSelect" class="menu" background-color="rgba(0,0,0,0)" router active-text-color="#00965e">
-            <el-sub-menu index="/article" @click="$router.push('/article/new')">
-                <template #title><span style="font-size: 16px;font-weight: bold">博客</span></template>
-                <el-sub-menu index="/tag">
-                    <template #title>标签</template>
-                    <tags :tags="store.tag"/>
-                </el-sub-menu>
-            </el-sub-menu>
+        <el-menu :default-active="route.path" :router="true" mode="horizontal" :ellipsis="false" @select="handleSelect" class="menu" background-color="rgba(0,0,0,0)" router active-text-color="#00965e">
+            <el-menu-item v-for="sub in store.sub" :key="sub.path" :index="sub.path">
+<!--                <router-link :to="sub.path">{{ sub.name }}</router-link>-->
+                {{ sub.name }}
+            </el-menu-item>
         </el-menu>
     </div>
 </template>
 
 <script setup>
-import tags from './tags.vue'
-import {ref} from "vue";
-import {useArticleStore} from "@/store/article";
+import {usePathStore} from "@/store/path";
+import {useRoute} from "vue-router";
 
-let check = ref("/article")
-const store = useArticleStore();
+const store = usePathStore()
+const route = useRoute();
 
-let handleSelect = () =>{}
-let fun = (index) =>{
-    console.log(index.indexPath)
-}
+const handleSelect = ()=>{}
 </script>
 
 <style>
