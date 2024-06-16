@@ -1,20 +1,30 @@
 <template>
     <div class="view-article">
-        <h1> {{ article.title }}</h1>
-        <p class="info">作者：{{ article.user }} 2024-6-1</p>
-        <span class="context">{{ article.context }}</span>
-        <bottom-bar/>
+        <template v-if="store.curArticle!==null">
+            <h1> {{ store.curArticle.title }}</h1>
+            <p class="info">作者：{{ store.curArticle.uid }} {{ store.curArticle.createTime }}</p>
+            <span class="context">{{ store.curArticle.context }}</span>
+            <bottom-bar/>
+        </template>
+        <template v-else>
+            <p>加载中</p>
+        </template>
+<!--        <el-button @click="aaa">aaa</el-button>-->
     </div>
 </template>
 
 <script setup>
-import {defineProps} from 'vue'
+import {onMounted,reactive,nextTick} from 'vue'
 import {useArticleStore} from "@/store/article";
 import bottomBar from './bottomBar.vue'
 
 const props = defineProps(['id'])
 const store = useArticleStore();
-const article = store.getArticle(props.id)
+
+
+
+onMounted(()=>store.getArticle(props.id))
+
 </script>
 
 <style>

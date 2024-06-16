@@ -1,10 +1,21 @@
 import {defineStore} from "pinia";
 import {data,tags} from "@/store/art_data";
 
+import {getArticleInfos,getArticleContent} from "@/api/articleApi"
+
+const getDefaultArticles = ()=>({
+    records:[],
+    current:0,
+    total:0,
+    size:20,
+    pages:0
+})
+
 
 export const useArticleStore = defineStore('article',{
     state:() => ({
-        articles:data,
+        articles:getDefaultArticles(),
+        curArticle:null,
         tags,
         option:[
             {"value":'new','label':'最新'},
@@ -21,16 +32,22 @@ export const useArticleStore = defineStore('article',{
         }
     }),
     actions:{
+
         getArticle(id){
-            let a = this.articles.filter(aa => aa.id==id)
-            return a ? a[0] : a;
+            this.curArticle = null
+            return  getArticleContent(id).then((data)=>{
+                this.curArticle = data
+            })
         },
-        filterArticle(filter){
-            return this.articles
+        updateList(){
+            // this.articles = getDefaultArticles()
+            getArticleInfos(this.filter).then((data)=>{
+                console.log(data)
+                this.articles = data
+            })
         }
     }
 });
-
 
 
 

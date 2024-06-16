@@ -7,10 +7,12 @@
             <!--    排序    -->
             <el-segmented :options="store.option" size="large" v-model="store.filter.order"/>
             <!--    顶部分页    -->
-            <el-pagination
-                background layout="prev, pager, next"
-                :total="pageInfo.total" :page-size="pageInfo.size"  v-model:current-page="store.filter.index"
-            />
+            <div class="page-bar">
+                <el-pagination
+                    background layout="prev, pager, next" v-show="store.articles.pages >= 1"
+                    :total="store.articles.total" :page-size="store.articles.pages"  v-model:current-page="store.filter.index"
+                />
+            </div>
             <!--    时间范围    -->
             <el-date-picker
                 style="max-width: 200px"
@@ -25,44 +27,50 @@
             />
         </filter-bar>
         <!--    文章列表    -->
-        <article-item v-for="a in store.filterArticle({})" :v-key="a.title" :article="a" :edit="props.edit"/>
+        <article-item v-for="a in store.articles.records" :v-key="a.title" :article="a" :edit="props.edit"/>
         <!--    底部分页    -->
         <div class="page-bar">
             <el-pagination
-                background layout="prev, pager, next"
-                :total="pageInfo.total" :page-size="pageInfo.size"  v-model:current-page="store.filter.index"
+                background layout="prev, pager, next" v-show="store.articles.pages >= 1"
+                :total="store.articles.total" :page-size="store.articles.pages"  v-model:current-page="store.filter.index"
             />
         </div>
     </div>
 </template>
 
 <script setup>
-import {reactive, ref,watch} from "vue";
+import {reactive, ref,watch,onMounted,watchEffect} from "vue";
 import {useArticleStore} from "@/store/article";
 import FilterBar from "./filterBar.vue";
 import ArticleItem from "./articleItem.vue";
 import TagSelect from "@/components/articleList/tagSelect.vue";
+
 
 const store = useArticleStore();
 const props = defineProps({
     edit:{type:Boolean,default:false},
 })
 
-const pageInfo = reactive({
-    "total": store.articles.length,
-    "page": store.articles.length/10,
-    "size":10
+// const pageInfo = reactive({
+//     "total": store.articles.length,
+//     "page": store.articles.length/10,
+//     "size":10
+// })
+
+onMounted(()=>{
+    store.updateList()
 })
-
-
-watch(()=>store.filter,(n,o)=>{
-    // console.log(store.filter)
-    //
-    //
-    //
-    //
-    //
+watch(()=>(store.filter),()=> {
+    store.updateList()
 },{deep:true})
+
+// store.$subscribe((m,s)=>{
+//     if (m.events.key === "index"){
+//         store.updateList()
+//     }else {
+//         console.log(m)
+//     }
+// })
 
 </script>
 

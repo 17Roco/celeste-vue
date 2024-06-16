@@ -1,8 +1,8 @@
 <template>
-    <router-link class="com-article-item" :to="'/blog/detail/'+props.article.id">
+    <router-link class="com-article-item" :to="'/blog/detail/'+props.article.aid">
         <div class="title">{{ props.article.title }}</div>
         <div class="context">
-            <img :src="props.article.img" alt=""/>
+            <img :src="props.article.img || 'https://media.prts.wiki/d/db/%E5%B9%B2%E5%91%98%E8%BD%AE%E6%8D%A2%E5%8D%A1%E6%B1%A0134.jpg'" alt=""/>
             <div class="text">
                 <span>{{ props.article.context }}</span>
                 <InfoBar :article="props.article" :edit="props.edit"/>

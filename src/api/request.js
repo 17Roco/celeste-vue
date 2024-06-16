@@ -1,10 +1,11 @@
 import axios from "axios";
 import {useUserStore} from "@/store/user";
+import {ElMessage} from 'element-plus'
 
 const store =  useUserStore()
 
-const request = axios.create({
-    baseURL: 'http://localhost/',
+export const request = axios.create({
+    // baseURL: 'http://localhost',
     timeout:5000
 })
 
@@ -24,7 +25,12 @@ request.interceptors.request.use(
 request.interceptors.response.use(
     response => {
         const res = response.data
-        return res
+        if (response.status===200 && res.code === 200) {
+            return res.data
+        }else {
+            ElMessage({message:'获取失败'})
+        }
+
     },
     error => {
         console.log('err' + error)
@@ -36,3 +42,4 @@ request.interceptors.response.use(
         return Promise.reject(error)
     }
 )
+
