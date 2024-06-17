@@ -29,6 +29,7 @@ request.interceptors.response.use(
             return res.data
         }else {
             ElMessage({message:'获取失败'})
+            return Promise.reject(new Error(res.msg || 'Error'))
         }
 
     },

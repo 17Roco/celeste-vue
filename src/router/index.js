@@ -10,9 +10,9 @@ const routes = [
         redirect: '/blog/list',
         component: ()=>import('@/components/frame'),
         children:[
-            { path:'list',component:() => import('@/views/articleListView') },
-            { path:'detail/:id',component:() => import('@/views/articleView') ,props:true},
-            { path:'editor/:id?',component:() => import('@/views/editorView'),props:true},
+            { path:'list',component:() => import('@/views/articleListView') ,props: (route)=>({...route.query})},
+            { path:'detail/:aid',component:() => import('@/views/articleView') ,props:true},
+            { path:'editor/:aid?',component:() => import('@/views/editorView'),props:true},
         ]
     },{
         path: '/user',

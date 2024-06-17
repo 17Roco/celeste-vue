@@ -4,7 +4,7 @@
             <router-link :to="store.user.but.path">{{ store.user.but.title }}</router-link>
         </el-button>
         <el-dropdown trigger="hover">
-            <el-avatar :size="50" :src="img"/>
+            <el-avatar :size="50" :src="userStore.user.img"/>
             <template #dropdown>
                 <el-dropdown-menu>
                     <el-dropdown-item v-for="p in store.user.img" :key="p.path">
@@ -20,10 +20,10 @@
 <script setup>
 import {ref} from "vue";
 import {usePathStore} from "@/store/path";
+import {useUserStore} from "@/store/user";
 
 const store = usePathStore()
-const dropdown = ref();
-let img = ref("https://pinia.vuejs.org/logo.svg");
+const userStore = useUserStore()
 
 
 </script>

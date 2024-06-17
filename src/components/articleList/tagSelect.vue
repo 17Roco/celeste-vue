@@ -1,11 +1,11 @@
 <template>
     <div class="com-tag-select">
         <el-button
-            v-for="t in store.tags" :key="t.value"
-            @click="store.filter.tag = t.value"
-            :type="store.filter.tag === t.value?'primary':null"
+            v-for="t in store.tags" :key="t.title"
+            @click="clickTag(t.title)"
+            :type="store.filter.tag === t.title?'primary':null"
             round size="small"
-        >{{ t.label }}</el-button>
+        >{{ t.title }}</el-button>
     </div>
 </template>
 
@@ -13,6 +13,11 @@
 import {useArticleStore} from "@/store/article";
 
 const store = useArticleStore()
+store.loadTags()
+
+let clickTag = (title)=>{
+    store.filter.tag = (store.filter.tag === title) ? null : title
+}
 
 </script>
 

@@ -39,7 +39,11 @@ export const unlikeArticle = () => {}
 
 
 // tag
-export const getTags = () => {}
+export const getTags = () => {
+    return request({
+        url:'/api/tag/list',
+    })
+}
 
 export const addTags = (aid,tag) => {
     return request({

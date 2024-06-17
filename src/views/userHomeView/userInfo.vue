@@ -1,24 +1,32 @@
 <template>
     <div class="com-user-info">
         <div class="info">
-            <el-avatar :size="70" :src="user.img"/>
+            <el-avatar :size="70" :src="store.user.img"/>
             <div class="info-text">
-                <h2>name</h2>
+                <h2>{{ store.user.username }}</h2>
                 <p> 0 篇文章</p>
             </div>
         </div>
         <div class="opt">
-            <el-button>设置</el-button>
-            <el-button>设置</el-button>
-            <el-button>设置</el-button>
+            <el-button v-for="o in option">
+                <router-link :to="o.path">{{ o.but }}</router-link>
+            </el-button>
         </div>
     </div>
 </template>
 
 <script setup>
-import {defineProps} from 'vue'
+import {reactive} from 'vue'
+import {useUserStore} from "@/store/user";
+
+const store = useUserStore();
 const props = defineProps(['user'])
 
+let option = reactive([
+    {"but":"设置","path":""},
+    {"but":"设置","path":""},
+    {"but":"设置","path":""},
+])
 
 </script>
 

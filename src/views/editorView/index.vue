@@ -1,6 +1,9 @@
 <template>
     <div class="view-editor">
-        <el-input v-model="title"></el-input>
+        <edit-info create-time="------------" update-time="--------------">
+            <el-button>发表</el-button>
+        </edit-info>
+        <el-input v-model="article.title" placeholder="请输入标题" input-style="font-size: 2em;text-align:center;margin: 10px;" class="title-input"></el-input>
         <div style="border: 1px solid #ccc">
             <Toolbar
                 style="border-bottom: 1px solid #ccc"
@@ -8,8 +11,7 @@
                 :defaultConfig="toolbarConfig"
             />
             <Editor
-                style="height: 500px; overflow-y: hidden;"
-                v-model="valueHtml"
+                v-model="article.context"
                 :defaultConfig="editorConfig"
                 @onCreated="handleCreated"
             />
@@ -18,15 +20,31 @@
 </template>
 
 <script setup>
-import {ref,shallowRef,onBeforeUnmount} from "vue";
+import {ref,reactive,shallowRef,onBeforeUnmount} from "vue";
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import {useArticleStore} from "@/store/article";
+import EditInfo from "@/views/editorView/editInfo.vue";
+
+const store = useArticleStore()
+const props = defineProps(['aid'])
 
 const editorRef = shallowRef()
-// 内容 HTML
-const title = ref('')
-const valueHtml = ref('<p>hello</p>')
 const toolbarConfig = {}
 const editorConfig = { placeholder: '请输入内容...' }
+
+// 内容
+let article = reactive({
+    title:'',
+    context:''
+})
+if (props.aid){
+    store.getArticle(props.aid).then(data => {
+        article.title = store.curArticle.title
+        article.context = store.curArticle.context
+    })
+}
+
+
 
 // 组件销毁时，也及时销毁编辑器
 onBeforeUnmount(() => {
@@ -42,7 +60,7 @@ const handleCreated = (editor) => {
 
 <style>
 .view-editor{
-    //width: 1400px;
+
     padding: 10px;
     .vuepress-markdown-body>*{
         text-align: left;

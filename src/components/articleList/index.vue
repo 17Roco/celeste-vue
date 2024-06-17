@@ -10,7 +10,7 @@
             <div class="page-bar">
                 <el-pagination
                     background layout="prev, pager, next" v-show="store.articles.pages >= 1"
-                    :total="store.articles.total" :page-size="store.articles.pages"  v-model:current-page="store.filter.index"
+                    :total="store.articles.total" :page-count="store.articles.pages"  v-model:current-page="store.index"
                 />
             </div>
             <!--    时间范围    -->
@@ -27,12 +27,13 @@
             />
         </filter-bar>
         <!--    文章列表    -->
-        <article-item v-for="a in store.articles.records" :v-key="a.title" :article="a" :edit="props.edit"/>
+        <article-item v-for="a in store.articles.records" :v-key="a.title" :article="a" :edit="true"/>
         <!--    底部分页    -->
         <div class="page-bar">
             <el-pagination
+                @change="toTop"
                 background layout="prev, pager, next" v-show="store.articles.pages >= 1"
-                :total="store.articles.total" :page-size="store.articles.pages"  v-model:current-page="store.filter.index"
+                :total="store.articles.total" :page-count="store.articles.pages"  v-model:current-page="store.index"
             />
         </div>
     </div>
@@ -47,30 +48,27 @@ import TagSelect from "@/components/articleList/tagSelect.vue";
 
 
 const store = useArticleStore();
-const props = defineProps({
-    edit:{type:Boolean,default:false},
-})
-
-// const pageInfo = reactive({
-//     "total": store.articles.length,
-//     "page": store.articles.length/10,
-//     "size":10
+// const props = defineProps({
+//     edit:{type:Boolean,default:false},
 // })
+
+let toTop = () => {
+    window.scrollTo(0,0)
+}
+
 
 onMounted(()=>{
     store.updateList()
 })
-watch(()=>(store.filter),()=> {
+watch(()=>store.index,()=>{
     store.updateList()
+})
+watch(()=>(store.filter),()=> {
+    if (store.index === 1)
+        store.updateList()
+    store.index = 1
 },{deep:true})
 
-// store.$subscribe((m,s)=>{
-//     if (m.events.key === "index"){
-//         store.updateList()
-//     }else {
-//         console.log(m)
-//     }
-// })
 
 </script>
 

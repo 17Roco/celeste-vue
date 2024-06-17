@@ -32,6 +32,9 @@ onMounted(()=>store.getArticle(props.id))
     line-height: 1.5;
     text-indent: 2em;
     padding-bottom: 90px;
+    >h1{
+        text-align: center;
+    }
     >.info{
         text-align: center;
         color: #b7b7bc;
