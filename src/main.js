@@ -1,10 +1,9 @@
 import { createApp } from 'vue'
-import App from './App.vue'
 
-// router
-import router from "@/router";
 // pinia
 import {createPinia} from "pinia";
+// router
+import router from "@/router";
 // element-plus
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css'
@@ -12,8 +11,10 @@ import 'element-plus/dist/index.css'
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 
 
+import App from './App.vue'
+
 createApp(App)
-    .use(router)
     .use(createPinia())
+    .use(router)
     .use(ElementPlus)
     .mount('#app')

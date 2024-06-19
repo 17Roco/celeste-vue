@@ -2,12 +2,14 @@
     <div class="com-frame">
         <top-bar/>
         <div class="com-frame-body"><router-view/></div>
+        <login-view/>
     </div>
 </template>
 
 
 <script setup>
 import topBar from './topbar'
+import LoginView from "@/components/LoginView.vue";
 
 </script>
 <style>

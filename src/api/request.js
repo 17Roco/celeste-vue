@@ -1,8 +1,10 @@
 import axios from "axios";
-import {useUserStore} from "@/store/user";
+// import {useUserStore} from "@/store/user";
 import {ElMessage} from 'element-plus'
 
-const store =  useUserStore()
+// const store =  useUserStore()
+
+let getToken = () => localStorage.getItem("token");
 
 export const request = axios.create({
     // baseURL: 'http://localhost',
@@ -12,7 +14,11 @@ export const request = axios.create({
 
 request.interceptors.request.use(
     config => {
-        if (store.user.token && store.user.token !== '') {
+        // if (store.user.token && store.user.token !== '') {
+        //     config.headers['token'] = store.user.token
+        // }
+        let token = getToken();
+        if (token && token !== '') {
             config.headers['token'] = store.user.token
         }
         return config

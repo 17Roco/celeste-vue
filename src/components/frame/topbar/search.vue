@@ -14,8 +14,8 @@ let input = ref("")
 
 let search = () => {
     if (input.value !== "") {
-        store.filter.search = input.value
-        router.push("/blog")
+        router.push({path:"/blog/list",query:{search:input.value}})
+        input.value = ""
     }
 }
 

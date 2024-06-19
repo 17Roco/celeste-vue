@@ -3,13 +3,34 @@ import {data,tags} from "@/store/art_data";
 import {ElMessage} from "element-plus";
 
 import {getArticleInfos, getArticleContent, getTags} from "@/api/articleApi"
-
-const getDefaultArticles = ()=>({
+export const getDefaultArticles = ()=>({
     records:[],
     current:0,
     total:0,
     size:20,
     pages:0
+})
+export const getDefaultArticle = () => ({
+    "aid": 22,
+    "uid": 89,
+    "title": "test title 11",
+    "context": "test article 11",
+    "createTime": "2024-06-11 22:00:47",
+    "updateTime": "2024-04-03 16:52:01",
+    "watch": 431,
+    "likee": 215,
+    "status": 1,
+    "defFlag": 0,
+    "tags": []
+})
+
+export const getDefaultFilter = ()=>({
+    index:1,
+    order:'new',
+    beginTime:null,
+    endTime:null,
+    tag:undefined,
+    search:undefined
 })
 
 
@@ -39,18 +60,16 @@ export const useArticleStore = defineStore('article',{
             })
         },
         getArticle(id){
-            this.curArticle = null
-            return  getArticleContent(id).then((data)=>{
-                this.curArticle = data
-            })
+            return  getArticleContent(id)
         },
-        updateList(){
-            ElMessage({message:"加载中"})
-            getArticleInfos({...this.filter,...this.index}).then((data)=>{
-                this.articles = data
-                ElMessage({message:"加载完成"})
-            }).catch(()=>this.articles = getDefaultArticles())
-        }
+        getArticleList(filter,self){
+            return getArticleInfos({...filter,self})
+        },
+        updateArticle(aid,title,context){},
+        deleteArticle(aid){},
+        // 修改标签
+        addTag(aid,tag){},
+        deleteTag(aid,tag){},
     }
 });
 

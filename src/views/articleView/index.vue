@@ -1,30 +1,42 @@
 <template>
     <div class="view-article">
-        <template v-if="store.curArticle!==null">
-            <h1> {{ store.curArticle.title }}</h1>
-            <p class="info">作者：{{ store.curArticle.uid }} {{ store.curArticle.createTime }}</p>
-            <span class="context">{{ store.curArticle.context }}</span>
-            <bottom-bar/>
+        <template v-if="article!==null">
+            <h1> {{ article.title }}</h1>
+            <p class="info">作者：{{ article.uid }} {{ article.createTime }}</p>
+            <span class="context">{{ article.context }}</span>
         </template>
         <template v-else>
             <p>加载中</p>
         </template>
-<!--        <el-button @click="aaa">aaa</el-button>-->
+        <bottom-bar v-if="article" :uid="article.uid" />
     </div>
 </template>
 
 <script setup>
-import {onMounted,reactive,nextTick} from 'vue'
+import {onMounted,reactive,ref} from 'vue'
 import {useArticleStore} from "@/store/article";
 import bottomBar from './bottomBar.vue'
+import {onBeforeRouteUpdate} from "vue-router";
 
-const props = defineProps(['id'])
+
+const props = defineProps(['aid'])
 const store = useArticleStore();
+let article = ref(null)
+
+onMounted(()=> {
+    store.getArticle(props.aid).then(data => {
+        article.value = data
+    })
+})
 
 
-
-onMounted(()=>store.getArticle(props.id))
-
+// onBeforeRouteUpdate(()=>{
+//     console.log(props.aid)
+//     store.getArticle(props.aid).then(data => {
+//         console.log(data)
+//         article.value = data
+//     })
+// })
 </script>
 
 <style>
@@ -32,6 +44,7 @@ onMounted(()=>store.getArticle(props.id))
     line-height: 1.5;
     text-indent: 2em;
     padding-bottom: 90px;
+    width: 100%;
     >h1{
         text-align: center;
     }

@@ -1,5 +1,5 @@
 <template>
-    <router-link class="com-article-item" :to="'/blog/detail/'+props.article.aid">
+    <div class="com-article-item" @click="to('/blog/detail/'+props.article.aid)">
         <div class="title">{{ props.article.title }}</div>
         <div class="context">
             <img :src="props.article.img" alt="" v-if="props.article.img"/>
@@ -8,17 +8,19 @@
                 <InfoBar :article="props.article" :edit="props.edit"/>
             </div>
         </div>
-    </router-link>
+    </div>
 </template>
 
 <script setup>
 import InfoBar from "@/components/articleList/infoBar.vue";
+import router from "@/router";
 
 const props = defineProps({
     "article":Object,
     "edit":Boolean
 })
 
+let to = (path) => router.push(path)
 
 </script>
 

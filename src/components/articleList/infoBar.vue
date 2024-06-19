@@ -1,26 +1,40 @@
 <template>
     <div class="com-info-bar">
         <div class="info">
-            <router-link to="/about">作者 : {{ props.article.uid }}</router-link>
+            <router-link :to="'/user/home/'+props.article.uid">作者 : {{ props.article.uid }}</router-link>
             <span>like:{{ props.article.likee }} |</span>
             <span>watch:{{ props.article.watch }} |</span>
             <span>{{ moment(props.article.updateTime).format('YYYY-MM-DD') }}</span>
         </div>
         <div v-if="props.edit">
             <el-button size="small" round>查看</el-button>
-            <el-button size="small" round>编辑</el-button>
-            <el-button size="small" round>删除</el-button>
+            <el-button size="small" round><router-link :to="'/blog/editor/'+props.article.aid">编辑</router-link></el-button>
+            <el-button size="small" round @click.stop="delArticle">删除</el-button>
         </div>
     </div>
 </template>
 
 <script setup>
 import moment from "moment";
+import {ElMessage,ElMessageBox} from "element-plus";
 
 const props = defineProps({
     "article":Object,
     "edit":Boolean
 })
+
+let delArticle = () => {
+    // ElMessage({message:'del'})
+    ElMessageBox.confirm('你确定要删除这篇文章吗？', '警告', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).catch(()=>{})
+    .then(() => {
+        ElMessage("ok")
+    })
+}
+
+
+
+
+
 
 </script>
 

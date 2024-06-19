@@ -3,7 +3,7 @@
         <el-button
             v-for="t in store.tags" :key="t.title"
             @click="clickTag(t.title)"
-            :type="store.filter.tag === t.title?'primary':null"
+            :type="tag === t.title?'primary':null"
             round size="small"
         >{{ t.title }}</el-button>
     </div>
@@ -13,10 +13,12 @@
 import {useArticleStore} from "@/store/article";
 
 const store = useArticleStore()
+const tag = defineModel()
+
 store.loadTags()
 
 let clickTag = (title)=>{
-    store.filter.tag = (store.filter.tag === title) ? null : title
+    tag.value = (tag.value === title) ? undefined : title
 }
 
 </script>

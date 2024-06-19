@@ -1,16 +1,20 @@
 import {defineStore} from "pinia";
-import {updateUserInfo} from "@/api/userApi";
+import {getUserInfo, updateUserInfo} from "@/api/userApi";
 
 let user =  {
     'uid':1,
     "username":"user",
     'sex':'1',
     "img":"https://pinia.vuejs.org/logo.svg",
+    'email':'',
+    'phone':'',
+    "token":11
 }
 
 
 export const useUserStore = defineStore('user',{
     state: ()=> ({
+        loginView:false,
         user: user,
         token:'',
         but:{
@@ -18,8 +22,11 @@ export const useUserStore = defineStore('user',{
         }
     }),
     actions:{
-        update(){
-            return updateUserInfo(this.user)
+        update(user){
+            return updateUserInfo(user)
+        },
+        getUser(id){
+            return getUserInfo(id)
         }
     }
 })

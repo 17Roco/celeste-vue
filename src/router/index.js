@@ -1,5 +1,7 @@
 import {createRouter, createWebHashHistory} from "vue-router";
 
+import frame from "@/components/frame"
+
 
 const routes = [
     {
@@ -8,7 +10,7 @@ const routes = [
     }, {
         path: '/blog',
         redirect: '/blog/list',
-        component: ()=>import('@/components/frame'),
+        component: frame,
         children:[
             { path:'list',component:() => import('@/views/articleListView') ,props: (route)=>({...route.query})},
             { path:'detail/:aid',component:() => import('@/views/articleView') ,props:true},
@@ -17,14 +19,14 @@ const routes = [
     },{
         path: '/user',
         redirect: '/user/home',
-        component: ()=>import('@/components/frame'),
+        component:frame,
         children:[
             { path:'home/:id?',component:() => import('@/views/userHomeView') ,props: true},
             { path:'setting',component:() => import('@/views/userSettingView') ,props:true},
             { path:'articles',component:() => import('@/views/articleManagerView') },
         ]
     },
-    { path: '/about',redirect: '/about/404', component: ()=>import('@/components/frame'),
+    { path: '/about',redirect: '/about/404', component: frame,
         children:[{ path:'/about',component:() => import('@/views/test')} ]
     }
 ]

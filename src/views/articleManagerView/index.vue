@@ -1,6 +1,6 @@
 <template>
     <div class="view-article-manager">
-        <article-list />
+        <article-list :self="true"/>
     </div>
 </template>
 

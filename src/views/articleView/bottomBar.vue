@@ -1,21 +1,32 @@
 <template>
     <div class="com-bottom-bar">
-        <div class="body">
+        <div class="body" v-if="user">
             <div class="user-info">
-                <el-avatar src="https://pinia.vuejs.org/logo.svg" size="default"/>
-                <span style="margin-right: 30px">user</span>
-                <el-button>关注</el-button>
+                <el-avatar :src="user.img" size="default"/>
+                <span style="margin-right: 30px">{{ user.username }}</span>
+<!--                <el-button>关注</el-button>-->
             </div>
             <div class="opt">
                 <el-button>点赞</el-button>
-                <el-button>评论</el-button>
+<!--                <el-button>评论</el-button>-->
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
+import {useUserStore} from "@/store/user";
+import {watch,ref,onMounted} from "vue";
 
+const store = useUserStore()
+const props = defineProps(["uid"])
+let user = ref(null)
+
+onMounted(()=>{
+    store.getUser(props.uid).then(data => {
+        user.value = data;
+    })
+})
 </script>
 
 <style>

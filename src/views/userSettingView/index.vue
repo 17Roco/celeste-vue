@@ -1,14 +1,14 @@
 <template>
     <div class="view-user-setting">
         <div class="setting">
-            <setting-group/>
+            <user-info-setting/>
         </div>
     </div>
 </template>
 
 <script setup>
-import SettingGroup from "@/views/userSettingView/settingGroup.vue";
 import {useRoute} from "vue-router";
+import UserInfoSetting from "@/views/userSettingView/UserInfoSetting.vue";
 
 const route = useRoute()
 

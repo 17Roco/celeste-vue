@@ -1,5 +1,5 @@
 <template>
-    <div class="com-user">
+    <div class="com-user" v-if="userStore.user.token">
         <el-button type="danger" round class="commit-but">
             <router-link :to="store.user.but.path">{{ store.user.but.title }}</router-link>
         </el-button>
@@ -15,6 +15,9 @@
             </template>
         </el-dropdown>
     </div>
+    <div v-else>
+        <el-button type="success" round @click="userStore.loginView = true">请登录</el-button>
+    </div>
 </template>
 
 <script setup>
@@ -24,6 +27,8 @@ import {useUserStore} from "@/store/user";
 
 const store = usePathStore()
 const userStore = useUserStore()
+
+
 
 
 </script>
