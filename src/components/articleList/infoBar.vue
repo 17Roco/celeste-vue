@@ -8,7 +8,7 @@
         </div>
         <div v-if="props.edit">
             <el-button size="small" round>查看</el-button>
-            <el-button size="small" round><router-link :to="'/blog/editor/'+props.article.aid">编辑</router-link></el-button>
+            <el-button size="small" round @click.stop="router.push('/blog/editor/'+props.article.aid)">编辑</el-button>
             <el-button size="small" round @click.stop="delArticle">删除</el-button>
         </div>
     </div>
@@ -17,6 +17,7 @@
 <script setup>
 import moment from "moment";
 import {ElMessage,ElMessageBox} from "element-plus";
+import router from "@/router";
 
 const props = defineProps({
     "article":Object,

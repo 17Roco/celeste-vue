@@ -1,5 +1,5 @@
 <template>
-    <div class="com-user" v-if="userStore.user.token">
+    <div class="com-user" v-if="userStore.token && userStore.token!==''">
         <el-button type="danger" round class="commit-but">
             <router-link :to="store.user.but.path">{{ store.user.but.title }}</router-link>
         </el-button>
@@ -10,7 +10,7 @@
                     <el-dropdown-item v-for="p in store.user.img" :key="p.path">
                         <router-link :to="p.path">{{ p.title }}</router-link>
                     </el-dropdown-item>
-                    <el-dropdown-item>退出</el-dropdown-item>
+                    <el-dropdown-item @click="userStore.logout()">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </template>
         </el-dropdown>

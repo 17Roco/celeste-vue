@@ -1,9 +1,10 @@
 import {request} from "@/api/request";
 
-export const login = () => {
+export const login = (user) => {
     return request({
-        // url:'/api/login',
-        url:'api/user/get/1',
+        url:'/api/login',
+        method:'POST',
+        data:user
     })
 }
 export const logout = () => {}

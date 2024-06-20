@@ -1,9 +1,9 @@
 <template>
-    <div class="com-user-info">
+    <div class="com-user-info" v-if="user">
         <div class="info">
-            <el-avatar :size="70" :src="store.user.img"/>
+            <el-avatar :size="70" :src="user.img"/>
             <div class="info-text">
-                <h2>{{ store.user.username }}</h2>
+                <h2>{{ user.username }}</h2>
                 <p> 0 篇文章</p>
             </div>
         </div>
@@ -16,17 +16,31 @@
 </template>
 
 <script setup>
-import {reactive} from 'vue'
+import {reactive,onMounted,ref} from 'vue'
 import {useUserStore} from "@/store/user";
+import {onBeforeRouteUpdate} from "vue-router";
 
 const store = useUserStore();
-const props = defineProps(['user'])
+const props = defineProps(['uid'])
+
+let user = ref(null)
+
+let getUser = () => {
+    store.getUser(props.uid || store.user.uid).then(data => {
+        user.value = data
+    })
+}
+
+
+onMounted(()=>getUser())
+onBeforeRouteUpdate(() => getUser())
 
 let option = reactive([
-    {"but":"设置","path":""},
-    {"but":"设置","path":""},
-    {"but":"设置","path":""},
+    {"but":"修改资料","path":"/user/setting"},
 ])
+
+
+
 
 </script>
 

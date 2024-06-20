@@ -1,6 +1,7 @@
 import {createRouter, createWebHashHistory} from "vue-router";
 
 import frame from "@/components/frame"
+import {useUserStore} from "@/store/user";
 
 
 const routes = [
@@ -14,14 +15,14 @@ const routes = [
         children:[
             { path:'list',component:() => import('@/views/articleListView') ,props: (route)=>({...route.query})},
             { path:'detail/:aid',component:() => import('@/views/articleView') ,props:true},
-            { path:'editor/:aid?',component:() => import('@/views/editorView'),props:true},
+            { path:'editor/:aid?',component:() => import('@/views/editorView'),props:true,},
         ]
     },{
         path: '/user',
         redirect: '/user/home',
         component:frame,
         children:[
-            { path:'home/:id?',component:() => import('@/views/userHomeView') ,props: true},
+            { path:'home/:uid?',component:() => import('@/views/userHomeView') ,props: true},
             { path:'setting',component:() => import('@/views/userSettingView') ,props:true},
             { path:'articles',component:() => import('@/views/articleManagerView') },
         ]

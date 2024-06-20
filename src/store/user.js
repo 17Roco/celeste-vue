@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {getUserInfo, updateUserInfo} from "@/api/userApi";
+import {getUserInfo, login, updateUserInfo} from "@/api/userApi";
 
 let user =  {
     'uid':1,
@@ -16,17 +16,35 @@ export const useUserStore = defineStore('user',{
     state: ()=> ({
         loginView:false,
         user: user,
-        token:'',
+        // token:'',
         but:{
             publish:{title:"发表",path:'/user/edit'},
         }
     }),
     actions:{
+        login(user){
+            return login(user).then(data => {
+                this.user.token = data
+                localStorage.setItem("token", data)
+            })
+        },
+        logout(){
+            this.user.token = ''
+            localStorage.removeItem("token")
+        },
         update(user){
             return updateUserInfo(user)
         },
         getUser(id){
             return getUserInfo(id)
+        }
+    },
+    getters:{
+        token(state){
+            if (!state.user.token || state.user.token===''){
+                state.user.token = localStorage.getItem("token")
+            }
+            return state.user.token
         }
     }
 })

@@ -11,16 +11,9 @@ export const getDefaultArticles = ()=>({
     pages:0
 })
 export const getDefaultArticle = () => ({
-    "aid": 22,
-    "uid": 89,
-    "title": "test title 11",
-    "context": "test article 11",
-    "createTime": "2024-06-11 22:00:47",
-    "updateTime": "2024-04-03 16:52:01",
-    "watch": 431,
-    "likee": 215,
-    "status": 1,
-    "defFlag": 0,
+    "aid":null,
+    "title": "请输入标题",
+    "context": "",
     "tags": []
 })
 

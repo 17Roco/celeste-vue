@@ -19,7 +19,7 @@ request.interceptors.request.use(
         // }
         let token = getToken();
         if (token && token !== '') {
-            config.headers['token'] = store.user.token
+            config.headers['token'] = token
         }
         return config
     },
