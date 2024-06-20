@@ -7,7 +7,12 @@ export const login = (user) => {
         data:user
     })
 }
-export const logout = () => {}
+export const logout = (token) => {
+    return request({
+        url:'/api/logout',
+        data:{token:token}
+    })
+}
 
 export const updateUserInfo = (user) => {
     return request({

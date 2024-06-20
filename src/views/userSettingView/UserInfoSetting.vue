@@ -39,6 +39,7 @@ const store = useUserStore();
 let userInfo = reactive({...store.user});
 let loading = ref(false)
 
+
 let changed = computed(()=>{
     if (store.user.username!==userInfo.username)return true
     if (store.user.sex!==userInfo.sex)return true
@@ -52,6 +53,9 @@ let onSubmit = () => {
     store.update(userInfo).then(data => {
         loading.value = false
         ElMessage("信息更新成功")
+    }).catch(() => {
+        loading.value = false
+        ElMessage("信息更新失败")
     })
 }
 let reset = () => {

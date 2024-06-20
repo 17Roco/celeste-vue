@@ -58,6 +58,8 @@ let login = () => {
     }else {
         store.login(form).then(data=>{
             store.loginView = false
+        }).catch(err=>{
+            ElMessage("登录失败,"+err.msg)
         })
     }
 }

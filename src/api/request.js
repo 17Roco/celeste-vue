@@ -24,7 +24,12 @@ request.interceptors.request.use(
         return config
     },
     error => {
-        console.log(error)
+        console.log('err' + error)
+        ElMessage({
+            message: error.mes,
+            type: 'error',
+            duration: 5 * 1000
+        })
         return Promise.reject(error)
     }
 )
@@ -34,18 +39,19 @@ request.interceptors.response.use(
         if (response.status===200 && res.code === 200) {
             return res.data
         }else {
-            ElMessage({message:'获取失败'})
-            return Promise.reject(new Error(res.msg || 'Error'))
+            // ElMessage({message:'获取失败'})
+            return Promise.reject(res)
         }
+
 
     },
     error => {
         console.log('err' + error)
-        // Message({
-        //     message: error.message,
-        //     type: 'error',
-        //     duration: 5 * 1000
-        // })
+        ElMessage({
+            message: error.message,
+            type: 'error',
+            duration: 5 * 1000
+        })
         return Promise.reject(error)
     }
 )

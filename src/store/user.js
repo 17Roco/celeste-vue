@@ -8,14 +8,14 @@ let user =  {
     "img":"https://pinia.vuejs.org/logo.svg",
     'email':'',
     'phone':'',
-    "token":11
+    "token":''
 }
 
 
 export const useUserStore = defineStore('user',{
     state: ()=> ({
         loginView:false,
-        user: user,
+        user: {token:null},
         // token:'',
         but:{
             publish:{title:"发表",path:'/user/edit'},

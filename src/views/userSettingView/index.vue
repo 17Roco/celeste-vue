@@ -7,10 +7,9 @@
 </template>
 
 <script setup>
-import {useRoute} from "vue-router";
 import UserInfoSetting from "@/views/userSettingView/UserInfoSetting.vue";
 
-const route = useRoute()
+
 
 </script>
 

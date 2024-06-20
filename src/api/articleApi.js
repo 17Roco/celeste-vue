@@ -14,7 +14,7 @@ export const createArticleFilter = (filter) => {
 
 export const getArticleInfos = (filter) => {
     return request({
-        url: "/api/blog/articles/filter",
+        url: "/api/article/filter",
         method:"get",
         params:createArticleFilter(filter)
     })
@@ -22,15 +22,38 @@ export const getArticleInfos = (filter) => {
 
 export const getArticleContent = (aid) => {
     return request({
-        url:'/api/blog/article/'+aid,
+        url:'/api/article/'+aid,
     })
 }
 
-export const updateArticle = () => {}
+export const updateArticle = (article) => {
+    return request({
+        url:'/api/article/update',
+        method:"PUT",
+        data:article
+    })
+}
 
-export const deleteArticle = (id) => {}
+export const deleteArticle = (id) => {
+    return request({
+        url:'/api/article/'+id,
+        method:"DELETE"
+    })
+}
+export const createArticles = (article) => {
+    return request({
+        url:'/api/article',
+        method:"POST",
+        data:article
+    })
+}
 
-export const createArticles = () => {}
+
+
+
+
+
+
 
 
 export const likeArticle = () => {}
