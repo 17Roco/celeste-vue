@@ -28,7 +28,7 @@ export const getArticleContent = (aid) => {
 
 export const updateArticle = (article) => {
     return request({
-        url:'/api/article/update',
+        url:'/api/article/content',
         method:"PUT",
         data:article
     })
@@ -42,7 +42,7 @@ export const deleteArticle = (id) => {
 }
 export const createArticles = (article) => {
     return request({
-        url:'/api/article',
+        url:'/api/article/',
         method:"POST",
         data:article
     })
@@ -74,10 +74,10 @@ export const addTags = (aid,tag) => {
         method:"put",
     })
 }
-export const deleteTag = (aid,tid) => {
+export const deleteTag = (aid,tag) => {
     return request({
         url:`/api/article/tag/${aid}/${tag}`,
-        method:"put",
+        method:"delete",
     })
 }
 

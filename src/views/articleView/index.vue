@@ -1,15 +1,13 @@
 <template>
-    <div class="view-article">
-        <template v-if="article!==null">
-            <h1> {{ article.title }}</h1>
-            <p class="info">作者：{{ article.uid }} {{ article.createTime }}</p>
-            <span class="context">{{ article.context }}</span>
-        </template>
-        <template v-else>
-            <p>加载中</p>
-        </template>
+    <div class="view-article" v-if="article!==null">
+        <h1> {{ article.title }}</h1>
+        <p class="info">作者：{{ article.uid }} {{ article.createTime }}</p>
+        <tag-show :tags="article.tags"/>
+        <span class="context" v-html="article.context"></span>
         <bottom-bar v-if="article" :uid="article.uid" />
     </div>
+    <p v-else>加载中</p>
+
 </template>
 
 <script setup>
@@ -17,6 +15,7 @@ import {onMounted,reactive,ref} from 'vue'
 import {useArticleStore} from "@/store/article";
 import bottomBar from './bottomBar.vue'
 import {onBeforeRouteUpdate} from "vue-router";
+import TagShow from "@/views/articleView/tagShow.vue";
 
 
 const props = defineProps(['aid'])

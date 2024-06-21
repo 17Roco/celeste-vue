@@ -4,7 +4,7 @@
         <div class="context">
             <img :src="props.article.img" alt="" v-if="props.article.img"/>
             <div class="text">
-                <span>{{ props.article.context }}</span>
+                <span v-html="props.article.context"></span>
                 <InfoBar :article="props.article" :edit="props.edit"/>
             </div>
         </div>

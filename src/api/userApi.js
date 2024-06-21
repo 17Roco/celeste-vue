@@ -10,7 +10,14 @@ export const login = (user) => {
 export const logout = (token) => {
     return request({
         url:'/api/logout',
-        data:{token:token}
+        method:"POST"
+    })
+}
+export const signup = (user) => {
+    return request({
+        url:'/api/user/signup',
+        method:'POST',
+        data:user
     })
 }
 
@@ -24,7 +31,7 @@ export const updateUserInfo = (user) => {
 
 export const getUserInfo = (uid) => {
     return request({
-        url:'/api/user/'+uid,
+        url:'/api/user/'+(uid ? uid : ''),
         method:"get",
     })
 }

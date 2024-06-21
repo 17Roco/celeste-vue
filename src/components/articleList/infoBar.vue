@@ -1,7 +1,7 @@
 <template>
     <div class="com-info-bar">
         <div class="info">
-            <router-link :to="'/user/home/'+props.article.uid">作者 : {{ props.article.uid }}</router-link>
+            <span>作者 : {{ props.article.uid }}</span>
             <span>like:{{ props.article.likee }} |</span>
             <span>watch:{{ props.article.watch }} |</span>
             <span>{{ moment(props.article.updateTime).format('YYYY-MM-DD') }}</span>

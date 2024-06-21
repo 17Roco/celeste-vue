@@ -1,10 +1,10 @@
 <template>
     <div class="com-user" v-if="userStore.token && userStore.token!==''">
         <el-button type="danger" round class="commit-but">
-            <router-link :to="store.user.but.path">{{ store.user.but.title }}</router-link>
+            <router-link to="/blog/editor">发布文章</router-link>
         </el-button>
         <el-dropdown trigger="hover">
-            <el-avatar :size="50" :src="userStore.user.img"/>
+            <el-avatar :size="50" :src="(userStore.user && userStore.user.img) ? userStore.user.img :''" v-loading="!userStore.user || !userStore.user.img"/>
             <template #dropdown>
                 <el-dropdown-menu>
                     <el-dropdown-item v-for="p in store.user.img" :key="p.path">
@@ -21,15 +21,13 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
 import {usePathStore} from "@/store/path";
 import {useUserStore} from "@/store/user";
 
 const store = usePathStore()
 const userStore = useUserStore()
 
-
-
+// console.log((store.user && store.user.img) ? store.user.img :'')
 
 </script>
 

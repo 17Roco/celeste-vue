@@ -1,10 +1,10 @@
 <template>
     <div class="com-setting-group">
         <h2>用户信息</h2>
-        <el-form label-width="120px">
+        <el-form label-width="120px" v-if="userInfo">
             <el-form-item label="头像">
                 <el-upload>
-                    <el-avatar :src="store.user.img" size="large"/>
+                    <el-avatar :src="store.user.img || ''" size="large"/>
                 </el-upload>
             </el-form-item >
             <el-form-item label="用户名">
@@ -12,8 +12,8 @@
             </el-form-item>
             <el-form-item label="性别">
                 <el-radio-group v-model="userInfo.sex">
-                    <el-radio value='1' size="large">男</el-radio>
-                    <el-radio value='0' size="large">女</el-radio>
+                    <el-radio :value="1" size="large">男</el-radio>
+                    <el-radio :value="0" size="large">女</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="邮箱">
@@ -27,24 +27,31 @@
                 <el-button @click="reset">重置</el-button>
             </el-form-item>
         </el-form>
+        <div v-else>
+            加载中
+        </div>
     </div>
 </template>
 
 <script setup>
 import {useUserStore} from "@/store/user";
-import {reactive,computed,ref} from "vue";
+import {watch,computed,ref} from "vue";
 import {ElMessage} from "element-plus";
 
 const store = useUserStore();
-let userInfo = reactive({...store.user});
+let userInfo = ref()
 let loading = ref(false)
+
+watch(()=>store.user,()=>{
+    userInfo.value={...store.user}
+})
 
 
 let changed = computed(()=>{
-    if (store.user.username!==userInfo.username)return true
-    if (store.user.sex!==userInfo.sex)return true
-    if (store.user.email!==userInfo.email)return true
-    if (store.user.phone!==userInfo.phone)return true
+    if (store.user.username!==userInfo.value.username)return true
+    if (store.user.sex!==userInfo.value.sex)return true
+    if (store.user.email!==userInfo.value.email)return true
+    if (store.user.phone!==userInfo.value.phone)return true
     return false
 })
 

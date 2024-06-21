@@ -1,5 +1,7 @@
 import {defineStore} from "pinia";
-import {getUserInfo, login, updateUserInfo} from "@/api/userApi";
+import {getUserInfo, login, logout, signup, updateUserInfo} from "@/api/userApi";
+import {ElMessage} from "element-plus";
+import res from "@babel/core/lib/config/validation/option-assertions";
 
 let user =  {
     'uid':1,
@@ -15,36 +17,53 @@ let user =  {
 export const useUserStore = defineStore('user',{
     state: ()=> ({
         loginView:false,
-        user: {token:null},
-        // token:'',
-        but:{
-            publish:{title:"发表",path:'/user/edit'},
-        }
+        _user: null,
+        _token:'',
     }),
     actions:{
         login(user){
             return login(user).then(data => {
-                this.user.token = data
+                this._token = data
                 localStorage.setItem("token", data)
+                this.getUser(undefined)
             })
         },
         logout(){
-            this.user.token = ''
-            localStorage.removeItem("token")
+            return logout().finally(()=>{
+                ElMessage("用户退出")
+                localStorage.removeItem("token")
+                this._token = ''
+                this._user = null
+            })
+        },
+        signup(user){
+            return signup(user).then(data => {
+                ElMessage("注册成功")
+            }).catch(data => {
+                ElMessage("注册失败")
+            })
         },
         update(user){
             return updateUserInfo(user)
         },
         getUser(id){
-            return getUserInfo(id)
+            return getUserInfo(id).then(data => {
+                if (!id) this._user = data
+                return data
+            }).catch(()=>{})
         }
     },
     getters:{
         token(state){
-            if (!state.user.token || state.user.token===''){
-                state.user.token = localStorage.getItem("token")
+            if (!state._token || state._token===''){
+                state._token = localStorage.getItem("token")
             }
-            return state.user.token
+            return state._token
+        },
+        user(state){
+            if (!state._user && state._token && state._token!=='')
+                state.getUser(undefined)
+            return state._user
         }
     }
 })

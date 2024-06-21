@@ -22,7 +22,7 @@ const routes = [
         redirect: '/user/home',
         component:frame,
         children:[
-            { path:'home/:uid?',component:() => import('@/views/userHomeView') ,props: true},
+            { path:'home',component:() => import('@/views/userHomeView') },
             { path:'setting',component:() => import('@/views/userSettingView') ,props:true},
             { path:'articles',component:() => import('@/views/articleManagerView') },
         ]

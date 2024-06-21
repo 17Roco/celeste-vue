@@ -2,7 +2,14 @@ import {defineStore} from "pinia";
 import {data,tags} from "@/store/art_data";
 import {ElMessage} from "element-plus";
 
-import {getArticleInfos, getArticleContent, getTags} from "@/api/articleApi"
+import {
+    getArticleInfos,
+    getArticleContent,
+    getTags,
+    updateArticle,
+    deleteArticle,
+    createArticles, addTags, deleteTag
+} from "@/api/articleApi"
 export const getDefaultArticles = ()=>({
     records:[],
     current:0,
@@ -58,11 +65,23 @@ export const useArticleStore = defineStore('article',{
         getArticleList(filter,self){
             return getArticleInfos({...filter,self})
         },
-        updateArticle(aid,title,context){},
-        deleteArticle(aid){},
+        updateArticle(article){
+            return updateArticle(article)
+        },
+        deleteArticle(aid){
+            return deleteArticle(aid)
+        },
+        addArticle(article){
+            return createArticles(article)
+        },
         // 修改标签
-        addTag(aid,tag){},
-        deleteTag(aid,tag){},
+        addTag(aid,tag){
+            console.log('aadd')
+            return addTags(aid,tag)
+        },
+        deleteTag(aid,tag){
+            return deleteTag(aid,tag)
+        },
     }
 });
 

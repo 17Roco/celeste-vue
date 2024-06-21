@@ -1,8 +1,8 @@
 import axios from "axios";
-// import {useUserStore} from "@/store/user";
+import {useUserStore} from "@/store/user";
 import {ElMessage} from 'element-plus'
 
-// const store =  useUserStore()
+
 
 let getToken = () => localStorage.getItem("token");
 
@@ -26,7 +26,7 @@ request.interceptors.request.use(
     error => {
         console.log('err' + error)
         ElMessage({
-            message: error.mes,
+            message: error.message,
             type: 'error',
             duration: 5 * 1000
         })
@@ -38,9 +38,17 @@ request.interceptors.response.use(
         const res = response.data
         if (response.status===200 && res.code === 200) {
             return res.data
-        }else {
-            // ElMessage({message:'获取失败'})
-            return Promise.reject(res)
+        }else if (response.status===200) {
+            if(res.msg.indexOf('token 失效')!==-1){
+                ElMessage({message:'登录失效'})
+                const store =  useUserStore()
+                store.logout()
+                return Promise.reject(res)
+            }else {
+                ElMessage(res.msg)
+                // return Promise.reject(res)
+                return null
+            }
         }
 
 

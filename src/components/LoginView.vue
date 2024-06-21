@@ -1,6 +1,6 @@
 <template>
     <el-drawer v-model="store.loginView" direction="rtl" class="com-login-view">
-        <el-tabs v-model="tab" @tab-change="console.log(tab)">
+        <el-tabs v-model="tab">
             <!--    登录页面        -->
             <el-tab-pane label="登陆" name="login" class="form-view">
                 <el-form :model="form" label-width="auto" style="max-width: 400px">
@@ -58,6 +58,9 @@ let login = () => {
     }else {
         store.login(form).then(data=>{
             store.loginView = false
+            form.username = ''
+            form.password = ''
+            ElMessage("登录成功")
         }).catch(err=>{
             ElMessage("登录失败,"+err.msg)
         })
@@ -74,7 +77,10 @@ let signup = () => {
         ElMessage('两次输入的密码不一致')
     }else {
         store.signup(form).then(data=>{
-
+            form.username = ''
+            form.password = ''
+            pw.value = ''
+            store.loginView = false
         })
     }
 }

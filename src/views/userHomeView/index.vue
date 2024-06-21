@@ -1,13 +1,12 @@
 <template>
     <div class="view-user-home">
-        <user-info :uid="props.uid"/>
+        <user-info/>
     </div>
 </template>
 
 <script setup>
 import UserInfo from "@/views/userHomeView/userInfo.vue";
 
-const props = defineProps(['uid'])
 
 
 </script>

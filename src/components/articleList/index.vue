@@ -101,7 +101,7 @@ watch(filter,()=>{
     if (router.currentRoute.value.query.index && router.currentRoute.value.query.index == filter.index)
         filter.index = 1
     //
-    router.push({path:"/blog/list",query:filter})
+    router.push({query:filter})
     // updateList()
 },{deep:true})
 

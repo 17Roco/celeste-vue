@@ -1,53 +1,29 @@
 <template>
-    <div class="com-user-info" v-if="user">
+    <div class="com-user-info" v-if="store.user">
         <div class="info">
-            <el-avatar :size="70" :src="user.img"/>
+            <el-avatar :size="70" :src="store.user.img"/>
             <div class="info-text">
-                <h2>{{ user.username }}</h2>
-                <p> 0 篇文章</p>
+                <h2>{{ store.user.username }}</h2>
+                <p>
+                    <span>{{ store.user.sex===1 ? "男" : "女"}}</span>
+                    <span v-if="store.user.phone && store.user.phone!==''">{{ store.user.phone }}</span>
+                    <span v-if="store.user.email && store.user.email!==''">{{ store.user.email }}</span>
+                </p>
             </div>
         </div>
-        <div class="opt">
-            <el-button v-for="o in option">
-                <router-link :to="o.path">{{ o.but }}</router-link>
-            </el-button>
-        </div>
     </div>
+    <div v-else>加载中</div>
 </template>
 
 <script setup>
-import {reactive,onMounted,ref} from 'vue'
 import {useUserStore} from "@/store/user";
-import {onBeforeRouteUpdate} from "vue-router";
-
-const store = useUserStore();
-const props = defineProps(['uid'])
-
-let user = ref(null)
-
-let getUser = () => {
-    store.getUser(props.uid || store.user.uid).then(data => {
-        user.value = data
-    })
-}
-
-
-onMounted(()=>getUser())
-onBeforeRouteUpdate(() => getUser())
-
-let option = reactive([
-    {"but":"修改资料","path":"/user/setting"},
-])
-
-
-
+let store = useUserStore();
 
 </script>
 
 <style lang="less">
 .com-user-info{
     display: flex;
-    // margin:0 60px;
     padding: 10px 80px;
     justify-content: space-between;
     border-bottom: #b7b7bc 1px solid;
@@ -62,16 +38,10 @@ let option = reactive([
             }
             >p{
                 color: #b7b7bc;
+                >span{
+                    padding: 0 5px;
+                }
             }
-        }
-    }
-    >.opt{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        >button{
-            margin-left: 10px;
-            margin-bottom: 5px;
         }
     }
 }
