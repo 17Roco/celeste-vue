@@ -1,7 +1,14 @@
 import {createRouter, createWebHashHistory} from "vue-router";
 
 import frame from "@/components/frame"
-import {useUserStore} from "@/store/user";
+
+import articleListView from "@/views/articleListView";
+import articleView from "@/views/articleView"
+import editorView from '@/views/editorView'
+
+import userHomeView from'@/views/userHomeView'
+import userSettingView from'@/views/userSettingView'
+import articleManagerView from'@/views/articleManagerView'
 
 
 const routes = [
@@ -13,18 +20,18 @@ const routes = [
         redirect: '/blog/list',
         component: frame,
         children:[
-            { path:'list',component:() => import('@/views/articleListView') ,props: (route)=>({...route.query})},
-            { path:'detail/:aid',component:() => import('@/views/articleView') ,props:true},
-            { path:'editor/:aid?',component:() => import('@/views/editorView'),props:true,},
+            { path:'list',component:articleListView ,props: (route)=>({...route.query})},
+            { path:'detail/:aid',component:articleView ,props:true},
+            { path:'editor/:aid?',component:editorView,props:true,},
         ]
     },{
         path: '/user',
         redirect: '/user/home',
         component:frame,
         children:[
-            { path:'home',component:() => import('@/views/userHomeView') },
-            { path:'setting',component:() => import('@/views/userSettingView') ,props:true},
-            { path:'articles',component:() => import('@/views/articleManagerView') },
+            { path:'home',component:userHomeView },
+            { path:'setting',component:userSettingView ,props:true},
+            { path:'articles',component:articleManagerView },
         ]
     },
     { path: '/about',redirect: '/about/404', component: frame,

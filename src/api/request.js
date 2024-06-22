@@ -7,7 +7,7 @@ import {ElMessage} from 'element-plus'
 let getToken = () => localStorage.getItem("token");
 
 export const request = axios.create({
-    // baseURL: 'http://localhost',
+    baseURL: 'http://localhost',
     timeout:5000
 })
 
@@ -46,7 +46,6 @@ request.interceptors.response.use(
                 return Promise.reject(res)
             }else {
                 ElMessage(res.msg)
-                // return Promise.reject(res)
                 return null
             }
         }

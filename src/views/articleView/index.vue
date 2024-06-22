@@ -4,7 +4,7 @@
         <p class="info">作者：{{ article.uid }} {{ article.createTime }}</p>
         <tag-show :tags="article.tags"/>
         <span class="context" v-html="article.context"></span>
-        <bottom-bar v-if="article" :uid="article.uid" />
+<!--        <bottom-bar v-if="article" :uid="article.uid" />-->
     </div>
     <p v-else>加载中</p>
 

@@ -1,6 +1,4 @@
 import {defineStore} from "pinia";
-import {data,tags} from "@/store/art_data";
-import {ElMessage} from "element-plus";
 
 import {
     getArticleInfos,
@@ -66,7 +64,10 @@ export const useArticleStore = defineStore('article',{
             return getArticleInfos({...filter,self})
         },
         updateArticle(article){
-            return updateArticle(article)
+            return updateArticle(article).then(data => {
+                if (data) return data
+                return Promise.reject()
+            })
         },
         deleteArticle(aid){
             return deleteArticle(aid)
@@ -76,7 +77,6 @@ export const useArticleStore = defineStore('article',{
         },
         // 修改标签
         addTag(aid,tag){
-            console.log('aadd')
             return addTags(aid,tag)
         },
         deleteTag(aid,tag){

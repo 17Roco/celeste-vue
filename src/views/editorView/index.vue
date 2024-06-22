@@ -30,6 +30,7 @@ import {onBeforeRouteUpdate} from "vue-router";
 import {ElMessage} from "element-plus";
 import {useUserStore} from "@/store/user";
 import TagEdit from "@/views/editorView/tagEdit.vue";
+import router from "@/router";
 
 const store = useArticleStore()
 const userStore = useUserStore()
@@ -60,6 +61,7 @@ let getArticle = () => {
         article.value = data
         if (data.uid != userStore.user.uid){
             ElMessage('无法编辑其他用户文章')
+            router.back()
         }
     })
 }

@@ -3,7 +3,7 @@ import {defineStore} from "pinia";
 export const usePathStore = defineStore('path',{
     state:()=>({
         sub:[
-            {path:'/blog',name:'博客'},
+            {path:'/blog',name:'博客',img:'/static/favicon.ico'},
             {path:'/about',name:'关于'}
         ],
         user:{

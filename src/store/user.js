@@ -44,7 +44,7 @@ export const useUserStore = defineStore('user',{
             })
         },
         update(user){
-            return updateUserInfo(user)
+            return updateUserInfo(user.value)
         },
         getUser(id){
             return getUserInfo(id).then(data => {

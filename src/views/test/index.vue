@@ -1,8 +1,6 @@
 <template>
     <div class="view-test">
-<!--        <h1 v-for="i in 30">404 {{ i }}</h1>-->
         <p>{{ f.index }}</p>
-        <el-button @click="console.log(createArticleFilter(f))">createArticleFilter</el-button>
     </div>
 </template>
 
