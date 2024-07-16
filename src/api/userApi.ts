@@ -5,7 +5,7 @@ import {request} from "@/api/request";
  * logout
  * signup
  * */
-export const login = (user) => {
+export const login = async(user) => {
     return request({
         url:'/api/login',
         method:'POST',
