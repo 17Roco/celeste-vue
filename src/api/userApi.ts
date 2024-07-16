@@ -1,5 +1,10 @@
 import {request} from "@/api/request";
 
+/**
+ * login
+ * logout
+ * signup
+ * */
 export const login = (user) => {
     return request({
         url:'/api/login',

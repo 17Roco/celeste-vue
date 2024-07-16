@@ -1,17 +1,15 @@
 <template>
     <div class="view-test">
-        <p>{{ f.index }}</p>
+        <p>
+            22计应一班13张盛典
+        </p>
     </div>
 </template>
 
 <script setup>
-import {reactive} from "vue";
-import {createArticleFilter} from '@/api/articleApi'
 
-let f = reactive({
-    index:1,
-    // timeRange:undefined
-})
+
+
 
 </script>
 

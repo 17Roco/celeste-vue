@@ -23,19 +23,12 @@ const store = useArticleStore();
 let article = ref(null)
 
 onMounted(()=> {
-    store.getArticle(props.aid).then(data => {
-        article.value = data
-    })
+    // store.getArticle(props.aid).then(data => {
+    //     article.value = data
+    // })
 })
 
 
-// onBeforeRouteUpdate(()=>{
-//     console.log(props.aid)
-//     store.getArticle(props.aid).then(data => {
-//         console.log(data)
-//         article.value = data
-//     })
-// })
 </script>
 
 <style>
