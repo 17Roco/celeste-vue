@@ -1,6 +1,6 @@
 
 // 分页查询的结果集
-interface resultPage<T>{
+interface ResultPage<T>{
     records:Array<T>,
     current:number,
     total:number,
@@ -9,15 +9,22 @@ interface resultPage<T>{
 }
 
 // article文章
-interface article {
+interface Article {
     aid?:number,
     title:string,
     context:string,
     tags:string[]
 }
 
-interface articleFilter {
+interface User{
+    token:string,
+    uid:number,
+    username:string
+}
 
+
+interface ArticleFilter {
+    index:number
 }
 
 
@@ -28,7 +35,8 @@ interface articleFilter {
 
 
 export {
-    resultPage,
-    article,
-    articleFilter
+    ResultPage,
+    Article,
+    ArticleFilter,
+    User
 }

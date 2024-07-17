@@ -1,21 +1,23 @@
 <template>
-    <div class="com-article-item" @click="to('/blog/detail/'+props.article.aid)">
+    <div class="com-article-item" @click="to('/blog/detail/'+props.article.aid as number)">
         <div class="title">{{ props.article.title }}</div>
         <div class="context">
             <img :src="props.article.img" alt="" v-if="props.article.img"/>
             <div class="text">
                 <span v-html="props.article.context"></span>
-                <InfoBar :article="props.article" :edit="props.edit"/>
+                <InfoBar :article="props.article" :edit="props.edit as boolean"/>
             </div>
         </div>
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import InfoBar from "@/components/articleList/infoBar.vue";
 import router from "@/router";
+import {defineProps} from "vue"
+import {Article} from "@/types";
 
-const props = defineProps({
+const props:any = defineProps({
     "article":Object,
     "edit":Boolean
 })

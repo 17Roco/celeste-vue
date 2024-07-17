@@ -10,10 +10,10 @@
 </template>
 
 
-<script setup>
+<script lang="ts" setup>
 import {useIndexStore} from "@/store";
 
-const store = useIndexStore()
+const store:any = useIndexStore()
 
 </script>
 

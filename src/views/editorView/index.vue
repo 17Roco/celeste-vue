@@ -22,7 +22,7 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import {ref,shallowRef,onBeforeUnmount,onMounted,watch} from "vue";
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import {getDefaultArticle, useArticleStore} from "@/store/article";
@@ -32,8 +32,8 @@ import {useUserStore} from "@/store/user";
 import TagEdit from "@/views/editorView/tagEdit.vue";
 import router from "@/router";
 
-const store = useArticleStore()
-const userStore = useUserStore()
+const store:any = useArticleStore()
+const userStore:any = useUserStore()
 const props = defineProps(['aid'])
 
 const editorRef = shallowRef()

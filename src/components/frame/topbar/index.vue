@@ -8,7 +8,7 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import Subarea from "@/components/frame/topbar/subarea.vue";
 import Search from "@/components/frame/topbar/search.vue";
 import User from "@/components/frame/topbar/user.vue";

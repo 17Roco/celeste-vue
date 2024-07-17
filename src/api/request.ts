@@ -4,7 +4,7 @@ import {ElMessage} from 'element-plus'
 
 
 
-let getToken = () => localStorage.getItem("token");
+let getToken = ():string => localStorage.getItem("token");
 
 export const request = axios.create({
     baseURL: 'http://localhost',
@@ -17,7 +17,7 @@ request.interceptors.request.use(
         // if (store.user.token && store.user.token !== '') {
         //     config.headers['token'] = store.user.token
         // }
-        let token = getToken();
+        let token:string = getToken();
         if (token && token !== '') {
             config.headers['token'] = token
         }
@@ -26,11 +26,12 @@ request.interceptors.request.use(
     error => {
         console.log('err' + error)
         ElMessage({
-            message: error.message,
+            message: "request error : " + error.message,
             type: 'error',
             duration: 5 * 1000
         })
-        return Promise.reject(error)
+        // return Promise.reject(error)
+        return null
     }
 )
 request.interceptors.response.use(

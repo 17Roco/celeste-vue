@@ -4,13 +4,13 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import {ref} from "vue";
 import {useArticleStore} from "@/store/article";
 import router from "@/router";
 import {ElMessage} from "element-plus";
 
-const store = useArticleStore()
+const store:any = useArticleStore()
 let input = ref("")
 
 let search = () => {

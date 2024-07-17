@@ -10,7 +10,7 @@
 
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import {onMounted,reactive,ref} from 'vue'
 import {useArticleStore} from "@/store/article";
 import bottomBar from './bottomBar.vue'
@@ -18,9 +18,9 @@ import {onBeforeRouteUpdate} from "vue-router";
 import TagShow from "@/views/articleView/tagShow.vue";
 
 
-const props = defineProps(['aid'])
-const store = useArticleStore();
-let article = ref(null)
+const props:any = defineProps(['aid'])
+const store:any = useArticleStore();
+let article:any = ref(null)
 
 onMounted(()=> {
     // store.getArticle(props.aid).then(data => {

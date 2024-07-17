@@ -1,7 +1,7 @@
 <template>
     <div class="view-test">
         <p>
-            22计应一班13张盛典
+            xxx
         </p>
     </div>
 </template>

@@ -36,12 +36,12 @@
     </el-drawer>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import {useUserStore} from "@/store/user";
 import {ref,reactive} from "vue";
 import {ElMessage} from "element-plus";
 
-const store = useUserStore()
+const store:any = useUserStore()
 
 let tab = ref('login')
 let form  = reactive({

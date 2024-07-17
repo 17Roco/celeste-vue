@@ -10,12 +10,12 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import {usePathStore} from "@/store/path";
 import {useRoute} from "vue-router";
 
-const store = usePathStore()
-const route = useRoute();
+const store:any = usePathStore()
+const route:any = useRoute();
 
 const handleSelect = ()=>{}
 </script>

@@ -1,42 +1,23 @@
 import {request} from "@/api/request";
+import {User} from "@/types"
+
 
 /**
  * login
  * logout
  * signup
  * */
-export const login = async(user) => {
-    return request({
-        url:'/api/login',
-        method:'POST',
-        data:user
-    })
-}
-export const logout = (token) => {
-    return request({
-        url:'/api/logout',
-        method:"POST"
-    })
-}
-export const signup = (user) => {
-    return request({
-        url:'/api/user/signup',
-        method:'POST',
-        data:user
-    })
-}
+export const login = async(user:User):Promise<any> =>
+    await request.post("/api/login",user)
 
-export const updateUserInfo = (user) => {
-    return request({
-        url:'/api/user',
-        method:"put",
-        data:user,
-    })
-}
+export const logout = (token:string):Promise<any> =>
+    request.post("/api/logout",token)
 
-export const getUserInfo = (uid) => {
-    return request({
-        url:'/api/user/'+(uid ? uid : ''),
-        method:"get",
-    })
-}
+export const signup = async(user:User):Promise<any> =>
+    await request.post('/api/user/signup',user)
+
+export const updateUserInfo = async(user:User):Promise<any> =>
+    await request.put('/api/user',user)
+
+export const getUserInfo = async (uid:number):Promise<any> =>
+    await request.get('/api/user/'+(uid ? uid : ''))

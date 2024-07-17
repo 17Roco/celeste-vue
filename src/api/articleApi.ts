@@ -1,5 +1,5 @@
 import {request} from "./request"
-import {article, articleFilter, resultPage} from "../types";
+import {Article, ArticleFilter, ResultPage} from "../types";
 
 // export const createArticleFilter = (filter:articleFilter) => filter
 
@@ -11,19 +11,19 @@ import {article, articleFilter, resultPage} from "../types";
  * deleteArticle
  * createArticles
  * */
-export const getArticleInfos = async(filter:articleFilter):Promise<any> =>
+export const getArticleInfos = async(filter:ArticleFilter):Promise<any> =>
     await request.get("/api/article/filter",{params:filter})
 
 export const getArticleContent = async(aid:number):Promise<any> =>
     await request.get('/api/article/'+aid)
 
-export const updateArticle = async(article:article):Promise<any> =>
+export const updateArticle = async(article:Article):Promise<any> =>
     await request.put("/api/article/content",article)
 
 export const deleteArticle = async(id:number):Promise<any> =>
     await request.delete('/api/article/'+id)
 
-export const createArticles = async(article:article):Promise<any> =>
+export const createArticles = async(article:Article):Promise<any> =>
     await request.post("/api/article/",article)
 
 

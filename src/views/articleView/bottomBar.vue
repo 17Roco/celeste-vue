@@ -14,12 +14,12 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import {useUserStore} from "@/store/user";
 import {watch,ref,onMounted} from "vue";
 
-const store = useUserStore()
-const props = defineProps(["uid"])
+const store:any = useUserStore()
+const props:any = defineProps(["uid"])
 let user = ref(null)
 
 onMounted(()=>{

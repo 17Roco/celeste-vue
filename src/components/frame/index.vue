@@ -7,7 +7,7 @@
 </template>
 
 
-<script setup>
+<script lang="ts" setup>
 import topBar from './topbar'
 import LoginView from "@/components/LoginView.vue";
 

@@ -9,11 +9,12 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import {useArticleStore} from "@/store/article";
+import {defineModel} from "vue"
 
-const store = useArticleStore()
-const tag = defineModel()
+const store:any = useArticleStore()
+const tag:any = defineModel()
 
 store.loadTags()
 

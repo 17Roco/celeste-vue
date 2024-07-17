@@ -20,12 +20,12 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import {usePathStore} from "@/store/path";
 import {useUserStore} from "@/store/user";
 
-const store = usePathStore()
-const userStore = useUserStore()
+const store:any = usePathStore()
+const userStore:any = useUserStore()
 
 // console.log((store.user && store.user.img) ? store.user.img :'')
 

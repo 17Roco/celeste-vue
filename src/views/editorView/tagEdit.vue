@@ -4,13 +4,13 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import {ref,watch} from "vue";
 import {useArticleStore} from "@/store/article";
 
 const props = defineProps(['tags','aid'])
 const emit = defineEmits(['change'])
-const store = useArticleStore()
+const store:any = useArticleStore()
 
 let checkedTag = ref({})
 

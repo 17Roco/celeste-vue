@@ -50,7 +50,7 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import {reactive, ref,watch,onMounted,computed} from "vue";
 import {getDefaultArticles, getDefaultFilter, useArticleStore} from "@/store/article";
 import FilterBar from "./filterBar.vue";
