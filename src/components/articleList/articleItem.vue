@@ -1,11 +1,11 @@
 <template>
-    <div class="com-article-item" @click="to('/blog/detail/'+props.article.aid)">
-        <div class="title">{{ props.article.title }}</div>
+    <div class="com-article-item" @click="to('/blog/detail/'+article.aid)">
+        <div class="title">{{ article.title }}</div>
         <div class="context">
-            <img :src="props.article.img" alt="" v-if="props.article.img"/>
+            <img :src="article.img" alt="" v-if="article.img"/>
             <div class="text">
-                <span v-html="props.article.context"></span>
-                <InfoBar :article="props.article" :edit="props.edit"/>
+                <span v-html="article.context"></span>
+                <InfoBar :article="article" :edit="edit"/>
             </div>
         </div>
     </div>
@@ -15,10 +15,10 @@
 import InfoBar from "@/components/articleList/infoBar.vue";
 import router from "@/router";
 
-const props = defineProps({
-    "article":Object,
-    "edit":Boolean
-})
+defineProps([
+    "article",
+    "edit"
+])
 
 let to = (path) => router.push(path)
 

@@ -1,86 +1,51 @@
 <template>
     <div class="com-article-list">
         <!-- 过滤条 -->
-        <filter-bar :articleList="articleList"/>
-
+        <filter-bar :articleList="articleList" :filter="filter"/>
         <!--    文章列表    -->
         <div v-if="load" style="text-align: center">加载中</div>
-        <template v-else><article-item v-for="a in articleList.records" :v-key="a.title" :article="a" :edit="props.self"/></template>
+        <template v-else>
+            <div v-if="articleList.records.length === 0" style="text-align: center">
+                空
+            </div>
+            <article-item v-else v-for="a in articleList.records" :v-key="a.title" :article="a" :edit="false"/>
+        </template>
         <!--    底部分页    -->
-        <div class="page-bar">
-            <el-pagination
-                background layout="prev, pager, next"
-                @change="toTop"
-                v-show="!load && articleList.pages > 1"
-                :total="articleList.total"
-                :page-count="articleList.pages"
-                v-model:current-page="filter.index"
-            />
-        </div>
+        <Pagination style="align-self: center" :article-list="articleList" v-model="filter.index"/>
     </div>
 </template>
 
 <script setup>
-import {reactive, ref,watch,onMounted,computed} from "vue";
-import FilterBar from "./filterBar/filterBar.vue";
-import ArticleItem from "./articleItem.vue";
-import {onBeforeRouteUpdate, useRoute} from "vue-router";
+import {reactive, ref} from "vue";
 import {useMainStore} from "@/stores/mainStore.ts";
+import FilterBar from "./filterBar/FilterBar.vue";
+import ArticleItem from "./articleItem.vue";
+import Pagination from "./filterBar/Pagination.vue";
 
-const store = useMainStore();
-const props = defineProps({
-    self:{
-        type: Boolean,
-        default:false
-    }
-})
 
 let load = ref(false);
+
 let filter = reactive({
     tag:"tag_1",
     order:"最新",
-    index:1
+    index:1,
+    timeRange:[null,null]
 })
 let articleList = reactive({
     pages:10,
     total:100,
     index:1,
-    records:[]
-})
+    records:[{
+        aid:1,
+        title:"title",
+        img:"",
+        context:"111",
 
-let timeRange = computed({
-    get:()=> [
-        filter.beginTime ? new Date(filter.beginTime) : undefined,
-        filter.endTime ? new Date(filter.endTime) : undefined
-    ],
-    set:(val)=> {
-        filter.beginTime = (val && val.length > 0) ? formatDate(val[0]) :undefined
-        filter.endTime = (val && val.length > 1) ? formatDate(val[1]) :undefined
-    }
-})
-
-
-let toTop = () => window.scrollTo(0,0)
-let updateList = () => {
-    // load.value = true;
-    // store.getArticleList(filter,props.self).then(data => {
-    //     articleList.value = data
-    //     load.value =false
-    // })
-}
-
-onMounted(updateList)
-
-// watch(filter,()=>{
-//     if (router.currentRoute.value.query.index && router.currentRoute.value.query.index == filter.index)
-//         filter.index = 1
-//     //
-//     router.push({query:filter})
-//     // updateList()
-// },{deep:true})
-
-onBeforeRouteUpdate((to, from)=>{
-    updateList()
+        uid:"1",
+        likee:1,
+        watch:1,
+        updateTime:new Date()
+    }]
 })
 
 </script>
@@ -89,10 +54,10 @@ onBeforeRouteUpdate((to, from)=>{
 .com-article-list {
     width: 900px;
 
-    > .page-bar {
-        display: flex;
-        justify-content: center;
-    }
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 </style>
 

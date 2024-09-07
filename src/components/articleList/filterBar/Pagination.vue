@@ -1,7 +1,8 @@
 <script setup lang="ts">
 
 
-
+defineProps(["articleList"])
+const index = defineModel()
 
 </script>
 
@@ -12,7 +13,7 @@
         v-show="articleList.pages > 1"
         :total="articleList.total"
         :page-count="articleList.pages"
-        v-model:current-page="filter.index"
+        v-model:current-page="index"
     />
 </template>
 
