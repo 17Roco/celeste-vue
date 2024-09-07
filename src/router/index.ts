@@ -17,21 +17,46 @@ const router = createRouter({
         component:HomeView
       }]
     },{
-      path: '/blog',
-      redirect:'/blog/index',
-      component: Frame,
-      children:[{
-        path:'index',
-        // component:()=>import("@/views/BlogView.vue")
-        component:()=>import("@/components/articleList/ArticleList.vue")
-      }]
-    },{
       path: '/about',
       redirect:'/about/index',
       component: Frame,
       children:[{
         path:'index',
         component:()=>import("@/views/AboutView.vue")
+      }]
+    },
+
+
+    // /blog/index
+    // /blog/article/:aid
+    // /blog/edit/aid?
+    {
+      path: '/blog',
+      redirect:'/blog/index',
+      component: Frame,
+      children:[{
+        path:'index',
+        component:()=>import("@/views/blog/BlogView.vue")
+      },{
+        path:'article/:aid',
+        component:()=>import("@/views/blog/ArticleView.vue")
+      },{
+        path:'edit/:aid?',
+        component:()=>import("@/views/blog/ArticleEditView.vue")
+      }]
+    },
+    // /user/home
+    // /user/setting
+    {
+      path: '/user',
+      redirect:'/user/home',
+      component: Frame,
+      children:[{
+        path:'home',
+        component:()=>import("@/views/user/UserHomeView.vue")
+      },{
+        path:'setting',
+        component:()=>import("@/views/user/UserSettingView.vue")
       }]
     },
 
