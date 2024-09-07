@@ -1,7 +1,7 @@
 <template>
     <div class="com-user" v-if="store.user.isLogin">
         <el-button type="danger" round class="commit-but">
-            <router-link to="/blog/edit">发布文章</router-link>
+            <router-link :to="'/blog/edit'">发布文章</router-link>
         </el-button>
         <el-dropdown trigger="hover">
             <el-avatar :size="50" :src="(store.user.userInfo.img)||''" v-loading="!store.user.userInfo.img"/>
