@@ -37,15 +37,16 @@ request.interceptors.response.use(
         if (response.status===200 && res.code === 200) {
             return res.data
         }else if (response.status===200) {
-            if(res.msg.indexOf('token 失效')!==-1){
-                ElMessage({message:'登录失效'})
-                const store =  useUserStore()
-                store.logout()
-                return Promise.reject(res)
-            }else {
-                ElMessage(res.msg)
-                return null
-            }
+            // if(res.msg.indexOf('token 失效')!==-1){
+            //     ElMessage({message:'登录失效'})
+            //     const store =  useUserStore()
+            //     store.logout()
+            //     return Promise.reject(res)
+            // }else {
+            //     ElMessage(res.msg)
+            //     return null
+            // }
+            return null
         }
 
 
