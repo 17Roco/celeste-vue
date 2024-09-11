@@ -39,6 +39,7 @@ const router = createRouter({
         component:()=>import("@/views/blog/BlogView.vue")
       },{
         path:'article/:aid',
+        props:true,
         component:()=>import("@/views/blog/ArticleView.vue")
       },{
         path:'edit/:aid?',

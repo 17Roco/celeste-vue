@@ -1,18 +1,8 @@
 import {request} from "./request"
 
 
-// export const createArticleFilter = (filter) => {
-//     let f = {...filter}
-//     delete f.timeRange
-//     if (filter.timeRange && filter.timeRange.length === 2) {
-//         f.beginTime = filter.timeRange[0]
-//         f.endTime = filter.timeRange[1]
-//     }
-//     return f
-// }
 
-
-export const getArticleInfos = (filter) => {
+export const getArticleInfos = (filter:Filter) => {
     return request({
         url: "/api/article/filter",
         method:"get",
@@ -20,13 +10,13 @@ export const getArticleInfos = (filter) => {
     })
 }
 
-export const getArticleContent = (aid) => {
+export const getArticleContent = (aid:number) => {
     return request({
         url:'/api/article/'+aid,
     })
 }
 
-export const updateArticle = (article) => {
+export const updateArticle = (article:Article) => {
     return request({
         url:'/api/article/content',
         method:"PUT",
@@ -34,13 +24,13 @@ export const updateArticle = (article) => {
     })
 }
 
-export const deleteArticle = (id) => {
+export const deleteArticle = (aid:number) => {
     return request({
         url:'/api/article/'+id,
         method:"DELETE"
     })
 }
-export const createArticles = (article) => {
+export const createArticles = (article:Article) => {
     return request({
         url:'/api/article/',
         method:"POST",

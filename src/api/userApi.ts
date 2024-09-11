@@ -1,16 +1,17 @@
 import {request} from "@/api/request.js";
 
-export const login = (user) => {
+export const login = (user:UserLogin) => {
     return request({
         url:'/api/login',
         method:'POST',
         data:user
     })
 }
-export const logout = (token) => {
+export const logout = (token:string) => {
     return request({
         url:'/api/logout',
-        method:"POST"
+        method:"POST",
+        data:{token:token}
     })
 }
 export const signup = (user) => {

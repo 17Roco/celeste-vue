@@ -1,10 +1,15 @@
 
-interface user {
+interface User {
     uid:number,
-    username:string
+    username:string,
+    img:string
+}
+interface UserLogin{
+    username:string,
+    password:string
 }
 
-interface page<T> {
+interface Page<T> {
     pages:number,
     total:number,
     index:number,
