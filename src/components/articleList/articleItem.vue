@@ -1,10 +1,12 @@
 <template>
-    <div class="com-article-item" @click="to('/blog/detail/'+article.aid)">
-        <div class="title">{{ article.title }}</div>
+    <div class="com-article-item">
+        <!--   标题     -->
+        <div class="title"><router-link :to="path">{{ article.title }}</router-link></div>
+        <!--   摘要     -->
         <div class="context">
-            <img :src="article.img" alt="" v-if="article.img"/>
+            <router-link :to="path"><img :src="article.img" alt="" v-if="article.img"/></router-link>
             <div class="text">
-                <span v-html="article.context"></span>
+                <span><router-link :to="path">{{ article.context }}</router-link></span>
                 <InfoBar :article="article" :edit="edit"/>
             </div>
         </div>
@@ -14,47 +16,47 @@
 <script setup>
 import InfoBar from "@/components/articleList/infoBar.vue";
 import router from "@/router";
+import {computed} from "vue";
 
-defineProps([
+const prop = defineProps([
     "article",
     "edit"
 ])
 
-let to = (path) => router.push(path)
+let path = computed(()=>'/blog/article/'+prop.article.aid)
 
 </script>
 
 <style lang="less">
 .com-article-item:hover{
     border: rgba(44, 62, 80, 1) 1px solid;
-    border-radius: 10px;
-    transition: 0.3s;
 }
 .com-article-item{
+    border-radius: 10px;
     margin: 10px 40px;
     border: rgba(44, 62, 80, 0.0) 1px solid;
     border-bottom: rgba(44, 62, 80, 0.2) 1px solid;
     display: flex;
     flex-direction: column;
     text-decoration: none;
-    //transition: 0.3s;
     >.title{
         margin: 0 20px;
+        padding: 10px;
         font-size: 18px;
         font-weight: bold;
-        padding-bottom: 10px;
         white-space: nowrap;
         text-overflow: clip;
         overflow: hidden;
     }
     >.context{
         display: flex;
-        padding-left: 10px;
-        >img{
-            border-radius: 10px;
-            margin: 0 20px 10px;
-            width: 160px;
-            height: 100px;
+        padding: 0 10px;
+        img{
+            float: left;
+            border-radius: 5px;
+            margin: 0 10px 10px;
+            width: 200px;
+            height: 120px;
         }
         >.text{
             display: flex;
@@ -63,11 +65,16 @@ let to = (path) => router.push(path)
             justify-content: space-between;
             color: #555666;
             >span{
-                text-align: left;
-                height: 5.2em;
-                line-height: 1.3;
+                line-height: 1.5;
                 text-overflow: ellipsis;
+                word-break: break-all;
                 overflow: hidden;
+                white-space: normal;
+
+                display: -webkit-box; /* 使用 flexbox 模型 */
+                -webkit-box-orient: vertical; /* 垂直方向排列子元素 */
+                -webkit-line-clamp: 4; /* 限制显示 3 行，超出部分会被隐藏 */
+
             }
         }
     }

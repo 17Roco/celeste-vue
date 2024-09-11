@@ -57,6 +57,9 @@ const router = createRouter({
       },{
         path:'setting',
         component:()=>import("@/views/user/UserSettingView.vue")
+      },{
+        path:':uid',
+        component:()=>import("@/views/user/UserHomeView.vue")
       }]
     },
 
@@ -76,7 +79,7 @@ const router = createRouter({
 
     {
       path:"/404",
-      component:()=>import("@/views/NotFind.vue")
+      component:()=>import("@/views/NotFound.vue")
     },
     {
       path:"/:pathMatch(.*)*",

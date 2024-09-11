@@ -17,7 +17,6 @@
 
 <script setup>
 import {reactive, ref} from "vue";
-import {useMainStore} from "@/stores/mainStore.ts";
 import FilterBar from "./filterBar/FilterBar.vue";
 import ArticleItem from "./articleItem.vue";
 import Pagination from "./filterBar/Pagination.vue";
@@ -37,11 +36,25 @@ let articleList = reactive({
     index:1,
     records:[{
         aid:1,
-        title:"title",
-        img:"",
-        context:"111",
-
-        uid:"1",
+        title:"title_title_title_title",
+        img:"https://media.prts.wiki/8/83/%E6%B4%BB%E5%8A%A8%E9%A2%84%E5%91%8A_%E6%B3%B0%E6%8B%89%E9%A5%AD_01.jpg",
+        context:"11uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd111uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd1",
+        user:{
+            uid:1,
+            username:"user1"
+        },
+        likee:1,
+        watch:1,
+        updateTime:new Date()
+    },{
+        aid:1,
+        title:"title_title_title_title",
+        img:"https://media.prts.wiki/8/83/%E6%B4%BB%E5%8A%A8%E9%A2%84%E5%91%8A_%E6%B3%B0%E6%8B%89%E9%A5%AD_01.jpg",
+        context:"11uinertuherhrsdurhrhrhurghgruhruhrjetiorehruhrhrihrhrehreungrtnrnuthtgurguieijoehirgiongnrd1",
+        user:{
+            uid:1,
+            username:"user1"
+        },
         likee:1,
         watch:1,
         updateTime:new Date()

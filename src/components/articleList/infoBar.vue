@@ -1,14 +1,17 @@
 <template>
     <div class="com-info-bar">
         <div class="info">
-            <span>作者 : {{ props.article.uid }}</span>
-            <span>like:{{ props.article.likee }} |</span>
-            <span>watch:{{ props.article.watch }} |</span>
-            <span>{{ moment(props.article.updateTime).format('YYYY-MM-DD') }}</span>
+<!--            <span v-if="!edit">-->
+<!--                <router-link :to="'/user/'+article.uid">作者 : {{ article.uid }}</router-link>-->
+<!--            </span>-->
+            <router-link :to="'/user/'+article.user.uid">作者 : {{ article.user.username }}</router-link>
+            <span>like:{{ article.likee }} |</span>
+            <span>watch:{{ article.watch }} |</span>
+            <span>{{ moment(article.updateTime).format('YYYY-MM-DD') }}</span>
         </div>
-        <div v-if="props.edit">
+        <div v-if="edit">
             <el-button size="small" round>查看</el-button>
-            <el-button size="small" round @click.stop="router.push('/blog/editor/'+props.article.aid)">编辑</el-button>
+            <el-button size="small" round @click.stop="router.push('/blog/editor/'+article.aid)">编辑</el-button>
             <el-button size="small" round @click.stop="delArticle">删除</el-button>
         </div>
     </div>
@@ -16,13 +19,14 @@
 
 <script setup>
 import moment from "moment";
-import {ElMessage,ElMessageBox} from "element-plus";
 import router from "@/router";
+import {ElMessage,ElMessageBox} from "element-plus";
 
-const props = defineProps({
-    "article":Object,
-    "edit":Boolean
-})
+
+const prop = defineProps([
+    "article",
+    "edit"
+])
 
 let delArticle = () => {
     // ElMessage({message:'del'})
@@ -46,9 +50,8 @@ let delArticle = () => {
     justify-content: space-between;
 
     > .info {
-
-        > span {
-            color: #b7b7bc;
+        > span,a {
+            color: #9b9ba0;
             padding: 0 5px;
         }
     }

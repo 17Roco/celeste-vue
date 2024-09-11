@@ -7,7 +7,14 @@
     <RouterView />
 </template>
 
-<style scoped>
-@media (min-width: 1024px) {
+<style>
+
+a {
+    text-decoration: none;
+    //color: hsla(160, 100%, 37%, 1);
+    color: #181818;
+    transition: 0.4s;
+    padding: 3px;
 }
+
 </style>
