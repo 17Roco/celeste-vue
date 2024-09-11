@@ -8,7 +8,7 @@
             <div v-if="articleList.records.length === 0" style="text-align: center">
                 空
             </div>
-            <article-item v-else v-for="a in articleList.records" :v-key="a.title" :article="a" :edit="false"/>
+            <article-item v-else v-for="a in articleList.records" :v-key="a.title" :article="a" :edit="edit"/>
         </template>
         <!--    底部分页    -->
         <Pagination style="align-self: center" :article-list="articleList" v-model="filter.index"/>
@@ -21,6 +21,9 @@ import FilterBar from "./filterBar/FilterBar.vue";
 import ArticleItem from "./articleItem.vue";
 import Pagination from "./filterBar/Pagination.vue";
 
+defineProps({
+    "edit":{type:Boolean,default:false}
+})
 
 let load = ref(false);
 

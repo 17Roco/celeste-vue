@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <h1>article edit</h1>
+    <h1> article edit</h1>
 </template>
 
 <style scoped>
