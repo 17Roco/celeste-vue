@@ -43,6 +43,7 @@ const router = createRouter({
         component:()=>import("@/views/blog/ArticleView.vue")
       },{
         path:'edit/:aid?',
+        props:true,
         component:()=>import("@/views/blog/ArticleEditView.vue")
       }]
     },
@@ -86,7 +87,7 @@ const router = createRouter({
       path:"/:pathMatch(.*)*",
       redirect:'/404'
     }
-    ]
+    ],
 })
 
 export default router

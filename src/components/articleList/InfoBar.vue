@@ -1,15 +1,12 @@
 <template>
     <div class="com-info-bar">
-        <div class="info">
-<!--            <span v-if="!edit">-->
-<!--                <router-link :to="'/user/'+article.uid">作者 : {{ article.uid }}</router-link>-->
-<!--            </span>-->
-            <router-link :to="'/user/'+article.user.uid">作者 : {{ article.user.username }}</router-link>
+        <p class="info">
+            <router-link :to="'/user/'+article.user.uid" v-if="!edit">作者 : {{ article.user.username }}</router-link>
             <span>like:{{ article.likee }} |</span>
             <span>watch:{{ article.watch }} |</span>
             <span>{{ moment(article.updateTime).format('YYYY-MM-DD') }}</span>
-        </div>
-        <div v-if="edit">
+        </p>
+        <div v-if="edit" class="opt">
             <el-button size="small" round>查看</el-button>
             <el-button size="small" round @click.stop="router.push('/blog/editor/'+article.aid)">编辑</el-button>
             <el-button size="small" round @click.stop="delArticle">删除</el-button>
@@ -17,16 +14,16 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import moment from "moment";
 import router from "@/router";
 import {ElMessage,ElMessageBox} from "element-plus";
 
 
-const prop = defineProps([
-    "article",
-    "edit"
-])
+const prop = defineProps<{
+    article:Article,
+    edit:boolean
+}>()
 
 let delArticle = () => {
     // ElMessage({message:'del'})
@@ -36,11 +33,6 @@ let delArticle = () => {
     })
 }
 
-
-
-
-
-
 </script>
 
 <style>
@@ -48,12 +40,14 @@ let delArticle = () => {
     padding: 5px 20px;
     display: flex;
     justify-content: space-between;
-
+    align-items: center;
     > .info {
-        > span,a {
-            color: #9b9ba0;
-            padding: 0 5px;
-        }
+        color: #9b9ba0;
+        padding: 0 5px;
+    }
+    >.opt {
+        display: flex;
+        flex-wrap: nowrap;
     }
 }
 

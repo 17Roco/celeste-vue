@@ -1,7 +1,7 @@
 <template>
     <div class="com-subarea">
         <el-menu
-            :default-active="route.path"
+            :default-active="route.matched[0].path"
             :router="true"
             mode="horizontal"
             :ellipsis="false"
@@ -28,7 +28,6 @@ const route = useRoute();
 
 const handleSelect = ()=>{}
 
-console.log(route.path)
 </script>
 
 <style>

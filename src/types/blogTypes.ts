@@ -10,7 +10,7 @@ interface Article {
     createTime:string,
     updateTime:string,
     tags:Array<String>,
-    user:UserLogin
+    user:User
 }
 
 interface Filter{
@@ -18,4 +18,17 @@ interface Filter{
     tag?:string,
     order?:string,
     timeRange?:[string,string]
+}
+
+interface ChangedArticle {
+    uid:number,
+    aid:number,
+    img?:string,
+    title?:string,
+    context?:string,
+    tags:Array<ChangeTag>
+}
+interface ChangeTag {
+    tag:string,
+    check:boolean
 }

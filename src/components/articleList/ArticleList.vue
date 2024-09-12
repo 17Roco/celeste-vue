@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import {onMounted, reactive, ref} from "vue";
 import FilterBar from "./filterBar/FilterBar.vue";
-import ArticleItem from "./articleItem.vue";
+import ArticleItem from "./ArticleItem.vue";
 import Pagination from "./filterBar/Pagination.vue";
 import {useBlogStore} from "@/stores/blogStore";
 

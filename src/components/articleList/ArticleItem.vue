@@ -13,15 +13,14 @@
     </div>
 </template>
 
-<script setup>
-import InfoBar from "@/components/articleList/infoBar.vue";
-import router from "@/router";
+<script setup lang="ts">
+import InfoBar from "@/components/articleList/InfoBar.vue";
 import {computed} from "vue";
 
-const prop = defineProps([
-    "article",
-    "edit"
-])
+const prop = defineProps<{
+    article:Article,
+    edit:boolean
+}>()
 
 let path = computed(()=>'/blog/article/'+prop.article.aid)
 
