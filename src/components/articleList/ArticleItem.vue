@@ -30,6 +30,7 @@ let path = computed(()=>'/blog/article/'+prop.article.aid)
 .com-article-item:hover{
     border: rgba(44, 62, 80, 1) 1px solid;
 }
+
 .com-article-item{
     border-radius: 10px;
     margin: 10px 40px;
@@ -54,6 +55,7 @@ let path = computed(()=>'/blog/article/'+prop.article.aid)
             float: left;
             border-radius: 5px;
             margin: 0 10px 10px;
+            /**/
             width: 200px;
             height: 120px;
         }
@@ -79,4 +81,22 @@ let path = computed(()=>'/blog/article/'+prop.article.aid)
     }
 
 }
+
+@media (max-width: 768px) {
+    .com-article-item{
+        margin: 10px;
+        >.context{
+            img{
+                width: 100px;
+                height: 70px;
+            }
+        }
+    }
+}
+@media (max-width:576px) {
+    .com-article-item {
+        margin: 10px 0;
+    }
+}
+
 </style>

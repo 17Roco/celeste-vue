@@ -31,7 +31,9 @@ const handleSelect = ()=>{}
 </script>
 
 <style>
-.com-subarea{
-
+@media (max-width: 576px) {
+    .com-subarea{
+        display: none;
+    }
 }
 </style>

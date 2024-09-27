@@ -9,6 +9,12 @@
 
 <style>
 
+body{
+    margin: 0;
+    padding: 0;
+}
+
+
 a {
     text-decoration: none;
     //color: hsla(160, 100%, 37%, 1);

@@ -30,8 +30,16 @@ import User from "./User.vue";
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 1600px;
-        padding: 0 80px;
+        width: 0;
+        flex: 1;
+        padding: 0 10px;
+    }
+}
+@media (min-width: 1200px) {
+    .com-top-bar {
+        .top-bar-body {
+            padding: 0 80px;
+        }
     }
 }
 </style>

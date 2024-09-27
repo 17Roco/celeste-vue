@@ -21,6 +21,8 @@ let search = () => {
 
 <style>
 .com-search{
-    width: 900px;
+    padding: 0 20px;
+    width: 0;
+    flex: 1;
 }
 </style>

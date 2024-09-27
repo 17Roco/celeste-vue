@@ -4,7 +4,7 @@
     </div>
     <div v-else class="com-article-list">
         <!-- 过滤条 -->
-        <filter-bar :articleList="articleList"/>
+<!--        <filter-bar :articleList="articleList"/>-->
         <!--    文章列表    -->
         <div v-if="articleList.records.length === 0" style="text-align: center">空</div>
         <article-item v-else v-for="a in articleList.records" :v-key="a.title" :article="a" :edit="edit"/>
@@ -37,7 +37,7 @@ onMounted(()=>{
 
 <style>
 .com-article-list {
-    width: 1100px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;

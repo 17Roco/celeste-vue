@@ -33,10 +33,10 @@ onMounted(()=>{
 <style>
 .com-bottom-bar{
     position: fixed;
-    width: 1400px;
-    left: 50%;
-    margin-left: -701px;
+    left: 40px;
+    right: 40px;
     bottom: 0;
+
     display: flex;
     justify-content: center;
     border: 1px #b7b7bc solid;
@@ -46,6 +46,7 @@ onMounted(()=>{
     >.body{
         width: 1000px;
         height: 50px;
+        padding: 0 200px;
 
         display: flex;
         align-items: center;
@@ -55,5 +56,9 @@ onMounted(()=>{
             align-items: center;
         }
     }
+}
+
+@media (min-width: 1200px) {
+    width: 1400px;
 }
 </style>

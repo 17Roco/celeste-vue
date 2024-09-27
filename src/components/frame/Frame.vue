@@ -24,8 +24,10 @@ import LoginView from "@/components/frame/LoginView.vue";
 .com-frame-body{
     margin-bottom: 30px;
     margin-top: 70px;
-    padding: 50px;
-    width: 1100px;
+    padding: 30px;
+    //width: 1100px;
+    width: 90%;
+    /**/
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,5 +38,17 @@ import LoginView from "@/components/frame/LoginView.vue";
     border-radius: 10px;
     border: 1px solid #b7b7bc;
 
+}
+/**/
+@media (min-width: 1200px) {
+    .com-frame-body {
+        width: 1100px;
+        padding: 50px;
+    }
+}
+@media (max-width: 900px) {
+    .com-frame-body {
+        padding: 10px;
+    }
 }
 </style>

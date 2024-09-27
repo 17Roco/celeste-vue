@@ -51,4 +51,9 @@ let delArticle = () => {
     }
 }
 
+@media (max-width: 768px) {
+    .com-info-bar {
+        margin-left: -120px;
+    }
+}
 </style>
