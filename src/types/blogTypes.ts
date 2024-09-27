@@ -17,7 +17,7 @@ interface Filter{
     index?:number,
     tag?:string,
     order?:string,
-    timeRange?:[string,string]
+    timeRange?:[string,string]|null
 }
 
 interface ChangedArticle {
@@ -26,7 +26,7 @@ interface ChangedArticle {
     img?:string,
     title?:string,
     context?:string,
-    tags:Array<ChangeTag>
+    tags?:Array<ChangeTag>
 }
 interface ChangeTag {
     tag:string,

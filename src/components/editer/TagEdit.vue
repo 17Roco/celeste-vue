@@ -4,7 +4,8 @@
             class="tag"
             round type="success"
             v-for="tag in store.filter.tags" :key="tag"
-            @change="emit('change',$event,tag)" :checked="tags.find(v => v===tag)">
+            @change="emit('change',$event,tag)"
+            :checked="tags.find(v => v===tag) != undefined">
             {{ tag }}
         </el-check-tag>
     </div>

@@ -1,8 +1,9 @@
 import {request} from "./request"
+import type {AxiosResponse} from "axios";
 
 
 
-export const getArticleInfos = (filter:Filter) => {
+export const getArticleInfos = (filter:Filter):Promise<Page<Article>> => {
     return request({
         url: "/api/article/filter",
         method:"get",
@@ -10,13 +11,13 @@ export const getArticleInfos = (filter:Filter) => {
     })
 }
 
-export const getArticleContent = (aid:number) => {
+export const getArticleContent = (aid:number):Promise<Article> => {
     return request({
         url:'/api/article/'+aid,
     })
 }
 
-export const updateArticle = (article:Article) => {
+export const updateArticle = (article:ChangedArticle):Promise<boolean> => {
     return request({
         url:'/api/article/content',
         method:"PUT",
@@ -24,11 +25,12 @@ export const updateArticle = (article:Article) => {
     })
 }
 
-export const deleteArticle = (aid:number) => {
-    return request({
-        url:'/api/article/'+id,
-        method:"DELETE"
-    })
+export const deleteArticle = (aid:number):Promise<boolean> => {
+    // return request({
+    //     url:'/api/article/'+id,
+    //     method:"DELETE"
+    // })
+    return request.delete('/api/article/'+id)
 }
 export const createArticles = (article:Article) => {
     return request({

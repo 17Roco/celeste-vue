@@ -7,8 +7,8 @@
             <span>{{ moment(article.updateTime).format('YYYY-MM-DD') }}</span>
         </p>
         <div v-if="edit" class="opt">
-            <el-button size="small" round>查看</el-button>
-            <el-button size="small" round @click.stop="router.push('/blog/editor/'+article.aid)">编辑</el-button>
+            <el-button size="small" round @click.stop="router.push('/blog/article/'+article.aid)">查看</el-button>
+            <el-button size="small" round @click.stop="router.push('/blog/edit/'+article.aid)">编辑</el-button>
             <el-button size="small" round @click.stop="delArticle">删除</el-button>
         </div>
     </div>

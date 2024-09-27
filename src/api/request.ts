@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios, {type AxiosInstance} from "axios";
 import {ElMessage} from 'element-plus'
 
 
 let getToken = () => localStorage.getItem("token");
 
-export const request = axios.create({
+export const request:AxiosInstance = axios.create({
     baseURL: 'http://localhost',
     timeout:5000
 })
@@ -16,6 +16,7 @@ request.interceptors.request.use(
         //     config.headers['token'] = store.user.token
         // }
         let token = getToken();
+        console.log(config)
         if (token && token !== '') {
             config.headers['token'] = token
         }

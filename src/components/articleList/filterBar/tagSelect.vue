@@ -2,26 +2,21 @@
     <div class="com-tag-select">
         <el-button
             v-for="t in store.filter.tags" :key="t"
-            @click="clickTag(t)"
+            @click="change(t)"
             :type="tag === t?'primary':null"
             round size="small"
         >{{ t }}</el-button>
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
-import {reactive} from "vue";
 import {useMainStore} from "@/stores/mainStore.ts";
 
 const store = useMainStore()
-
-let tags = reactive(['1','2','3','4'])
 const tag = defineModel()
-
-
-let clickTag = (title)=>{
-    tag.value = (tag.value === title) ? undefined : title
+let change = (t:string) => {
+    tag.value === t ? tag.value = null : tag.value = t
 }
 
 </script>

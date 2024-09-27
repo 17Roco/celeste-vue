@@ -1,7 +1,7 @@
 <template>
     <div class="com-filter-bar">
         <!--    tag    -->
-        <tag-select v-model="filter.tag"/>
+        <tag-select v-model="filter.tag" />
         <div class="button-bar">
             <!--    排序    -->
             <el-segmented size="large" :options="store.filter.order" v-model="filter.order"/>
@@ -13,15 +13,34 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import TagSelect from "@/components/articleList/filterBar/tagSelect.vue";
 import Pagination from "@/components/articleList/filterBar/Pagination.vue";
 import DateSelect from "@/components/articleList/filterBar/DateSelect.vue";
 import {useMainStore} from "@/stores/mainStore.ts";
+import {onBeforeUpdate, onMounted, reactive, ref, watch} from "vue";
+import {onBeforeRouteUpdate, useRoute} from "vue-router";
+import router from "@/router";
+import {ElMessage} from "element-plus";
 
 
 const store = useMainStore()
-defineProps(["articleList","filter"])
+const route = useRoute()
+const props = defineProps<{
+    articleList:Page<Article>
+}>()
+
+
+let filter = reactive<Filter>({
+    index:route.query.index ||1,
+    order:route.query.order ||"最新",
+    tag:route.query.tag,
+    timeRange:route.query.timeRange
+})
+
+watch(filter,()=>{
+    router.push({path:route.path,query:filter})
+},{deep:true})
 
 
 

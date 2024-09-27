@@ -66,7 +66,6 @@ onMounted(()=>{
 })
 
 let change = (check:boolean,tag:string)=>{
-    console.log(check)
     if (!check)
         article.value.tags = article.value.tags.filter(v => v!= tag)
     else
