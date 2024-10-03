@@ -21,8 +21,6 @@ interface Filter{
 }
 
 interface ChangedArticle {
-    uid:number,
-    aid:number,
     img?:string,
     title?:string,
     context?:string,

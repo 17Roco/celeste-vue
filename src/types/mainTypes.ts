@@ -1,10 +1,17 @@
 
 interface User {
     uid:number,
-    username:string,
-    img:string
+    username?:string,
+    img?:string,
+    sex?:number,
+    phone?:string,
+    email?:string
 }
-interface UserLogin{
+interface LoginForm{
+    username:string,
+    password:string
+}
+interface changePasswordForm{
     username:string,
     password:string
 }

@@ -1,38 +1,19 @@
-import {request} from "@/api/request.js";
+import {request} from "@/api/request";
+// import type {LoginForm,changePasswordForm} from "@/types/mainTypes"
 
-export const login = (user:UserLogin) => {
-    return request({
-        url:'/api/login',
-        method:'POST',
-        data:user
-    })
-}
-export const logout = (token:string) => {
-    return request({
-        url:'/api/logout',
-        method:"POST",
-        data:{token:token}
-    })
-}
-export const signup = (user) => {
-    return request({
-        url:'/api/user/signup',
-        method:'POST',
-        data:user
-    })
-}
+export const login = (form:LoginForm) => request.post("/login",form)
+export const logout = (token:string) => request.post("/logout")
+export const register = (form:LoginForm) => request.post("/register",form)
+export const changePassword = (form:changePasswordForm) => request.post("/changePassword",form)
 
-export const updateUserInfo = (user) => {
-    return request({
-        url:'/api/user',
-        method:"put",
-        data:user,
-    })
-}
 
-export const getUserInfo = (uid) => {
-    return request({
-        url:'/api/user/'+(uid ? uid : ''),
-        method:"get",
-    })
-}
+
+
+
+const prefix = "/user"
+export const getById = (id:number) => request.get(`${prefix}/${id}`)
+export const getFollow = (id:number) => request.get(`/${prefix}/${id}/follow}`)
+export const updateUserInfo = (info:User) => request.post(`${prefix}/info`,info)
+
+export const follow = (id:number) => request.post(`${prefix}/follow/${id}`)
+export const unfollow = (id:number) => request.post(`${prefix}/unfollow/${id}`)

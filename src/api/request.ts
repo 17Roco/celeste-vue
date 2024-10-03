@@ -5,7 +5,7 @@ import {ElMessage} from 'element-plus'
 let getToken = () => localStorage.getItem("token");
 
 export const request:AxiosInstance = axios.create({
-    baseURL: 'http://localhost',
+    baseURL: 'http://localhost/api',
     timeout:5000
 })
 
