@@ -28,9 +28,8 @@ defineProps({
 
 
 let articleList = ref<Page<Article>|null>(null)
-
-onMounted(()=>{
-    store.getArticles(route.query as Filter).then( data => articleList.value=data)
+onMounted(()=> {
+    store.getArticles(route.query as Filter).then( data => articleList.value=data )
 })
 
 </script>

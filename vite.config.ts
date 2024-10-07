@@ -8,21 +8,26 @@ import {viteMockServe} from "vite-plugin-mock";
 export default defineConfig({
   plugins: [
     vue(),
-    viteMockServe({// 更多配置见最下方
-      supportTs: true,
-      logger: false,
-      mockPath: "./mock/" // 文件位置
-    })
+    // viteMockServe({// 更多配置见最下方
+    //   supportTs: true,
+    //   logger: false,
+    //   mockPath: "./mock/" // 文件位置
+    // })
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  server:{
-    port:80,
-    open:true,
-
+  server: {
+    port: 80,
+    open: true,
+    proxy: {
+      "/api": {
+        target: "http://172.29.210.70",
+        changeOrigin: true, //是否跨域
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      }
+    }
   }
-
 })

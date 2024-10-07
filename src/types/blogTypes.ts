@@ -3,14 +3,14 @@
 interface Article {
     aid:number,
     title:string,
-    img:string,
+    img?:string,
     context:string,
     likee:number,
     watch:number,
     createTime:string,
     updateTime:string,
-    tags:Array<String>,
-    user:User
+    tags:Array<string>,
+    user?:User
 }
 
 interface Filter{
