@@ -29,3 +29,5 @@ coverage
 
 *.tsbuildinfo
 /qodana.yaml
+/mock/*.mjs
+*.bat
