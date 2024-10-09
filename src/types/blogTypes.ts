@@ -10,7 +10,7 @@ interface Article {
     createTime:string,
     updateTime:string,
     tags:Array<string>,
-    user?:User
+    user:User
 }
 
 interface Filter{

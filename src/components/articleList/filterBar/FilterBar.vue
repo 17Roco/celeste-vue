@@ -22,9 +22,10 @@ import {onBeforeUpdate, onMounted, reactive, ref, watch} from "vue";
 import {onBeforeRouteUpdate, useRoute} from "vue-router";
 import router from "@/router";
 import {ElMessage} from "element-plus";
+import {useBlogStore} from "@/stores/blogStore";
 
 
-const store = useMainStore()
+const store = useBlogStore()
 const route = useRoute()
 const props = defineProps<{
     articleList:Page<Article>

@@ -1,7 +1,7 @@
 <template>
     <div class="view-editor" v-if="article">
         <div class="top-bar">
-            <tag-edit :tags="article.tags" @change="change"/>
+            <tag-edit :tags="article.tags" @change="changeTags"/>
             <el-button type="warning" round v-if="aid" @click="save">保存</el-button>
             <el-button type="warning" round v-else @click="release">发布</el-button>
         </div>
@@ -26,16 +26,17 @@
 </template>
 
 <script setup lang="ts">
-import {ref, shallowRef, onBeforeUnmount, onMounted} from "vue";
+import {ref, shallowRef, onBeforeUnmount, onMounted, reactive} from "vue";
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import TagEdit from "@/components/editer/TagEdit.vue";
 import {useBlogStore} from "@/stores/blogStore";
+import {getArticleContent, saveArticle, updateArticle} from "@/api/blogApi";
+import {ElMessage} from "element-plus";
 
 const store = useBlogStore()
 const props = defineProps<{
     aid:number|null
 }>()
-
 
 const editorRef = shallowRef()
 const handleCreated = (editor) => {editorRef.value = editor}
@@ -47,36 +48,35 @@ onBeforeUnmount(() => {
 
 
 
-let article = ref<Article|null>()
-onMounted(()=>{
-    if (props.aid)
-        store.getArticle(props.aid).then((data:Article)=>article.value=data)
-    else
-        article.value = {
-            aid:0,
-            title:'',
-            img:'',
-            context:'',
-            likee:0,
-            watch:0,
-            createTime:'',
-            updateTime:'',
-            tags:[]
-        }
+
+
+let article = reactive<ChangedArticle>({
+    title:"",
+    context:"",
+})
+onMounted(async ()=>{
+    if (!props.aid)return
+    let data:Article = await getArticleContent(props.aid)
+    ElMessage("加载中")
+    article.title=data.title
+    article.context=data.context
+    ElMessage("加载成功")
 })
 
-let change = (check:boolean,tag:string)=>{
+let changeTags = (check:boolean,tag:string)=>{
     if (!check)
         article.value.tags = article.value.tags.filter(v => v!= tag)
     else
         article.value.tags.push(tag)
 }
 
-let save = () => {
-    // store.updateArticle(article.value).then(()=>ElMessage('更新成功')).catch(data=>ElMessage('更新失败'))
+let save = async () => {
+    let data = await updateArticle(article,props.aid)
+    console.log(data)
 }
-let release = () => {
-    // store.addArticle(article.value).then(()=>ElMessage('发布成功')).catch(data=>ElMessage('发布失败'))
+let release = async () => {
+    let data = await saveArticle(article)
+    console.log(data)
 }
 
 

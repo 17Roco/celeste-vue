@@ -1,17 +1,22 @@
 <template>
     <div class="com-article-show">
-        <template v-if="article==null">
+        <div v-if="article==null">
             <p>文章不存在</p>
-        </template>
+        </div>
         <div class="view-article" v-else>
+            <!--标题-->
             <h1> {{ article.title }}</h1>
+            <!--用户信息-->
             <p class="info" v-if="article.user">
                 作者：{{ article.user.username }} &emsp;
                 创建时间：{{ article.createTime }} &emsp;
                 <template v-if="article.createTime!=article.updateTime">更新时间：{{ article.updateTime }}</template>
             </p>
+            <!--标签-->
             <tag-show :tags="article.tags"/>
+            <!--正文-->
             <p class="context" v-html="article.context"></p>
+            <!--底部条-->
             <bottom-bar v-if="article.user" :user="article.user" />
         </div>
     </div>
@@ -21,7 +26,7 @@
 
 import TagShow from "./TagShow.vue";
 import BottomBar from "./BottomBar.vue";
-import {ref, onMounted, watch} from "vue";
+import {onMounted, ref} from "vue";
 import {getArticleContent} from "@/api/blogApi";
 
 const props = defineProps<{
@@ -29,8 +34,9 @@ const props = defineProps<{
 }>()
 
 let article = ref<Article|null>(null)
-onMounted(()=>{
-    getArticleContent(props.aid).then(data => article.value = data)
+onMounted(async ()=>{
+    article.value = await getArticleContent(props.aid)
+    console.log(article.value)
 })
 </script>
 

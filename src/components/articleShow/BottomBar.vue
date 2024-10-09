@@ -1,14 +1,14 @@
 <template>
     <div class="com-bottom-bar">
-        <div class="body" >
+        <div class="body">
             <div class="user-info" v-if="user">
                 <el-avatar :src="user.img" size="default"/>
                 <span style="margin-right: 30px">{{ user.username }}</span>
-                                <el-button>关注</el-button>
+                <el-button>关注</el-button>
             </div>
             <div class="opt">
                 <el-button>点赞</el-button>
-                                <el-button>评论</el-button>
+                <el-button>评论</el-button>
             </div>
         </div>
     </div>
@@ -26,16 +26,17 @@ onMounted(()=>{
     // store.getUser(props.uid).then(data => {
     //     user.value = data;
     // })
-    console.log(props.user)
+    // console.log(props.user)
 })
 </script>
 
 <style>
 .com-bottom-bar{
     position: fixed;
-    left: 40px;
-    right: 40px;
+    left: 50%;
     bottom: 0;
+    width: 1240px;
+    margin-left: -620px;
 
     display: flex;
     justify-content: center;
@@ -43,10 +44,10 @@ onMounted(()=>{
     border-bottom: 0;
     border-radius:15px 15px 0 0;
     background: #e9ecef;
+
     >.body{
         width: 1000px;
         height: 50px;
-        padding: 0 200px;
 
         display: flex;
         align-items: center;
@@ -59,6 +60,6 @@ onMounted(()=>{
 }
 
 @media (min-width: 1200px) {
-    width: 1400px;
+    width: 1200px;
 }
 </style>

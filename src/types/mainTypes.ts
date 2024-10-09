@@ -7,6 +7,10 @@ interface User {
     phone?:string,
     email?:string
 }
+interface Token {
+    token:string,
+}
+
 interface LoginForm{
     username:string,
     password:string

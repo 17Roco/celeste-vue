@@ -1,5 +1,5 @@
 <template>
-    <div class="com-user" v-if="store.user.isLogin">
+    <div class="com-user" v-if="store.user.token && store.user.token !== ''">
         <el-button type="danger" round class="commit-but">
             <router-link :to="'/blog/edit'">发布文章</router-link>
         </el-button>
@@ -28,8 +28,9 @@ import {ElMessage} from "element-plus";
 const store = useMainStore()
 
 const logout = ()=>{
-    store.user.isLogin = false
-    ElMessage({message:"退出登录"})
+    ElMessage("正在退出")
+    store.logout()
+    ElMessage("退出成功")
 }
 </script>
 

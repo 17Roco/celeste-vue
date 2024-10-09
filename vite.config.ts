@@ -20,11 +20,11 @@ export default defineConfig({
     }
   },
   server: {
-    port: 80,
+    port: 81,
     open: true,
     proxy: {
       "/api": {
-        target: "http://172.29.210.70",
+        target: "http://localhost",
         changeOrigin: true, //是否跨域
         rewrite: (path) => path.replace(/^\/api/, ""),
       }

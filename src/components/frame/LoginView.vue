@@ -36,38 +36,33 @@
     </el-drawer>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {useMainStore} from "@/stores/mainStore.ts";
 import {ref,reactive} from "vue";
 import {ElMessage} from "element-plus";
 
 const store = useMainStore()
 
-let tab = ref('login')
-let form  = reactive({
+let tab = ref<string>('login')
+let form  = reactive<LoginForm>({
     username:'',
     password:''
 })
-let pw = ref('')
+let pw = ref<string>('')
 
-let login = () => {
+let login = async () => {
     if (!form.username || form.username ===''){
         ElMessage('请输入用户名')
     }else if (!form.password || form.password ===''){
         ElMessage('请输入密码')
     }else {
-        // store.login(form).then(data=>{
-        //     store.loginView = false
-        //     form.username = ''
-        //     form.password = ''
-        //     ElMessage("登录成功")
-        // }).catch(err=>{
-        //     ElMessage("登录失败,"+err.msg)
-        // })
-        ElMessage({message:"登录..."})
+        ElMessage({message:"登录中..."})
+        await store.login(form)
+        ElMessage({message:"登录成功..."})
+        store.user.loginMode = false
     }
 }
-let signup = () => {
+let signup = async () => {
     if (!form.username || form.username ===''){
         ElMessage('请输入用户名')
     }else if (!form.password || form.password ===''){
@@ -77,13 +72,8 @@ let signup = () => {
     }else if (form.password !== pw.value){
         ElMessage('两次输入的密码不一致')
     }else {
-        // store.signup(form).then(data=>{
-        //     form.username = ''
-        //     form.password = ''
-        //     pw.value = ''
-        //     store.loginView = false
-        // })
         ElMessage({message:"注册..."})
+        await store.register(form)
     }
 }
 

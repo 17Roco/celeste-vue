@@ -5,20 +5,16 @@ import Frame from "@/components/frame/Frame.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {path: '/', redirect:'/home'},
     {
-      path: '/',
-      redirect:'/home'
-    },{
-      path: '/home',
-      redirect:'/home/index',
+      path: '/home', redirect:'/home/index',
       component: Frame,
       children:[{
         path:'index',
         component:HomeView
       }]
     },{
-      path: '/about',
-      redirect:'/about/index',
+      path: '/about', redirect:'/about/index',
       component: Frame,
       children:[{
         path:'index',
@@ -31,19 +27,18 @@ const router = createRouter({
     // /blog/article/:aid
     // /blog/edit/aid?
     {
-      path: '/blog',
-      redirect:'/blog/index',
+      path: '/blog', redirect:'/blog/index',
       component: Frame,
       children:[{
         path:'index',
         component:()=>import("@/views/blog/BlogView.vue")
       },{
         path:'article/:aid',
-        props:true,
+        props:route => ({aid:parseInt(route.params.aid)}),
         component:()=>import("@/views/blog/ArticleView.vue")
       },{
         path:'edit/:aid?',
-        props:true,
+        props:route => (route.params.aid ? {aid:parseInt(route.params.aid)} : {}),
         component:()=>import("@/views/blog/ArticleEditView.vue")
       }]
     },
@@ -61,6 +56,7 @@ const router = createRouter({
         component:()=>import("@/views/user/UserSettingView.vue")
       },{
         path:':uid',
+        props:route => ({uid:parseInt(route.params.uid)}),
         component:()=>import("@/views/user/UserHomeView.vue")
       }]
     },
@@ -82,12 +78,10 @@ const router = createRouter({
     {
       path:"/404",
       component:()=>import("@/views/NotFound.vue")
-    },
-    {
+    }, {
       path:"/:pathMatch(.*)*",
       redirect:'/404'
-    }
-    ],
+    }],
 })
 
 export default router

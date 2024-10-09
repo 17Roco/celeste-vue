@@ -1,11 +1,10 @@
 <script setup lang="ts">
 
-import ArticleList from "@/components/articleList/ArticleList.vue";
+import UserHome from "@/components/userHome/UserHome.vue";
 </script>
 
 <template>
-    <h1>user Home</h1>
-    <article-list :edit="true"/>
+    <UserHome/>
 </template>
 
 <style>

@@ -1,9 +1,11 @@
 import {defineStore} from "pinia";
 import {computed, reactive, ref} from "vue";
+import {login, logout, register} from "@/api/userApi";
+import {ElMessage} from "element-plus";
 
-export const useMainStore = defineStore
-('main', () =>({
-    menu:reactive({
+export const useMainStore = defineStore('main', () =>{
+
+    let menu = reactive({
         cur:'',
         models:[
             {'title':'Home','path':'/home','img':"https://pinia.vuejs.org/logo.svg"},
@@ -14,18 +16,34 @@ export const useMainStore = defineStore
             {'title':'Home','path':'/user/home'},
             {'title':'Setting','path':'/user/setting'}
         ]
-    }),
-    user:reactive({
-        isLogin:true,
+    })
+    let user = reactive({
         loginMode:false,
         uid:1,
-        token:'',
+        token:localStorage.getItem("token") || '',
         userInfo:{
             img:"https://pinia.vuejs.org/logo.svg"
         }
-    }),
-    filter:reactive({
-        tags:['tag_1','tag_2','tag_3','tag_4','tag_5','tag_6','tag_7','tag_8','tag_9','tag_10','tag_11','tag_12'],
-        order:["最新","高赞","高浏览量"]
     })
-}))
+    return {
+        menu, user,
+        login:async (form:LoginForm)=>{
+            let token:Token = await login(form)
+            user.token = token.token
+            localStorage.setItem('token',token.token)
+            return token;
+        },
+        logout:async ()=> {
+            let b = await logout() === "ok";
+            if (b) {
+                user.token = ''
+                localStorage.removeItem('token')
+            }else
+                ElMessage("退出失败")
+            return b
+        },
+        register:async (form:LoginForm)=>{
+            await register(form)
+        }
+    }
+})

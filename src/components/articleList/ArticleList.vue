@@ -4,7 +4,7 @@
     </div>
     <div v-else class="com-article-list">
         <!-- 过滤条 -->
-<!--        <filter-bar :articleList="articleList"/>-->
+        <filter-bar :articleList="articleList"/>
         <!--    文章列表    -->
         <div v-if="articleList.records.length === 0" style="text-align: center">空</div>
         <article-item v-else v-for="a in articleList.records" :v-key="a.title" :article="a" :edit="edit"/>
@@ -19,7 +19,8 @@ import Pagination from "./filterBar/Pagination.vue";
 import {useBlogStore} from "@/stores/blogStore";
 import {useRoute} from "vue-router";
 import router from "@/router";
-
+import {useMainStore} from "@/stores/mainStore";
+import {getArticleInfos} from "@/api/blogApi";
 const store = useBlogStore()
 const route = useRoute()
 defineProps({
@@ -29,7 +30,7 @@ defineProps({
 
 let articleList = ref<Page<Article>|null>(null)
 onMounted(()=> {
-    store.getArticles(route.query as Filter).then( data => articleList.value=data )
+    getArticleInfos(route.query as Filter).then( data => articleList.value=data )
 })
 
 </script>

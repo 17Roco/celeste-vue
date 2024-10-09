@@ -11,9 +11,9 @@
 
 <script setup lang="ts">
 
-import {useMainStore} from "@/stores/mainStore.ts";
+import {useBlogStore} from "@/stores/blogStore";
 
-const store = useMainStore()
+const store = useBlogStore()
 const tag = defineModel()
 let change = (t:string) => {
     tag.value === t ? tag.value = null : tag.value = t

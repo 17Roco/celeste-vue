@@ -31,6 +31,8 @@ request.interceptors.request.use(
 )
 request.interceptors.response.use(
     response => {
+        if (!response.data.data)
+            return response.data.msg
         return response.data.data
     },
     error => {
