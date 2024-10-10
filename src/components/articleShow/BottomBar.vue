@@ -19,7 +19,7 @@ import {watch,ref,onMounted} from "vue";
 
 // const store = useUserStore()
 const props = defineProps<{
-    user:User
+    user:UserInfo
 }>()
 
 onMounted(()=>{

@@ -12,17 +12,17 @@
 </template>
 
 <script setup lang="ts">
-import {onBeforeUpdate, onMounted, reactive, ref, watch} from "vue";
+import {onMounted, ref} from "vue";
 import FilterBar from "./filterBar/FilterBar.vue";
 import ArticleItem from "./ArticleItem.vue";
-import Pagination from "./filterBar/Pagination.vue";
 import {useBlogStore} from "@/stores/blogStore";
 import {useRoute} from "vue-router";
-import router from "@/router";
-import {useMainStore} from "@/stores/mainStore";
 import {getArticleInfos} from "@/api/blogApi";
+
 const store = useBlogStore()
 const route = useRoute()
+
+
 defineProps({
     "edit":{type:Boolean,default:false}
 })
@@ -30,7 +30,7 @@ defineProps({
 
 let articleList = ref<Page<Article>|null>(null)
 onMounted(()=> {
-    getArticleInfos(route.query as Filter).then( data => articleList.value=data )
+    store.getArticleList(route.query as Filter).then( data => articleList.value=data )
 })
 
 </script>

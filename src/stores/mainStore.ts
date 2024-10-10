@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {computed, reactive, ref} from "vue";
-import {login, logout, register} from "@/api/userApi";
+import {getSelfInfo, login, logout, register} from "@/api/userApi";
 import {ElMessage} from "element-plus";
 
 export const useMainStore = defineStore('main', () =>{
@@ -17,33 +17,50 @@ export const useMainStore = defineStore('main', () =>{
             {'title':'Setting','path':'/user/setting'}
         ]
     })
-    let user = reactive({
+    let user = reactive<LoginStatus>({
         loginMode:false,
-        uid:1,
-        token:localStorage.getItem("token") || '',
-        userInfo:{
-            img:"https://pinia.vuejs.org/logo.svg"
-        }
+        token:localStorage.getItem("token") || ''
     })
+    let userInfo = ref<UserInfo|null>(null)
+
+    let setToken = (token:string|null):void=>{
+        if(token){
+            user.token = token
+            localStorage.setItem('token',token)
+            loadInfo()
+        }else {
+            user.token = ''
+            localStorage.removeItem('token')
+        }
+    }
+    let loadInfo = async () => {
+        userInfo.value = await getSelfInfo()
+        if(!userInfo.value)
+            setToken(null)
+        return user.userInfo
+    }
     return {
         menu, user,
-        login:async (form:LoginForm)=>{
-            let token:Token = await login(form)
-            user.token = token.token
-            localStorage.setItem('token',token.token)
-            return token;
+        setToken,loadInfo,
+        login:      async (form:LoginForm)=>{
+            setToken((await login(form)).token)
+            loadInfo()
         },
-        logout:async ()=> {
+        logout:     async ()=> {
             let b = await logout() === "ok";
-            if (b) {
-                user.token = ''
-                localStorage.removeItem('token')
-            }else
-                ElMessage("退出失败")
+            b ? setToken(null) : ElMessage("退出失败")
             return b
         },
-        register:async (form:LoginForm)=>{
-            await register(form)
-        }
+        register:   async (form:LoginForm)=>{
+            return await register(form) === "ok";
+        },
+
+        userInfo:   computed(():UserInfo|null=>{
+            if (!user.token)
+                userInfo.value=null
+            else if(!userInfo.value)
+                loadInfo()
+            return userInfo.value
+        })
     }
 })

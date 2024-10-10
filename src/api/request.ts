@@ -31,8 +31,12 @@ request.interceptors.request.use(
 )
 request.interceptors.response.use(
     response => {
-        if (!response.data.data)
-            return response.data.msg
+        if (!response.data.data){
+            if (response.data.msg === "ok" || response.data.msg === "error")
+                return response.data.msg
+            ElMessage(response.data.msg)
+            return null
+        }
         return response.data.data
     },
     error => {

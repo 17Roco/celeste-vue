@@ -4,7 +4,7 @@
             class="tag"
             round type="success"
             v-for="tag in store.filter.tags" :key="tag"
-            @change="emit('change',$event,tag)"
+            @change="change($event,tag)"
             :checked="tags.find(v => v===tag) != undefined">
             {{ tag }}
         </el-check-tag>
@@ -15,15 +15,11 @@
 import {useBlogStore} from "@/stores/blogStore.ts";
 
 const store = useBlogStore()
-const emit = defineEmits<{
-    change:[boolean,string]
-}>()
-defineProps<{
-    tags:Array<string>
-}>()
+const tags = defineModel<Array<string>>()
 
-
-
+let change = (check:boolean,tag:string)=>{
+    check ? tags.value.push(tag) : tags.value = tags.value.filter(t=>t!==tag)
+}
 </script>
 
 <style>

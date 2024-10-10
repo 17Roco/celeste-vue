@@ -1,32 +1,24 @@
 <template>
-    <div class="view-editor" v-if="article">
+    <div class="view-editor">
         <div class="top-bar">
-            <tag-edit :tags="article.tags" @change="changeTags"/>
+            <!--修改标签-->
+            <tag-edit v-model="tags"/>
+            <!--保存或发布-->
             <el-button type="warning" round v-if="aid" @click="save">保存</el-button>
             <el-button type="warning" round v-else @click="release">发布</el-button>
         </div>
         <!--   标题+编辑器     -->
-        <el-input v-model="article.title" placeholder="请输入标题" input-style="font-size: 2em;text-align:center;margin: 10px;" class="title-input"/>
+        <el-input v-model="article.title" input-style="font-size: 2em;text-align:center;margin: 10px;" class="title-input"
+            :disabled="load"  :placeholder="load ? '加载中':'请输入标题'"/>
         <div style="border: 1px solid #ccc">
-            <Toolbar
-                style="border-bottom: 1px solid #ccc"
-                :editor="editorRef"
-            />
-            <Editor
-                style="min-height: 600px"
-                v-model="article.context"
-                :defaultConfig="{ placeholder: '请输入内容...' }"
-                @onCreated="handleCreated"
-            />
+            <Toolbar style="border-bottom: 1px solid #ccc" :editor="editorRef"/>
+            <Editor style="min-height: 600px" :defaultConfig="{ placeholder: '请输入内容...' }" v-model="article.context" @onCreated="handleCreated"/>
         </div>
-    </div>
-    <div v-else>
-        加载中
     </div>
 </template>
 
 <script setup lang="ts">
-import {ref, shallowRef, onBeforeUnmount, onMounted, reactive} from "vue";
+import {shallowRef, onBeforeUnmount, onMounted, reactive, ref} from "vue";
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import TagEdit from "@/components/editer/TagEdit.vue";
 import {useBlogStore} from "@/stores/blogStore";
@@ -37,6 +29,14 @@ const store = useBlogStore()
 const props = defineProps<{
     aid:number|null
 }>()
+let load = ref<boolean>(false)
+let article = reactive<ChangedArticle>({
+    title:"",
+    context:"",
+    tags:[]
+})
+let srcTags = []
+let tags = ref<Array<string>>([])
 
 const editorRef = shallowRef()
 const handleCreated = (editor) => {editorRef.value = editor}
@@ -50,26 +50,24 @@ onBeforeUnmount(() => {
 
 
 
-let article = reactive<ChangedArticle>({
-    title:"",
-    context:"",
-})
-onMounted(async ()=>{
-    if (!props.aid)return
-    let data:Article = await getArticleContent(props.aid)
+onMounted( ()=>{
+    if (!props.aid)
+        return
     ElMessage("加载中")
-    article.title=data.title
-    article.context=data.context
-    ElMessage("加载成功")
+    load.value = true
+    getArticleContent(props.aid).then(data => {
+        article.title=data.title
+        article.context=data.context
+        srcTags = data.tags
+        tags.push(data.tags)
+        ElMessage("加载成功")
+        load.value = false
+    })
+
 })
+let updateTagChange = ()=>{
 
-let changeTags = (check:boolean,tag:string)=>{
-    if (!check)
-        article.value.tags = article.value.tags.filter(v => v!= tag)
-    else
-        article.value.tags.push(tag)
 }
-
 let save = async () => {
     let data = await updateArticle(article,props.aid)
     console.log(data)

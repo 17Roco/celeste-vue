@@ -4,7 +4,7 @@
             <router-link :to="'/blog/edit'">发布文章</router-link>
         </el-button>
         <el-dropdown trigger="hover">
-            <el-avatar :size="50" :src="(store.user.userInfo.img)||''" v-loading="!store.user.userInfo.img"/>
+            <el-avatar :size="50" :src="store.userInfo ? store.userInfo.img : ''" v-loading="!store.userInfo"/>
             <template #dropdown>
                 <el-dropdown-menu>
                     <el-dropdown-item v-for="p in store.menu.userOpe" :key="p.path">

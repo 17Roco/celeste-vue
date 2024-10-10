@@ -1,15 +1,22 @@
 
-interface User {
+interface UserInfo {
     uid:number,
-    username?:string,
-    img?:string,
-    sex?:number,
-    phone?:string,
-    email?:string
+    username:string,
+    img:string,
+    sex:number,
+    phone:string,
+    email:string
 }
 interface Token {
     token:string,
 }
+interface LoginStatus {
+    loginMode:boolean,
+    token:string
+}
+
+
+
 
 interface LoginForm{
     username:string,

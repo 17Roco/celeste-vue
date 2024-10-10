@@ -3,7 +3,7 @@ import {request} from "./request"
 
 const prefix = "/article"
 
-export const getArticleInfos    = (filter:Filter):Promise<Page<Article>>    => request.get(`${prefix}/filter`,{params:filter})//
+export const getArticleInfos    = (filter:Filter):Promise<Page<Article>>    => request.get(`${prefix}/filter`, {params:filter})
 export const getArticleContent  = (aid:number):Promise<Article>             => request.get(`${prefix}/${aid}`)
 
 export const saveArticle        = (article:ChangedArticle)                  => request.post(`${prefix}/`,article)
