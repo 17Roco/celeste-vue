@@ -16,8 +16,8 @@ export const getTags        =()             :Promise<Array<any>> => request.get(
 
 export const likeArticle    =(aid:number)              :Promise<boolean>    => request.post(`${prefix}/like/${aid}`)
 export const unlikeArticle  =(aid:number)              :Promise<boolean>    => request.post(`${prefix}/unlike/${aid}`)
-// export const addTags        =(aid:number,tag:string)   :Promise<boolean>    => request.post(`${prefix}/addTags`)
-// export const deleteTag      =(aid:number,tag:string)   :Promise<boolean>    => request.post(`${prefix}/delTags`)
+export const addTags        =(aid:number,tag:string)   :Promise<boolean>    => request.post(`${prefix}/addTags`)
+export const deleteTag      =(aid:number,tag:string)   :Promise<boolean>    => request.post(`${prefix}/delTags`)
 
 
 

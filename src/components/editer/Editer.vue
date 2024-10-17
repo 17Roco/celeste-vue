@@ -2,7 +2,7 @@
     <div class="view-editor">
         <div class="top-bar">
             <!--修改标签-->
-            <tag-edit v-model="tags"/>
+            <tag-edit :tags="article.tags" @changeTag="changeTag"/>
             <!--保存或发布-->
             <el-button type="warning" round v-if="aid" @click="save">保存</el-button>
             <el-button type="warning" round v-else @click="release">发布</el-button>
@@ -22,7 +22,7 @@ import {shallowRef, onBeforeUnmount, onMounted, reactive, ref} from "vue";
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import TagEdit from "@/components/editer/TagEdit.vue";
 import {useBlogStore} from "@/stores/blogStore";
-import {getArticleContent, saveArticle, updateArticle} from "@/api/blogApi";
+import {addTags, deleteTag, getArticleContent, saveArticle, updateArticle} from "@/api/blogApi";
 import {ElMessage} from "element-plus";
 import {useMainStore} from "@/stores/mainStore";
 import router from "@/router";
@@ -39,7 +39,6 @@ let article = reactive<ChangedArticle>({
     tags:[]
 })
 let srcTags = []
-let tags = reactive<Array<string>>([])
 
 const editorRef = shallowRef()
 const handleCreated = (editor) => {editorRef.value = editor}
@@ -58,22 +57,25 @@ onMounted( ()=>{
         return
     ElMessage("加载中")
     load.value = true
-    getArticleContent(props.aid).then(data => {
-        if (data.aid !== mainStore.userInfo?.uid){
+    getArticleContent(props.aid).then((data:Article) => {
+        if (data.user.uid !== mainStore.userInfo?.uid){
             router.push("/home").then(()=>ElMessage("无权编辑其他用户文章"))
             return
         }
         article.title=data.title
         article.context=data.context
-        srcTags = data.tags
-        tags.push(data.tags)
+        data.tags.forEach(t => article.tags.push(t))
         ElMessage("加载成功")
         load.value = false
     })
 
 })
-let updateTagChange = ()=>{
-
+let changeTag = async(b:boolean,tag:string)=>{
+    let bb = b ? await addTags(props.aid, tag) : await deleteTag(props.aid, tag)
+    if (bb){
+        b ? article.tags.push(tag) : article.tags = article.tags.find(t=>t!==tag)
+    }
+    ElMessage(bb)
 }
 let save = async () => {
     ElMessage("保存中...")
