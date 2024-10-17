@@ -1,14 +1,16 @@
 <script setup lang="ts">
 
 import ArticleShow from "@/components/articleShow/ArticleShow.vue";
+import {onMounted} from "vue";
+import {onBeforeRouteUpdate} from "vue-router";
 defineProps<{
-    aid:string
+    aid:number
 }>()
 
 </script>
 
 <template>
-    <ArticleShow :aid="parseInt(aid)"/>
+    <ArticleShow :aid="aid"/>
 </template>
 
 <style scoped>

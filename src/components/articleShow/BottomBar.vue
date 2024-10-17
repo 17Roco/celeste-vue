@@ -1,11 +1,13 @@
 <template>
     <div class="com-bottom-bar">
         <div class="body">
+            <!-- 作者信息 -->
             <div class="user-info" v-if="user">
                 <el-avatar :src="user.img" size="default"/>
                 <span style="margin-right: 30px">{{ user.username }}</span>
                 <el-button>关注</el-button>
             </div>
+            <!-- 操作 -->
             <div class="opt">
                 <el-button>点赞</el-button>
                 <el-button>评论</el-button>
@@ -17,17 +19,11 @@
 <script setup lang="ts">
 import {watch,ref,onMounted} from "vue";
 
-// const store = useUserStore()
-const props = defineProps<{
+defineProps<{
     user:UserInfo
 }>()
 
-onMounted(()=>{
-    // store.getUser(props.uid).then(data => {
-    //     user.value = data;
-    // })
-    // console.log(props.user)
-})
+onMounted(()=>{})
 </script>
 
 <style>

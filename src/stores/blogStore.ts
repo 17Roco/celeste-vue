@@ -20,8 +20,10 @@ export const useBlogStore = defineStore('blog', () =>{
         filter,
         loadTags,
         getArticleList:(f:Filter):Page<Article>=>{
-            if (f.order)f.order=filter._order[f.order]
-            return getArticleInfos(f)
+            if (f.order)
+                return getArticleInfos({...f,order:filter._order[f.order]})
+            else
+                return getArticleInfos(f)
         }
     }
 })

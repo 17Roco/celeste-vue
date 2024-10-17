@@ -17,7 +17,7 @@
 import TagSelect from "@/components/articleList/filterBar/tagSelect.vue";
 import Pagination from "@/components/articleList/filterBar/Pagination.vue";
 import DateSelect from "@/components/articleList/filterBar/DateSelect.vue";
-import {computed, reactive, watch} from "vue";
+import {computed, onMounted, reactive, watch} from "vue";
 import {useRoute} from "vue-router";
 import router from "@/router";
 import {useBlogStore} from "@/stores/blogStore";
@@ -26,7 +26,7 @@ import {formatDate, toDate} from "@/util/TimeUtil";
 
 const store = useBlogStore()
 const route = useRoute()
-const props = defineProps<{
+defineProps<{
     articleList:Page<Article>
 }>()
 
@@ -55,10 +55,9 @@ let timeRange = computed({
 })
 
 watch(filter,()=>{
+    // 更新路径
     router.push({path:route.path,query:filter})
 },{deep:true})
-
-
 
 </script>
 

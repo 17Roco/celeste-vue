@@ -16,22 +16,27 @@ import {onMounted, ref} from "vue";
 import FilterBar from "./filterBar/FilterBar.vue";
 import ArticleItem from "./ArticleItem.vue";
 import {useBlogStore} from "@/stores/blogStore";
-import {useRoute} from "vue-router";
+import {onBeforeRouteUpdate, useRoute} from "vue-router";
 import {getArticleInfos} from "@/api/blogApi";
-
 const store = useBlogStore()
 const route = useRoute()
-
 
 defineProps({
     "edit":{type:Boolean,default:false}
 })
 
 
+// 加载文章列表
 let articleList = ref<Page<Article>|null>(null)
-onMounted(()=> {
-    store.getArticleList(route.query as Filter).then( data => articleList.value=data )
+
+onMounted(async ()=> {
+    articleList.value = await store.getArticleList(route.query as Filter)
 })
+onBeforeRouteUpdate((to, from, next)=>{
+    store.getArticleList(to.query as Filter).then( data => articleList.value=data )
+    next()
+})
+
 
 </script>
 

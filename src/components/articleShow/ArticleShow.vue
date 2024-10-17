@@ -36,7 +36,6 @@ const props = defineProps<{
 let article = ref<Article|null>(null)
 onMounted(async ()=>{
     article.value = await getArticleContent(props.aid)
-    console.log(article.value)
 })
 </script>
 
