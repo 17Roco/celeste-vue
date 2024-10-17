@@ -17,13 +17,10 @@
 </template>
 
 <script setup lang="ts">
-import {watch,ref,onMounted} from "vue";
-
 defineProps<{
     user:UserInfo
 }>()
 
-onMounted(()=>{})
 </script>
 
 <style>

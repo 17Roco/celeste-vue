@@ -18,19 +18,20 @@
 import moment from "moment";
 import router from "@/router";
 import {ElMessage,ElMessageBox} from "element-plus";
+import {deleteArticle} from "@/api/blogApi";
 
 
-const prop = defineProps<{
+const props = defineProps<{
     article:Article,
     edit:boolean
 }>()
 
-let delArticle = () => {
-    // ElMessage({message:'del'})
-    ElMessageBox.confirm('你确定要删除这篇文章吗？', '警告', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).catch(()=>{})
-    .then(() => {
-        ElMessage("ok")
-    })
+let delArticle = async () => {
+    let value = await ElMessageBox.confirm('你确定要删除这篇文章吗？', '警告', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).catch(()=>{})
+    if (value){
+        let b = await deleteArticle(props.article.aid)
+        ElMessage(b)
+    }
 }
 
 </script>

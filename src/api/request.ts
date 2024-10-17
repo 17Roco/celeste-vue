@@ -31,13 +31,16 @@ request.interceptors.request.use(
 )
 request.interceptors.response.use(
     response => {
-        if (!response.data.data){
-            if (response.data.msg === "ok" || response.data.msg === "error")
-                return response.data.msg
-            ElMessage(response.data.msg)
-            return null
+        let {code,msg,data} = response.data
+        if (!data){
+            if(code == 200 && msg === "ok")
+                return true
+            if(code == 400 && msg === "error")
+                return false
         }
-        return response.data.data
+        if (code != 200)
+            ElMessage(msg)
+        return data
     },
     error => {
         console.log('response err' + error)

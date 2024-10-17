@@ -1,11 +1,12 @@
 <script setup lang="ts">
-
 import Editer from "@/components/editer/Editer.vue";
+
+defineProps<{aid:number}>()
+
 </script>
 
 <template>
-<!--    <h1> article edit</h1>-->
-    <Editer/>
+    <Editer :aid="aid"/>
 </template>
 
 <style scoped>

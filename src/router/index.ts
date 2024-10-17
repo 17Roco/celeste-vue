@@ -38,11 +38,12 @@ const router = createRouter({
         component:()=>import("@/views/blog/ArticleView.vue")
       },{
         path:'edit/:aid?',
-        props:route => (route.params.aid ? {aid:parseInt(route.params.aid)} : {}),
+        props:route => ({aid: route.params.aid ? parseInt(route.params.aid) : null}),
         component:()=>import("@/views/blog/ArticleEditView.vue")
       }]
     },
     // /user/home
+    // /user/manager
     // /user/setting
     {
       path: '/user',
@@ -51,6 +52,9 @@ const router = createRouter({
       children:[{
         path:'home',
         component:()=>import("@/views/user/UserHomeView.vue")
+      },{
+        path:'manager',
+        component:()=>import("@/views/user/ArticleManagerView.vue")
       },{
         path:'setting',
         component:()=>import("@/views/user/UserSettingView.vue")

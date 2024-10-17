@@ -19,6 +19,7 @@ interface Filter{
     order?:string,
     beginTime?:string,
     endTime?:string,
+    self:boolean
 }
 
 interface ChangedArticle {

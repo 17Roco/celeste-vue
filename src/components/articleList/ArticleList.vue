@@ -21,7 +21,7 @@ import {getArticleInfos} from "@/api/blogApi";
 const store = useBlogStore()
 const route = useRoute()
 
-defineProps({
+const props = defineProps({
     "edit":{type:Boolean,default:false}
 })
 
@@ -30,10 +30,10 @@ defineProps({
 let articleList = ref<Page<Article>|null>(null)
 
 onMounted(async ()=> {
-    articleList.value = await store.getArticleList(route.query as Filter)
+    articleList.value = await store.getArticleList(route.query as Filter,props.edit)
 })
 onBeforeRouteUpdate((to, from, next)=>{
-    store.getArticleList(to.query as Filter).then( data => articleList.value=data )
+    store.getArticleList(to.query as Filter,props.edit).then( data => articleList.value=data )
     next()
 })
 

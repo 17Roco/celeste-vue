@@ -13,8 +13,9 @@ export const useMainStore = defineStore('main', () =>{
             {'title':'About','path':'/about','img':"https://pinia.vuejs.org/logo.svg"}
         ],
         userOpe:[
-            {'title':'Home','path':'/user/home'},
-            {'title':'Setting','path':'/user/setting'}
+            {'title':'主页','path':'/user/home'},
+            {'title':'文章管理','path':'/user/manager'},
+            {'title':'设置','path':'/user/setting'}
         ]
     })
     let user = reactive<LoginStatus>({

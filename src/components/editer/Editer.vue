@@ -24,8 +24,11 @@ import TagEdit from "@/components/editer/TagEdit.vue";
 import {useBlogStore} from "@/stores/blogStore";
 import {getArticleContent, saveArticle, updateArticle} from "@/api/blogApi";
 import {ElMessage} from "element-plus";
+import {useMainStore} from "@/stores/mainStore";
+import router from "@/router";
 
 const store = useBlogStore()
+const mainStore = useMainStore()
 const props = defineProps<{
     aid:number|null
 }>()
@@ -36,7 +39,7 @@ let article = reactive<ChangedArticle>({
     tags:[]
 })
 let srcTags = []
-let tags = ref<Array<string>>([])
+let tags = reactive<Array<string>>([])
 
 const editorRef = shallowRef()
 const handleCreated = (editor) => {editorRef.value = editor}
@@ -56,6 +59,10 @@ onMounted( ()=>{
     ElMessage("加载中")
     load.value = true
     getArticleContent(props.aid).then(data => {
+        if (data.aid !== mainStore.userInfo?.uid){
+            router.push("/home").then(()=>ElMessage("无权编辑其他用户文章"))
+            return
+        }
         article.title=data.title
         article.context=data.context
         srcTags = data.tags
@@ -69,12 +76,14 @@ let updateTagChange = ()=>{
 
 }
 let save = async () => {
+    ElMessage("保存中...")
     let data = await updateArticle(article,props.aid)
-    console.log(data)
+    ElMessage("保存成功")
 }
 let release = async () => {
+    ElMessage("发布中...")
     let data = await saveArticle(article)
-    console.log(data)
+    ElMessage("发布成功")
 }
 
 
