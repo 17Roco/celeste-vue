@@ -73,9 +73,11 @@ onMounted( ()=>{
 let changeTag = async(b:boolean,tag:string)=>{
     let bb = b ? await addTags(props.aid, tag) : await deleteTag(props.aid, tag)
     if (bb){
-        b ? article.tags.push(tag) : article.tags = article.tags.find(t=>t!==tag)
+        b ? article.tags.push(tag) : article.tags = article.tags.filter(t=>t!==tag)
+        ElMessage(b ? "添加成功" : "删除成功")
+    }else {
+        ElMessage(b ? "添加失败" : "删除失败")
     }
-    ElMessage(bb)
 }
 let save = async () => {
     ElMessage("保存中...")

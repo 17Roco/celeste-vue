@@ -1,6 +1,6 @@
 <template>
     <div class="com-tag-edit">
-        <el-tag class="tag" v-for="tag in tags" :key="tag" type="primary" closable round hit>
+        <el-tag class="tag" v-for="tag in tags" :key="tag" type="primary" closable round hit @close="$emit('changeTag',false,tag)">
             {{ tag }}
         </el-tag>
         <el-select class="new-tag" filterable placeholder="点击添加标签" @change="$emit('changeTag',true,$event)">
