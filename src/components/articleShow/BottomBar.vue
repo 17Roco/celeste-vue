@@ -7,6 +7,10 @@
                 <span style="margin-right: 30px">{{ user.username }}</span>
                 <el-button>关注</el-button>
             </div>
+            <!-- #todo -->
+            <div class="user-info" v-else>
+                <el-button>编辑</el-button>
+            </div>
             <!-- 操作 -->
             <div class="opt">
                 <el-button>点赞</el-button>
@@ -17,6 +21,9 @@
 </template>
 
 <script setup lang="ts">
+import {useMainStore} from "@/stores/mainStore";
+
+const store = useMainStore()
 defineProps<{
     user:UserInfo
 }>()

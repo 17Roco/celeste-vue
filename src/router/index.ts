@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import Frame from "@/components/frame/Frame.vue";
+import NProgress from 'nprogress'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,6 +87,12 @@ const router = createRouter({
       path:"/:pathMatch(.*)*",
       redirect:'/404'
     }],
+})
+
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+  next()
+  NProgress.done()
 })
 
 export default router
