@@ -1,14 +1,13 @@
 import {defineStore} from "pinia";
-import {computed, reactive, ref} from "vue";
+import {reactive, ref} from "vue";
 import {getSelfInfo, login, logout, register} from "@/api/userApi";
-import {ElMessage} from "element-plus";
 
 export const useMainStore = defineStore('main', () =>{
-
+    // 菜单
     let menu = reactive({
         cur:'',
         models:[
-            {'title':'Home','path':'/home','img':"https://pinia.vuejs.org/logo.svg"},
+            {'title':'Home','path':'/home','img':"/user.png"},
             {'title':'BLog','path':'/blog','img':"https://pinia.vuejs.org/logo.svg"},
             {'title':'About','path':'/about','img':"https://pinia.vuejs.org/logo.svg"}
         ],
@@ -18,50 +17,35 @@ export const useMainStore = defineStore('main', () =>{
             {'title':'设置','path':'/user/setting'}
         ]
     })
+    // 用户登录状态
     let user = reactive<LoginStatus>({
         loginMode:false,
         token:localStorage.getItem("token") || ''
     })
-    let userInfo = ref<UserInfo|null>(null)
 
-    let setToken = (token:string|null):void=>{
-        if(token){
+    // 设置token
+    let setToken = (token:string|null)=>{
+        if(token && token !== ''){
             user.token = token
             localStorage.setItem('token',token)
-            loadInfo()
         }else {
             user.token = ''
             localStorage.removeItem('token')
         }
     }
-    let loadInfo = async () => {
-        userInfo.value = await getSelfInfo()
-        if(!userInfo.value)
-            setToken(null)
-        return user.userInfo
-    }
-    return {
-        menu, user,
-        setToken,loadInfo,
-        login:      async (form:LoginForm)=>{
-            setToken((await login(form)).token)
-            loadInfo()
-        },
-        logout:     async ()=> {
-            let b = await logout() === "ok";
-            b ? setToken(null) : ElMessage("退出失败")
-            return b
-        },
-        register:   async (form:LoginForm)=>{
-            return await register(form) === "ok";
-        },
 
-        userInfo:   computed(():UserInfo|null=>{
-            if (!user.token)
-                userInfo.value=null
-            else if(!userInfo.value)
-                loadInfo()
-            return userInfo.value
-        })
+    return {
+        menu,
+        user,
+        login:async (form:LoginForm) => setToken((await login(form)).token),
+
+        register:async (form:LoginForm)=> await register(form),
+
+        getSelfInfo:async ():Promise<UserInfo|null> => (user.token && user.token !== '')? await getSelfInfo() : null,
+
+        logout:async ()=> {
+            await logout()
+            setToken(null)
+        }
     }
 })

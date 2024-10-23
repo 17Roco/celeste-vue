@@ -19,7 +19,7 @@
             <el-tab-pane label="注册" name="signup" class="form-view">
                 <el-form :model="form" label-width="auto" style="max-width: 400px">
                     <el-form-item label="用户名">
-                        <el-input v-model="form.username" />
+                        <el-input v-model="form.username"/>
                     </el-form-item>
                     <el-form-item label="密码">
                         <el-input v-model="form.password" type="password"/>
@@ -56,9 +56,10 @@ let login = async () => {
     }else if (!form.password || form.password ===''){
         ElMessage('请输入密码')
     }else {
-        ElMessage({message:"登录中..."})
         await store.login(form)
-        ElMessage({message:"登录成功..."})
+        if (!store.user.token && store.user.token !== ''){
+            ElMessage({message:"登录中..."})
+        }
         store.user.loginMode = false
     }
 }

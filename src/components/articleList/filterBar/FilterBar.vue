@@ -8,7 +8,7 @@
             <!--    顶部分页    -->
             <Pagination :article-list="articleList" v-model="filter.index"/>
             <!--    时间范围    -->
-            <DateSelect v-model="timeRange"/>
+            <DateSelect @change="changeTime"/>
         </div>
     </div>
 </template>
@@ -17,7 +17,7 @@
 import TagSelect from "@/components/articleList/filterBar/tagSelect.vue";
 import Pagination from "@/components/articleList/filterBar/Pagination.vue";
 import DateSelect from "@/components/articleList/filterBar/DateSelect.vue";
-import {computed, onMounted, reactive, watch} from "vue";
+import {computed, onMounted, reactive, ref, watch} from "vue";
 import {useRoute} from "vue-router";
 import router from "@/router";
 import {useBlogStore} from "@/stores/blogStore";
@@ -35,24 +35,14 @@ let filter = reactive<Filter>({
     index:route.query.index ||1,
     order:route.query.order ||"最新",
     tag:route.query.tag,
-    beginTime:undefined,
-    endTime: undefined,
+    beginTime:null,
+    endTime: null,
 })
 
-let timeRange = computed({
-    get:()=> [
-        route.query.beginTime?toDate(route.query.beginTime):route.query.beginTime,
-        route.query.endTime?toDate(route.query.endTime):route.query.endTime
-    ],
-    set:(time:Array<Date>|null)=>{
-        if(time){
-            filter.beginTime = time[0]?formatDate(time[0]):undefined
-            filter.endTime = time[1]?formatDate(time[1]):undefined
-        }else {
-            filter.beginTime = filter.endTime = undefined
-        }
-    }
-})
+let changeTime = (beginTime:Date,endTime:Date)=>{
+    filter.beginTime = beginTime ? formatDate(beginTime) : undefined
+    filter.endTime = endTime ? formatDate(endTime) : undefined
+}
 
 watch(filter,()=>{
     // 更新路径

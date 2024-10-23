@@ -8,7 +8,7 @@ defineProps<{uid:number|null}>()
 </script>
 
 <template>
-    <UserHome :uid="uid || store.userInfo?.uid"/>
+    <UserHome :uid="uid"/>
 </template>
 
 <style>

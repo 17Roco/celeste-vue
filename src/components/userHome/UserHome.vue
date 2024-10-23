@@ -1,9 +1,10 @@
 <script setup lang="ts">
 
-import ArticleList from "@/components/articleList/ArticleList.vue";
 import {useMainStore} from "@/stores/mainStore";
 import {onMounted, ref} from "vue";
 import {getUser} from "@/api/userApi";
+import UserInfoShow from "@/components/userHome/UserInfoShow.vue";
+import UserShowItem from "@/components/userHome/UserShowItem.vue";
 
 const store = useMainStore()
 const props = defineProps<{
@@ -18,11 +19,9 @@ onMounted(async ()=>{
 </script>
 
 <template>
-    <div class="com-user-home">
-        <div v-if="userInfo" class="user-info">
-            <img :src="userInfo.img" alt=""/>
-            <p>username : {{ userInfo.username }}</p>
-        </div>
+    <div class="com-user-home" v-if="userInfo">
+        <user-info-show :userInfo="userInfo"/>
+        <user-show-item title="文章"/>
     </div>
 </template>
 
@@ -31,11 +30,6 @@ onMounted(async ()=>{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    .user-info{
-        width: 600px;
-        >img{
-            width: 90px;
-        }
-    }
+    width: 100%;
 }
 </style>

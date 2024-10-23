@@ -2,7 +2,8 @@
     <div class="view-editor">
         <div class="top-bar">
             <!--修改标签-->
-            <tag-edit :tags="article.tags" @changeTag="changeTag"/>
+            <tag-edit :tags="article.tags" @changeTag="changeTag" v-if="aid"/>
+            <div v-else></div>
             <!--保存或发布-->
             <el-button type="warning" round v-if="aid" @click="save">保存</el-button>
             <el-button type="warning" round v-else @click="release">发布</el-button>
@@ -22,23 +23,24 @@ import {shallowRef, onBeforeUnmount, onMounted, reactive, ref} from "vue";
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import TagEdit from "@/components/editer/TagEdit.vue";
 import {useBlogStore} from "@/stores/blogStore";
-import {addTags, deleteTag, getArticleContent, saveArticle, updateArticle} from "@/api/blogApi";
+import {addTags, deleteTag, saveArticle, updateArticle} from "@/api/blogApi";
 import {ElMessage} from "element-plus";
 import {useMainStore} from "@/stores/mainStore";
 import router from "@/router";
+import {NP} from "@/util/NP";
 
 const store = useBlogStore()
 const mainStore = useMainStore()
 const props = defineProps<{
     aid:number|null
 }>()
+
 let load = ref<boolean>(false)
 let article = reactive<ChangedArticle>({
     title:"",
     context:"",
     tags:[]
 })
-let srcTags = []
 
 const editorRef = shallowRef()
 const handleCreated = (editor) => {editorRef.value = editor}
@@ -51,24 +53,26 @@ onBeforeUnmount(() => {
 
 
 
-
-onMounted( ()=>{
+// 获取文章
+onMounted( async ()=>{
+    // aid 为 null
     if (!props.aid)
         return
-    ElMessage("加载中")
+    // 获取文章
     load.value = true
-    getArticleContent(props.aid).then((data:Article) => {
-        if (data.user.uid !== mainStore.userInfo?.uid){
-            router.push("/home").then(()=>ElMessage("无权编辑其他用户文章"))
-            return
-        }
+    let data = await store.getArticle(props.aid)
+    if (!data) {
+        // 不存在
+        router.push("/home").then(()=>ElMessage("文章不存在"))
+    }else if (data.user.uid !== (await mainStore.getSelfInfo())?.uid){
+        // 其他用户的文章
+        router.push("/home").then(()=> ElMessage("无权编辑其他用户文章"))
+    }else {
         article.title=data.title
         article.context=data.context
         data.tags.forEach(t => article.tags.push(t))
-        ElMessage("加载成功")
         load.value = false
-    })
-
+    }
 })
 let changeTag = async(b:boolean,tag:string)=>{
     let bb = b ? await addTags(props.aid, tag) : await deleteTag(props.aid, tag)
@@ -80,14 +84,11 @@ let changeTag = async(b:boolean,tag:string)=>{
     }
 }
 let save = async () => {
-    ElMessage("保存中...")
-    let data = await updateArticle(article,props.aid)
-    ElMessage("保存成功")
+    NP(async ()=>ElMessage(await updateArticle(article,props.aid) ? "保存成功" : "保存失败"))
+
 }
 let release = async () => {
-    ElMessage("发布中...")
-    let data = await saveArticle(article)
-    ElMessage("发布成功")
+    NP(async ()=> ElMessage(await saveArticle(article) ? "发布成功" : "发布失败"))
 }
 
 
