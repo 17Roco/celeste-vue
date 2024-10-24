@@ -1,6 +1,6 @@
 
 import NProgress from 'nprogress'
-export const NP = (fun:(any)=>any)=>{
+export const NP = (fun:(args?:any)=>any)=>{
     NProgress.start();
     fun()
     NProgress.done();

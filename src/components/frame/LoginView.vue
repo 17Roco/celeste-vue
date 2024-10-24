@@ -5,10 +5,10 @@
             <el-tab-pane label="登陆" name="login" class="form-view">
                 <el-form :model="form" label-width="auto" style="max-width: 400px">
                     <el-form-item label="用户名">
-                        <el-input v-model="form.username" />
+                        <el-input v-model="form.username" ref="input-un" @keyup.enter="enterUn"/>
                     </el-form-item>
                     <el-form-item label="密码">
-                        <el-input v-model="form.password" type="password"/>
+                        <el-input v-model="form.password" type="password" ref="input-pw" @keyup.enter="enterPw"/>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="login" style="margin-left: 100px">登录</el-button>
@@ -38,7 +38,7 @@
 
 <script setup lang="ts">
 import {useMainStore} from "@/stores/mainStore.ts";
-import {ref,reactive} from "vue";
+import {ref, reactive, useTemplateRef} from "vue";
 import {ElMessage} from "element-plus";
 
 const store = useMainStore()
@@ -78,6 +78,9 @@ let signup = async () => {
     }
 }
 
+let inputPw = useTemplateRef<HTMLElement>("input-pw")
+let enterUn = () => form.username.length > 0 && inputPw.value?.focus()
+let enterPw = () => form.password.length > 0 && login()
 </script>
 
 <style>
