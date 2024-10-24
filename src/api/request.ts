@@ -5,11 +5,16 @@ import NProgress from 'nprogress'
 
 let getToken = () => localStorage.getItem("token");
 
-export const request:AxiosInstance = axios.create({
+const request:AxiosInstance = axios.create({
     // baseURL: 'http://localhost',
     baseURL:"/api",
     timeout:5000
 })
+
+export const POST   = <T=any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T>> => request.post(url,data,config)
+export const PUT    = <T=any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T>> => request.put(url,data,config)
+export const DELETE = <T=any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T>> => request.delete(url,data,config)
+export const GET    = <T=any>(url: string,config?: AxiosRequestConfig)             : Promise<Result<T>> => request.get(url,config)
 
 request.interceptors.request.use(
     config => {
@@ -30,18 +35,14 @@ request.interceptors.request.use(
     }
 )
 request.interceptors.response.use(
-    response => {
+    (response) => {
         NProgress.done()
         let {code,msg,data} = response.data
-        if (!data){
-            if(code == 200 && msg === "ok")
-                return true
-            if(code == 400)
-                return false
+        return {
+            b:code===200,
+            msg,
+            data
         }
-        if (code != 200)
-            ElMessage(msg)
-        return data
     },
     error => {
         console.log('response err' + error)

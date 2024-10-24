@@ -1,13 +1,14 @@
 import {defineStore} from "pinia";
-import {reactive, ref} from "vue";
-import {getSelfInfo, login, logout, register} from "@/api/userApi";
+import {reactive, ref, watchEffect} from "vue";
+import {getSelfInfo, getUser, login, logout, register} from "@/api/userApi";
+import {ElMessage} from "element-plus";
 
 export const useMainStore = defineStore('main', () =>{
     // 菜单
     let menu = reactive({
         cur:'',
         models:[
-            {'title':'Home','path':'/home','img':"/user.png"},
+            {'title':'Home','path':'/home','img':"https://pinia.vuejs.org/logo.svg"},
             {'title':'BLog','path':'/blog','img':"https://pinia.vuejs.org/logo.svg"},
             {'title':'About','path':'/about','img':"https://pinia.vuejs.org/logo.svg"}
         ],
@@ -18,34 +19,42 @@ export const useMainStore = defineStore('main', () =>{
         ]
     })
     // 用户登录状态
-    let user = reactive<LoginStatus>({
+    let userStatus = reactive<LoginStatus>({
         loginMode:false,
-        token:localStorage.getItem("token") || ''
+        token:localStorage.getItem("token") || '',
+        userInfo:null
+    })
+    // 获取当前用户信息
+    let getSelfInfo = async() => {
+        let r = await getUser()
+        r.b || ElMessage("token 失效")
+        r.b || (userStatus.token = null)
+        return r.data
+    }
+    watchEffect(async ()=> {
+        if (userStatus.token && userStatus.token !== ''){
+            localStorage.setItem('token',userStatus.token)
+            userStatus.userInfo = await getSelfInfo()
+        }else {
+            localStorage.removeItem('token')
+            userStatus.userInfo = null
+        }
     })
 
-    // 设置token
-    let setToken = (token:string|null)=>{
-        if(token && token !== ''){
-            user.token = token
-            localStorage.setItem('token',token)
-        }else {
-            user.token = ''
-            localStorage.removeItem('token')
-        }
-    }
-
     return {
-        menu,
-        user,
-        login:async (form:LoginForm) => setToken((await login(form)).token),
-
-        register:async (form:LoginForm)=> await register(form),
-
-        getSelfInfo:async ():Promise<UserInfo|null> => (user.token && user.token !== '')? await getSelfInfo() : null,
-
+        menu, userStatus,
+        getSelfInfo,
+        getUser:async (uid?:number)=> (await getUser(uid)).data,
+        login:async (form:LoginForm) => {
+            let r = await login(form)
+            r.b && (userStatus.token = r.data.token)
+            return r
+        },
+        register:async (form:LoginForm)=> {
+            (await register(form)).b
+        },
         logout:async ()=> {
-            await logout()
-            setToken(null)
+            (await logout()).b ? userStatus.token = null : ElMessage("退出失败")
         }
     }
 })

@@ -1,18 +1,16 @@
-import {request} from "@/api/request";
-// import type {LoginForm,changePasswordForm} from "@/types/mainTypes"
+import {GET, POST} from "@/api/request";
 
-export const login = async (form:LoginForm):Promise<Token> =>
-    await request.post("/login", form) || {token:''}
-export const logout         = ()                        :Promise<boolean>   => request.post("/logout")
-export const register       = (form:LoginForm)          :Promise<boolean>   => request.post("/register",form)
-export const changePassword = (form:changePasswordForm) :Promise<boolean>   => request.post("/changePassword",form)
-export const getSelfInfo    = ()                        :Promise<UserInfo>  => request.get("/self")
+export const login          = (form:LoginForm)          => POST<Token>("/login", form)
+export const logout         = ()                        => POST("/logout")
+export const register       = (form:LoginForm)          => POST("/register",form)
+export const changePassword = (form:changePasswordForm) => POST("/changePassword",form)
+export const getSelfInfo    = ()                        => GET<UserInfo>("/self")
 
 
 const prefix = "/user"
-export const getUser        = (id?:number)       :Promise<UserInfo>         => request.get(id ? `/${prefix}/${id}` : "/self")
-export const getFollow      = (id:number)       :Promise<Array<UserInfo>>   => request.get(`/${prefix}/${id}/follow}`)
-export const updateUserInfo = (info:UserInfo)   :Promise<boolean>           => request.post(`/${prefix}/info`,info)
+export const getUser        = (id?:number)    => GET<UserInfo>(id ? `/${prefix}/${id}` : "/self")
+export const getFollow      = (id:number)     => GET<UserInfo>(`/${prefix}/${id}/follow}`)
+export const updateUserInfo = (info:UserInfo) => POST(`/${prefix}/info`,info)
 
-export const follow         = (id:number)       :Promise<boolean>           => request.post(`/${prefix}/follow/${id}`)
-export const unfollow       = (id:number)       :Promise<boolean>           => request.post(`/${prefix}/unfollow/${id}`)
+export const follow         = (id:number)     => POST(`/${prefix}/follow/${id}`)
+export const unfollow       = (id:number)     => POST(`/${prefix}/unfollow/${id}`)

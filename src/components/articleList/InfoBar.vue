@@ -19,8 +19,9 @@ import moment from "moment";
 import router from "@/router";
 import {ElMessage,ElMessageBox} from "element-plus";
 import {deleteArticle} from "@/api/blogApi";
+import {useBlogStore} from "@/stores/blogStore";
 
-
+const store = useBlogStore()
 const props = defineProps<{
     article:Article,
     edit:boolean
@@ -29,8 +30,8 @@ const props = defineProps<{
 let delArticle = async () => {
     let value = await ElMessageBox.confirm('你确定要删除这篇文章吗？', '警告', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).catch(()=>{})
     if (value){
-        let b = await deleteArticle(props.article.aid)
-        ElMessage(b)
+        let b = await store.deleteArticle(props.article.aid)
+        ElMessage(b ? "删除成功" : "删除失败")
     }
 }
 

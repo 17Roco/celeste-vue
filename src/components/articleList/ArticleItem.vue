@@ -4,11 +4,11 @@
         <div class="title"><router-link :to="path">{{ article.title }}</router-link></div>
         <!--   摘要     -->
         <div class="context">
-<!--        v-if="article.img"    todo-->
+            <!-- v-if="article.img" todo-->
             <router-link :to="path"><img :src="article.img || 'https://media.prts.wiki/8/83/%E6%B4%BB%E5%8A%A8%E9%A2%84%E5%91%8A_%E6%B3%B0%E6%8B%89%E9%A5%AD_01.jpg'" alt="" /></router-link>
             <div class="text">
                 <span><router-link :to="path">{{ article.context }}</router-link></span>
-<!--                todo-->
+                <!-- todo -->
                 <InfoBar :article="article" :edit="edit" v-if="article.user"/>
             </div>
         </div>

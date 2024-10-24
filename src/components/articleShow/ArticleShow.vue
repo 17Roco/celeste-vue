@@ -1,7 +1,7 @@
 <template>
     <div class="com-article-show">
         <div v-if="article==null">
-            <p>文章不存在</p>
+            <p>{{ status }}</p>
         </div>
         <div class="view-article" v-else>
             <!--标题-->
@@ -27,15 +27,21 @@
 import TagShow from "./TagShow.vue";
 import BottomBar from "./BottomBar.vue";
 import {onMounted, ref} from "vue";
-import {getArticleContent} from "@/api/blogApi";
+import {useBlogStore} from "@/stores/blogStore";
 
+
+const store = useBlogStore()
 const props = defineProps<{
     aid:number
 }>()
 
 let article = ref<Article|null>(null)
+let status = ref<string>("加载中")
+
 onMounted(async ()=>{
-    article.value = await getArticleContent(props.aid)
+    article.value = await store.getArticle(props.aid)
+    if(!article.value)
+        (status.value = "文章不存在")
 })
 </script>
 

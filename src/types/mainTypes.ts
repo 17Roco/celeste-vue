@@ -1,4 +1,10 @@
 
+
+interface Result<T = any> {
+    b:boolean,
+    msg:string,
+    data:T,
+}
 interface UserInfo {
     uid:number,
     username:string,
@@ -12,7 +18,8 @@ interface Token {
 }
 interface LoginStatus {
     loginMode:boolean,
-    token:string
+    token:string,
+    userInfo?:UserInfo,
 }
 
 

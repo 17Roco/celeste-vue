@@ -13,7 +13,8 @@ const props = defineProps<{
 
 let userInfo = ref<UserInfo|null>()
 onMounted(async ()=>{
-    userInfo.value = await getUser(props.uid)
+    userInfo.value = await store.getUser(props.uid)
+    console.log(userInfo.value)
 })
 
 </script>

@@ -6,7 +6,7 @@
         <!-- 过滤条 -->
         <filter-bar :articleList="articleList"/>
         <!--    文章列表    -->
-        <div v-if="articleList.records.length === 0" style="text-align: center">空</div>
+        <div v-if="(articleList as Page<Article>).records.length === 0" style="text-align: center">空</div>
         <article-item v-else v-for="a in articleList.records" :v-key="a.title" :article="a" :edit="edit"/>
     </div>
 </template>
@@ -25,10 +25,10 @@ const props = defineProps({
     "edit":{type:Boolean,default:false}
 })
 
-
 // 加载文章列表
 let articleList = ref<Page<Article>|null>(null)
 
+// 更新列表
 onMounted(async ()=> {
     articleList.value = await store.getArticleList(route.query as Filter,props.edit)
 })

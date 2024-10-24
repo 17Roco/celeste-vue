@@ -1,14 +1,25 @@
 <template>
-    <el-drawer v-model="store.user.loginMode" direction="rtl" class="com-login-view">
+    <el-drawer v-model="store.userStatus.loginMode" direction="rtl" class="com-login-view">
         <el-tabs v-model="tab">
             <!--    登录页面        -->
             <el-tab-pane label="登陆" name="login" class="form-view">
                 <el-form :model="form" label-width="auto" style="max-width: 400px">
                     <el-form-item label="用户名">
-                        <el-input v-model="form.username" ref="input-un" @keyup.enter="enterUn"/>
+                        <el-input
+                            v-model="form.username"
+                            ref="input-un"
+                            @keyup.enter="enterUn"
+                            @keyup.down="toPw"
+                        />
                     </el-form-item>
                     <el-form-item label="密码">
-                        <el-input v-model="form.password" type="password" ref="input-pw" @keyup.enter="enterPw"/>
+                        <el-input
+                            v-model="form.password"
+                            type="password"
+                            ref="input-pw"
+                            @keyup.enter="enterPw"
+                            @keyup.up="toUn"
+                        />
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="login" style="margin-left: 100px">登录</el-button>
@@ -56,11 +67,10 @@ let login = async () => {
     }else if (!form.password || form.password ===''){
         ElMessage('请输入密码')
     }else {
-        await store.login(form)
-        if (!store.user.token && store.user.token !== ''){
-            ElMessage({message:"登录中..."})
-        }
-        store.user.loginMode = false
+        let r = await store.login(form)
+        ElMessage(r.b ? "登录成功" : ("登录失败:" + r.msg))
+        r.b || (form.password = '')
+        store.userStatus.loginMode = !(r.b)
     }
 }
 let signup = async () => {
@@ -78,8 +88,11 @@ let signup = async () => {
     }
 }
 
+let inputUn = useTemplateRef<HTMLElement>("input-un")
 let inputPw = useTemplateRef<HTMLElement>("input-pw")
-let enterUn = () => form.username.length > 0 && inputPw.value?.focus()
+let toUn = () => inputUn.value?.focus()
+let toPw = () => inputPw.value?.focus()
+let enterUn = () => form.username.length > 0 && toPw()
 let enterPw = () => form.password.length > 0 && login()
 </script>
 
