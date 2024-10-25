@@ -1,11 +1,12 @@
 <script setup lang="ts">
 
+import UserSetting from "@/components/setting/UserSetting.vue";
 </script>
 
 <template>
-    <h1>user setting</h1>
+    <user-setting/>
 </template>
 
-<style scoped>
+<style>
 
 </style>

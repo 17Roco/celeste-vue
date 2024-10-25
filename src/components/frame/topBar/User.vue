@@ -10,8 +10,8 @@
             <!--菜单列表-->
             <template #dropdown>
                 <el-dropdown-menu>
-                    <el-dropdown-item v-for="p in store.menu.userOpe" :key="p.path">
-                        <router-link :to="p.path">{{ p.title }}</router-link>
+                    <el-dropdown-item v-for="p in store.menu.userOpe" :key="p.path" @click="router.push(p.path)">
+                        {{ p.title }}
                     </el-dropdown-item>
                     <el-dropdown-item @click="store.logout()">退出</el-dropdown-item>
                 </el-dropdown-menu>
@@ -27,9 +27,10 @@
 <script setup lang="ts">
 import {useMainStore} from "@/stores/mainStore.ts";
 import {ref,watchEffect} from "vue";
+import router from "@/router";
 
 const store = useMainStore()
-let userInfo = ref<UserInfo|null>(null)
+
 
 </script>
 

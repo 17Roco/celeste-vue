@@ -12,7 +12,7 @@ export const useBlogStore = defineStore('blog', () =>{
     })
 
     // 获取标签
-    let loadTags = async ():Promise<Array<string>> => ((await getTags()) as Array).map(tag=>tag.title)
+    let loadTags = async ():Promise<Array<string>> => (await getTags()).data.map(tag=>tag.title)
     // 获取文章
     let getArticle = async(aid:number)=> (await getArticleContent(aid)).data
     // 获取文章列表

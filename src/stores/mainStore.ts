@@ -50,9 +50,7 @@ export const useMainStore = defineStore('main', () =>{
             r.b && (userStatus.token = r.data.token)
             return r
         },
-        register:async (form:LoginForm)=> {
-            (await register(form)).b
-        },
+        register:async (form:LoginForm)=> await register(form),
         logout:async ()=> {
             (await logout()).b ? userStatus.token = null : ElMessage("退出失败")
         }

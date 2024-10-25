@@ -9,7 +9,7 @@
 
 <script setup>
 import topBar from './topBar/TopBar.vue'
-import LoginView from "@/components/frame/LoginView.vue";
+import LoginView from "@/components/frame/loginView/LoginView.vue";
 
 </script>
 <style>
