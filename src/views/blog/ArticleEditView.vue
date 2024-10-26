@@ -9,6 +9,6 @@ defineProps<{aid:number}>()
     <Editer :aid="aid"/>
 </template>
 
-<style scoped>
+<style>
 
 </style>

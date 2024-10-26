@@ -1,9 +1,12 @@
 <template>
     <div class="com-info-bar">
         <p class="info">
+            <!--作者信息-->
             <router-link :to="'/user/'+article.user.uid" v-if="!edit">作者 : {{ article.user.username }}</router-link>
+            <!--like watch-->
             <span>like:{{ article.likee }} |</span>
             <span>watch:{{ article.watch }} |</span>
+            <!--更新时间-->
             <span>{{ moment(article.updateTime).format('YYYY-MM-DD') }}</span>
         </p>
         <div v-if="edit" class="opt">
@@ -18,7 +21,6 @@
 import moment from "moment";
 import router from "@/router";
 import {ElMessage,ElMessageBox} from "element-plus";
-import {deleteArticle} from "@/api/blogApi";
 import {useBlogStore} from "@/stores/blogStore";
 
 const store = useBlogStore()

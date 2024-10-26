@@ -17,6 +17,5 @@ const index = defineModel()
     />
 </template>
 
-<style scoped>
-
+<style>
 </style>

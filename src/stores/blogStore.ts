@@ -16,7 +16,7 @@ export const useBlogStore = defineStore('blog', () =>{
     // 获取文章
     let getArticle = async(aid:number)=> (await getArticleContent(aid)).data
     // 获取文章列表
-    let getArticleList = async (f:Filter,self:boolean):Page<Article>=>{
+    let getArticleList = async (f:Filter,self:boolean):Promise<Page<Article>> =>{
         let ff = Object.assign({self,index:1} as Filter,f)
         if (f.order)
             ff.order = filter._order[f.order]

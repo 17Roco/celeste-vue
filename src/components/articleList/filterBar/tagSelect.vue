@@ -12,23 +12,18 @@
 <script setup lang="ts">
 
 import {useBlogStore} from "@/stores/blogStore";
-import {ref} from "vue";
 const store = useBlogStore()
+const tag = defineModel<string|null>()
 
-const emit = defineEmits<{ change: (tag: string)=>void }>()
+// 修改标签
+let change = (t:string) => tag.value = (tag.value === t) ? null : t
 
-const tag = ref<string>()
-let change = (t:string) => {
-    tag.value = (tag.value === t) ? null : t
-    emit("change", tag.value)
-}
 </script>
 
 <style>
 .com-tag-select{
     display: flex;
     flex-wrap: wrap;
-    //padding: 0 30px;
     >button{
         margin-bottom: 10px;
     }

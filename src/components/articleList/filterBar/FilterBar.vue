@@ -1,10 +1,10 @@
 <template>
     <div class="com-filter-bar">
         <!--    tag    -->
-        <tag-select @change="change({tag:$event || undefined})" />
+        <tag-select v-model="filter.tag" />
         <div class="button-bar">
             <!--    排序    -->
-            <el-segmented size="large" :options="store.filter.order" v-model="order"/>
+            <el-segmented :options="store.filter.order" v-model="filter.order"/>
             <!--    顶部分页    -->
             <Pagination :article-list="articleList" v-model="filter.index"/>
             <!--    时间范围    -->
@@ -17,42 +17,37 @@
 import TagSelect from "@/components/articleList/filterBar/tagSelect.vue";
 import Pagination from "@/components/articleList/filterBar/Pagination.vue";
 import DateSelect from "@/components/articleList/filterBar/DateSelect.vue";
-import {computed, onMounted, reactive, ref, watch} from "vue";
+import {reactive, watchEffect} from "vue";
 import {useRoute} from "vue-router";
-import router from "@/router";
 import {useBlogStore} from "@/stores/blogStore";
-import {formatDate, toDate} from "@/util/TimeUtil";
+import {formatDate} from "@/util/TimeUtil";
+import router from "@/router";
 
 
 const store = useBlogStore()
 const route = useRoute()
-defineProps<{
-    articleList:Page<Article>
-}>()
-let order = ref<string>(store.filter.order[0])
+defineProps<{articleList:Page<Article>}>()
 
 
 let filter = reactive<Filter>({
-    index:route.query.index ||1,
-    order:route.query.order ||"最新",
-    tag:route.query.tag,
-    beginTime:null,
-    endTime: null,
+    index:undefined,
+    order:store.filter.order[0],
+    tag:undefined,
+    beginTime:undefined,
+    endTime: undefined,
 })
 
+// 更新时间范围
 let changeTime = (beginTime:Date,endTime:Date)=>{
     filter.beginTime = beginTime ? formatDate(beginTime) : undefined
-    filter.endTime = endTime ? formatDate(endTime) : undefined
+    filter.endTime   = endTime   ? formatDate(endTime)   : undefined
 }
 
-// watch(filter,()=>{
-//     // 更新路径
-//     router.push({path:route.path,query:filter})
-// },{deep:true})
-
-let change = (filter:Filter) => {
-    console.log(filter);
-}
+// 更新路径
+watchEffect(()=>router.push({
+  path:route.path,
+  query:filter
+}))
 </script>
 
 <style lang="less">

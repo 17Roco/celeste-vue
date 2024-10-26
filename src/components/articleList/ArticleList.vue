@@ -7,6 +7,7 @@
         <filter-bar :articleList="articleList"/>
         <!--    文章列表    -->
         <div v-if="(articleList as Page<Article>).records.length === 0" style="text-align: center">空</div>
+        <!-- else -->
         <article-item v-else v-for="a in articleList.records" :v-key="a.title" :article="a" :edit="edit"/>
     </div>
 </template>
@@ -17,16 +18,18 @@ import ArticleItem from "./ArticleItem.vue";
 import {ref, watchEffect} from "vue";
 import {useRoute} from "vue-router";
 import {useBlogStore} from "@/stores/blogStore";
+import {NP} from "@/util/NP";
 
-const props = defineProps<{edit?:boolean}>()
+const props = defineProps<{edit:boolean}>()
 const store = useBlogStore()
 const route = useRoute()
-// 加载文章列表
+
+// 文章列表
 let articleList = ref<Page<Article>|null>(null)
 
 // 更新文章列表
-watchEffect(async ()=>{
-    articleList.value = await store.getArticleList(route.query as Filter,props.edit)
+watchEffect(()=>{
+    NP(async()=>articleList.value = await store.getArticleList(route.query as Filter,props.edit))
 })
 
 

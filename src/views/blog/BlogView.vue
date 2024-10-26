@@ -4,7 +4,7 @@ import ArticleList from "@/components/articleList/ArticleList.vue";
 </script>
 
 <template>
-    <ArticleList/>
+    <ArticleList :edit="false"/>
 </template>
 
 <style>

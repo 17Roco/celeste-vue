@@ -12,8 +12,7 @@ export const deleteArticle      = (aid:number)                        => DELETE(
 
 
 // tag
-export const getTags        =()                      => GET<Array>(`tag/list`)
-
+export const getTags        =()                      => GET<Array<any>>(`tag/list`)
 export const likeArticle    =(aid:number)            => POST(`${prefix}/like/${aid}`)
 export const unlikeArticle  =(aid:number)            => POST(`${prefix}/unlike/${aid}`)
 export const addTags        =(aid:number,tag:string) => POST(`${prefix}/add_tag/${aid}/${tag}`)

@@ -23,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-
 import TagShow from "./TagShow.vue";
 import BottomBar from "./BottomBar.vue";
 import {onMounted, ref} from "vue";
@@ -31,9 +30,7 @@ import {useBlogStore} from "@/stores/blogStore";
 
 
 const store = useBlogStore()
-const props = defineProps<{
-    aid:number
-}>()
+const props = defineProps<{aid:number}>()
 
 let article = ref<Article|null>(null)
 let status = ref<string>("加载中")
@@ -49,18 +46,20 @@ onMounted(async ()=>{
 
 .com-article-show {
     line-height: 1.5;
-    text-indent: 2em;
     padding-bottom: 90px;
     width: 100%;
-    >h1{
-        text-align: center;
-    }
-    >.info{
-        text-align: center;
-        color: #b7b7bc;
-    }
-    >.context{
-        line-height: 2em;
+    >.view-article {
+        > h1 {
+            text-align: center;
+        }
+        > .info {
+            text-align: center;
+            color: #b7b7bc;
+        }
+        > .context {
+            line-height: 2em;
+            text-indent: 2em;
+        }
     }
 }
 </style>

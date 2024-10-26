@@ -26,7 +26,6 @@
 
 <script setup lang="ts">
 import {useMainStore} from "@/stores/mainStore.ts";
-import {ref,watchEffect} from "vue";
 import router from "@/router";
 
 const store = useMainStore()

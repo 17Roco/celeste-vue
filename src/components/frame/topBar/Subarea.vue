@@ -5,7 +5,6 @@
             :router="true"
             mode="horizontal"
             :ellipsis="false"
-            @select="handleSelect"
             class="menu"
             background-color="rgba(0,0,0,0)"
             router
@@ -26,7 +25,6 @@ import {useMainStore} from "@/stores/mainStore.ts";
 const store = useMainStore()
 const route = useRoute();
 
-const handleSelect = ()=>{}
 
 </script>
 
