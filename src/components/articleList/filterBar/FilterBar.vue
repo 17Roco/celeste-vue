@@ -1,10 +1,10 @@
 <template>
     <div class="com-filter-bar">
         <!--    tag    -->
-        <tag-select v-model="filter.tag" />
+        <tag-select @change="change({tag:$event || undefined})" />
         <div class="button-bar">
             <!--    排序    -->
-            <el-segmented size="large" :options="store.filter.order" v-model="filter.order"/>
+            <el-segmented size="large" :options="store.filter.order" v-model="order"/>
             <!--    顶部分页    -->
             <Pagination :article-list="articleList" v-model="filter.index"/>
             <!--    时间范围    -->
@@ -29,6 +29,7 @@ const route = useRoute()
 defineProps<{
     articleList:Page<Article>
 }>()
+let order = ref<string>(store.filter.order[0])
 
 
 let filter = reactive<Filter>({
@@ -44,11 +45,14 @@ let changeTime = (beginTime:Date,endTime:Date)=>{
     filter.endTime = endTime ? formatDate(endTime) : undefined
 }
 
-watch(filter,()=>{
-    // 更新路径
-    router.push({path:route.path,query:filter})
-},{deep:true})
+// watch(filter,()=>{
+//     // 更新路径
+//     router.push({path:route.path,query:filter})
+// },{deep:true})
 
+let change = (filter:Filter) => {
+    console.log(filter);
+}
 </script>
 
 <style lang="less">

@@ -12,29 +12,21 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
 import FilterBar from "./filterBar/FilterBar.vue";
 import ArticleItem from "./ArticleItem.vue";
+import {ref, watchEffect} from "vue";
+import {useRoute} from "vue-router";
 import {useBlogStore} from "@/stores/blogStore";
-import {onBeforeRouteUpdate, useRoute} from "vue-router";
-import {getArticleInfos} from "@/api/blogApi";
+
+const props = defineProps<{edit?:boolean}>()
 const store = useBlogStore()
 const route = useRoute()
-
-const props = defineProps({
-    "edit":{type:Boolean,default:false}
-})
-
 // 加载文章列表
 let articleList = ref<Page<Article>|null>(null)
 
-// 更新列表
-onMounted(async ()=> {
+// 更新文章列表
+watchEffect(async ()=>{
     articleList.value = await store.getArticleList(route.query as Filter,props.edit)
-})
-onBeforeRouteUpdate((to, from, next)=>{
-    store.getArticleList(to.query as Filter,props.edit).then( data => articleList.value=data )
-    next()
 })
 
 

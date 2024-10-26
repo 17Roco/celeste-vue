@@ -12,13 +12,16 @@
 <script setup lang="ts">
 
 import {useBlogStore} from "@/stores/blogStore";
-
+import {ref} from "vue";
 const store = useBlogStore()
-const tag = defineModel()
-let change = (t:string) => {
-    tag.value === t ? tag.value = null : tag.value = t
-}
 
+const emit = defineEmits<{ change: (tag: string)=>void }>()
+
+const tag = ref<string>()
+let change = (t:string) => {
+    tag.value = (tag.value === t) ? null : t
+    emit("change", tag.value)
+}
 </script>
 
 <style>
