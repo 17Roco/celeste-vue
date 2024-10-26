@@ -1,7 +1,15 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import Frame from "@/components/frame/Frame.vue";
 import NProgress from 'nprogress'
+import type {RouteLocationNormalized} from "vue-router";
+
+let getToken = () => localStorage.getItem("token");
+let enterNeedLogin = (to:RouteLocationNormalized,form:RouteLocationNormalized)=>{
+  if (!getToken())
+    return {path:"/"}
+  return true
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +47,7 @@ const router = createRouter({
         component:()=>import("@/views/blog/ArticleView.vue")
       },{
         path:'edit/:aid?',
+        beforeEnter:enterNeedLogin,
         props:route => ({aid: route.params.aid ? parseInt(route.params.aid) : null}),
         component:()=>import("@/views/blog/ArticleEditView.vue")
       }]
@@ -52,12 +61,15 @@ const router = createRouter({
       component: Frame,
       children:[{
         path:'home',
+        beforeEnter:enterNeedLogin,
         component:()=>import("@/views/user/UserHomeView.vue")
       },{
         path:'manager',
+        beforeEnter:enterNeedLogin,
         component:()=>import("@/views/user/ArticleManagerView.vue")
       },{
         path:'setting',
+        beforeEnter:enterNeedLogin,
         component:()=>import("@/views/user/UserSettingView.vue")
       },{
         path:':uid',

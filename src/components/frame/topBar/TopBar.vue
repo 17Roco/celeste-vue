@@ -11,7 +11,7 @@
 <script setup>
 import Subarea from "./Subarea.vue";
 import Search from "./Search.vue";
-import User from "./User.vue";
+import User from "./UserMenu.vue";
 
 </script>
 

@@ -3,7 +3,7 @@
 import {useMainStore} from "@/stores/mainStore";
 import {onMounted, ref} from "vue";
 import UserInfoShow from "@/components/userHome/UserInfoShow.vue";
-import UserShowItem from "@/components/userHome/UserArticleShowItem.vue";
+import UserShowItem from "@/components/userHome/UserArticleShow.vue";
 
 const store = useMainStore()
 const props = defineProps<{

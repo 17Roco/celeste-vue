@@ -2,6 +2,7 @@ import {defineStore} from "pinia";
 import {reactive, ref, watchEffect} from "vue";
 import {getSelfInfo, getUser, login, logout, register} from "@/api/userApi";
 import {ElMessage} from "element-plus";
+import router from "@/router";
 
 export const useMainStore = defineStore('main', () =>{
     // 菜单
@@ -52,7 +53,12 @@ export const useMainStore = defineStore('main', () =>{
         },
         register:async (form:LoginForm)=> await register(form),
         logout:async ()=> {
-            (await logout()).b ? userStatus.token = null : ElMessage("退出失败")
+            if((await logout()).b) {
+                userStatus.token = null
+                router.go(0)
+            }else {
+                ElMessage("退出失败")
+            }
         }
     }
 })
