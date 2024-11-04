@@ -45,8 +45,8 @@ let changeTime = (beginTime:Date,endTime:Date)=>{
 
 // 更新路径
 watchEffect(()=>router.push({
-  path:route.path,
-  query:filter
+    path:route.path,
+    query:filter
 }))
 </script>
 

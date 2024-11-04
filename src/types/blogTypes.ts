@@ -22,11 +22,10 @@ interface Filter{
     self?:boolean
 }
 
-interface ChangedArticle {
+interface ArticleForm {
     img?:string,
     title?:string,
-    context?:string,
-    tags?:Array<ChangeTag>
+    context?:string
 }
 interface ChangeTag {
     tag:string,

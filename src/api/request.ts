@@ -12,10 +12,10 @@ const request = axios.create({
     timeout:5000
 })
 
-export const POST   = <T=any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T>> => request.post(url,data,config)
-export const PUT    = <T=any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T>> => request.put(url,data,config)
-export const DELETE = <T=any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T>> => request.delete(url,config)
-export const GET    = <T=any>(url: string,config?: AxiosRequestConfig)             : Promise<Result<T>> => request.get(url,config)
+export const POST   = async <T=any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T>> => (await request.post(url,data,config)).data
+export const PUT    = async <T=any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T>> => (await request.put(url,data,config)).data
+export const DELETE = async <T=any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T>> => (await request.delete(url,config)).data
+export const GET    = async <T=any>(url: string,config?: AxiosRequestConfig)             : Promise<Result<T>> => (await request.get(url,config)).data
 
 request.interceptors.request.use(
     config => {
@@ -38,12 +38,9 @@ request.interceptors.request.use(
 request.interceptors.response.use(
     (response) => {
         NProgress.done()
-        let {code,msg,data} = response.data
-        return {
-            b:code===200,
-            msg,
-            data
-        }
+        let {code} = response.data
+        response.data.b = (code === 200)
+        return response
     },
     error => {
         console.log('response err' + error)

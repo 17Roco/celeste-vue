@@ -3,13 +3,16 @@ import {DELETE, GET, POST, PUT} from "./request"
 
 const prefix = "/article"
 
-export const getArticleInfos    = (filter:Filter) => GET<Page<Article>>(`${prefix}/filter`, {params:filter})
+// 获取文章内容、列表
 export const getArticleContent  = (aid:number)    => GET<Article>(`${prefix}/${aid}`)
+export const getArticleInfos    = (filter:Filter) => GET<Page<Article>>(`${prefix}/filter`, {params:filter})
 
-export const saveArticle        = (article:ChangedArticle)            => POST(`${prefix}/`,article)
-export const updateArticle      = (article:ChangedArticle,aid:number) => PUT(`${prefix}/${aid}`,article)
+// 新增、修改、删除文章
+export const saveArticle        = (article:ArticleForm)               => POST<{aid:number}>(`${prefix}/`,article)
+export const updateArticle      = (article:ArticleForm,aid:number)    => PUT(`${prefix}/context/${aid}`,article)
 export const deleteArticle      = (aid:number)                        => DELETE(`${prefix}/${aid}`)
-
+// 上传图片 todo
+export const updateArticleImg   = (file:any,aid:number)               => PUT(`${prefix}/img/${aid}`,file)
 
 // tag
 export const getTags        =()                      => GET<Array<any>>(`tag/list`)

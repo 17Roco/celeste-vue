@@ -36,10 +36,9 @@ const props = defineProps<{
 }>()
 
 let load = ref<boolean>(false)
-let article = reactive<ChangedArticle>({
+let article = reactive<ArticleForm>({
     title:"",
-    context:"",
-    tags:[]
+    context:""
 })
 
 const editorRef = shallowRef()
