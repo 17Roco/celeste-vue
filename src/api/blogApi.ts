@@ -8,7 +8,7 @@ export const getArticleContent  = (aid:number)    => GET<Article>(`${prefix}/${a
 export const getArticleInfos    = (filter:Filter) => GET<Page<Article>>(`${prefix}/filter`, {params:filter})
 
 // 新增、修改、删除文章
-export const saveArticle        = (article:ArticleForm)               => POST<{aid:number}>(`${prefix}/`,article)
+export const saveArticle        = (article:ArticleForm)               => POST<{aid:number}>(`${prefix}/context`,article)
 export const updateArticle      = (article:ArticleForm,aid:number)    => PUT(`${prefix}/context/${aid}`,article)
 export const deleteArticle      = (aid:number)                        => DELETE(`${prefix}/${aid}`)
 // 上传图片 todo
