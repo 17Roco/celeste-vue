@@ -38,7 +38,8 @@ const props = defineProps<{
 let load = ref<boolean>(false)
 let article = reactive<ArticleForm>({
     title:"",
-    context:""
+    context:"",
+    tags:[]
 })
 
 const editorRef = shallowRef()

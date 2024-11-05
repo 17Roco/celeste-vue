@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {deleteArticle, getArticleContent, getArticleInfos, getTags} from "@/api/blogApi";
+import {deleteArticle, getArticleContent, getArticleInfos, getTags, likeArticle, unlikeArticle} from "@/api/blogApi";
 import {reactive} from "vue";
 
 
@@ -30,6 +30,7 @@ export const useBlogStore = defineStore('blog', () =>{
         loadTags,
         getArticle,
         getArticleList,
-        deleteArticle:async (aid:number) => await deleteArticle(aid)
+        deleteArticle:async (aid:number) => await deleteArticle(aid),
+        likeArticle:async (aid:number,b:boolean) => (b ? await likeArticle(aid) : await unlikeArticle(aid)).b
     }
 })

@@ -22,7 +22,9 @@ let emit = defineEmits<{
     changeTag:[b:boolean,tag:string]
 }>()
 
-let uncheckTags = computed(() => store.filter.tags.filter(tag => !props.tags.includes(tag)))
+let uncheckTags = computed(() => store.filter.tags.filter(tag =>
+    !props.tags || !props.tags.includes(tag))
+)
 let close = (tag:string) => ElMessageBox.confirm('确定要删除吗?', '', {confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning',}).then(()=>emit("changeTag",false,tag))
 </script>
 

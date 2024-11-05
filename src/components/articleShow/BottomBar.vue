@@ -2,32 +2,54 @@
     <div class="com-bottom-bar">
         <div class="body">
             <!-- 作者信息 -->
-            <div class="user-info" v-if="user">
-                <el-avatar :src="user.img" size="default"/>
-                <span style="margin-right: 30px">{{ user.username }}</span>
-                <el-button>关注</el-button>
+            <div class="user-info" v-if="article.user.uid !== store.userStatus?.userInfo?.uid">
+                <!-- 头像 -->
+                <router-link :to="'/user/' + article.user.uid">
+                    <el-avatar :src="article.user.img" size="default"/>
+                </router-link>
+                <!-- 昵称 -->
+                <router-link :to="'/user/' + article.user.uid">
+                    <span style="margin-right: 30px">{{ article.user.username }}</span>
+                </router-link>
+                <!-- 关注按钮 -->
+                <FollowButton v-model="article.user"/>
             </div>
-            <!-- #todo -->
+            <!-- 编辑按钮 -->
             <div class="user-info" v-else>
-                <el-button>编辑</el-button>
+                <el-button @click="toEdit">编辑</el-button>
             </div>
             <!-- 操作 -->
             <div class="opt">
-                <el-button>点赞</el-button>
-                <el-button>评论</el-button>
+<!--                <el-button @click="like">点赞</el-button>-->
+                <LikeButton v-model="article"></LikeButton>
+                <el-button @click="comment">评论</el-button>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import router from "@/router";
+import FollowButton from "@/components/other/FollowButton.vue";
 import {useMainStore} from "@/stores/mainStore";
+import LikeButton from "@/components/other/LikeButton.vue";
 
+const props = defineProps<{aid:number}>()
+const article = defineModel<Article>()
 const store = useMainStore()
-defineProps<{
-    user:UserInfo
-}>()
 
+
+let toEdit = () => {
+    router.push(('/blog/edit/'+props.aid))
+}
+
+let like = () => {
+
+}
+
+let comment = () => {
+
+}
 </script>
 
 <style>

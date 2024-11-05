@@ -4,11 +4,13 @@
         <div class="title"><router-link :to="path">{{ article.title }}</router-link></div>
         <!--   摘要     -->
         <div class="context">
-            <!-- v-if="article.img" todo-->
-            <router-link :to="path"><img :src="article.img || 'https://media.prts.wiki/8/83/%E6%B4%BB%E5%8A%A8%E9%A2%84%E5%91%8A_%E6%B3%B0%E6%8B%89%E9%A5%AD_01.jpg'" alt="" /></router-link>
+            <!-- 图片 -->
+            <router-link :to="path"><img v-if="article.img" :src="article.img" alt="" /></router-link>
+            <!-- 内容 -->
             <div class="text">
+                <!-- 内容 -->
                 <span><router-link :to="path">{{ article.context }}</router-link></span>
-                <!-- todo -->
+                <!-- 作者 -->
                 <InfoBar :article="article" :edit="edit" v-if="article.user"/>
             </div>
         </div>
@@ -24,6 +26,7 @@ const prop = defineProps<{
     edit:boolean
 }>()
 
+// 文章路径
 let path = computed(()=>'/blog/article/'+prop.article.aid)
 
 </script>

@@ -4,9 +4,13 @@ import {useBlogStore} from "@/stores/blogStore";
 import {onMounted, ref} from "vue";
 
 const store = useBlogStore()
+const props = defineProps<{uid?:number}>()
 let articles = ref<Array<Article>>(null)
 
+
+
 onMounted(async ()=> {
+    // 获取用户文章列表 todo
     articles.value = (await store.getArticleList({},true)).records.slice(0,4)
 
 })

@@ -18,8 +18,8 @@ onMounted(async ()=>{
 
 <template>
     <div class="com-user-home" v-if="userInfo">
-        <user-info-show :userInfo="userInfo"/>
-        <user-show-item/>
+        <user-info-show v-model="userInfo"/>
+        <user-show-item :uid="uid"/>
     </div>
 </template>
 

@@ -10,7 +10,8 @@ interface Article {
     createTime:string,
     updateTime:string,
     tags:Array<string>,
-    user:UserInfo
+    user:UserInfo,
+    idLike:boolean
 }
 
 interface Filter{

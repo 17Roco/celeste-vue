@@ -11,7 +11,11 @@ interface UserInfo {
     img:string,
     sex:number,
     phone:string,
-    email:string
+    email:string,
+    isFollow?:boolean,
+    follow:number
+    follower:number,
+    article:number,
 }
 interface Token {
     token:string,

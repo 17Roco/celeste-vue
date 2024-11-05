@@ -2,13 +2,14 @@
     <div class="com-info-bar">
         <p class="info">
             <!--作者信息-->
-            <router-link :to="'/user/'+article.user.uid" v-if="!edit">作者 : {{ article.user.username }}</router-link>
+            <router-link :to="'/user/'+article.user.uid" v-if="!edit">作者 : {{ article.user.username }} {{ article.user.isFollow? '（已关注）' : ''}} </router-link>
             <!--like watch-->
             <span>like:{{ article.likee }} |</span>
             <span>watch:{{ article.watch }} |</span>
             <!--更新时间-->
             <span>{{ moment(article.updateTime).format('YYYY-MM-DD') }}</span>
         </p>
+        <!--编辑按钮-->
         <div v-if="edit" class="opt">
             <el-button size="small" round @click.stop="router.push('/blog/article/'+article.aid)">查看</el-button>
             <el-button size="small" round @click.stop="router.push('/blog/edit/'+article.aid)">编辑</el-button>
@@ -29,6 +30,7 @@ const props = defineProps<{
     edit:boolean
 }>()
 
+// 删除文章
 let delArticle = async () => {
     let value = await ElMessageBox.confirm('你确定要删除这篇文章吗？', '警告', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).catch(()=>{})
     if (value){

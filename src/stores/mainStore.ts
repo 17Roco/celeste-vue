@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {reactive, ref, watchEffect} from "vue";
-import {getSelfInfo, getUser, login, logout, register} from "@/api/userApi";
+import {follow, getFollow, getSelfInfo, getUser, login, logout, register, unfollow} from "@/api/userApi";
 import {ElMessage} from "element-plus";
 import router from "@/router";
 
@@ -15,6 +15,7 @@ export const useMainStore = defineStore('main', () =>{
         ],
         userOpe:[
             {'title':'主页','path':'/user/home'},
+            {'title':'关注/粉丝','path':'/user/follow'},
             {'title':'文章管理','path':'/user/manager'},
             {'title':'设置','path':'/user/setting'}
         ]
@@ -59,6 +60,14 @@ export const useMainStore = defineStore('main', () =>{
             }else {
                 ElMessage("退出失败")
             }
-        }
+        },
+        follow:async (uid:number,b:boolean)=> {
+            return (b ? await follow(uid) : await unfollow(uid)).b
+        },
+        getFollowerList:async (uid?:number,index?:number)=>
+            (await getFollow(
+                uid || (await getSelfInfo()).uid,
+                index || 1
+            )).data
     }
 })

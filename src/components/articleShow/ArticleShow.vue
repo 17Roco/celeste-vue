@@ -17,7 +17,7 @@
             <!--正文-->
             <p class="context" v-html="article.context"></p>
             <!--底部条-->
-            <bottom-bar v-if="article.user" :user="article.user" />
+            <bottom-bar v-if="article.user" v-model="article" :aid="article.aid"/>
         </div>
     </div>
 </template>
@@ -41,6 +41,19 @@ onMounted(async ()=>{
         (status.value = "文章不存在")
 })
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <style>
 

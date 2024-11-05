@@ -54,6 +54,7 @@ const router = createRouter({
     },
     // /user/home
     // /user/manager
+    // /user/follow/:uid?
     // /user/setting
     {
       path: '/user',
@@ -63,6 +64,11 @@ const router = createRouter({
         path:'home',
         beforeEnter:enterNeedLogin,
         component:()=>import("@/views/user/UserHomeView.vue")
+      },{
+        path:'follow/:uid?',
+        beforeEnter:enterNeedLogin,
+        props:route => ({aid: route.params.uid ? parseInt(route.params.uid) : null}),
+        component:()=>import("@/views/user/UserFollowView.vue")
       },{
         path:'manager',
         beforeEnter:enterNeedLogin,

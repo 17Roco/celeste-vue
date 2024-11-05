@@ -1,8 +1,9 @@
 <script setup lang="ts">
-defineProps<{
-    userInfo:UserInfo
-}>()
+import {useMainStore} from "@/stores/mainStore";
+import FollowButton from "@/components/other/FollowButton.vue";
 
+const store = useMainStore()
+const userInfo = defineModel<UserInfo>()
 
 </script>
 
@@ -10,7 +11,16 @@ defineProps<{
     <div class="com-user-info-show" style="background:url('/bkg7.png');background-size: 100%">
         <div class="info">
             <el-avatar :src="userInfo.img" size="large" class="img-avatar"/>
-            <p>{{ userInfo.username }}</p>
+            <p>
+                {{ userInfo.username }}
+
+                <follow-button v-model="userInfo">
+                    <el-button>编辑</el-button>
+                </follow-button>
+            </p>
+        </div>
+        <div class="info">
+            <span>关注：{{ userInfo.follow }} | 粉丝：{{ userInfo.follower }} | 文章：{{ userInfo.article }}</span>
         </div>
     </div>
 </template>
@@ -19,6 +29,7 @@ defineProps<{
 
 .com-user-info-show{
     display: flex;
+    flex-direction: column;
     width: 100%;
     border-bottom: 2px var(--frame-border-color) solid;
     padding: var(--frame-padding);
