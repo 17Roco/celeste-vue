@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 defineProps<{
-    articleList:Page<Article>
+    list:Page<any>
 }>()
 const index = defineModel()
 
@@ -10,9 +10,9 @@ const index = defineModel()
 <template>
     <el-pagination
         background layout="prev, pager, next"
-        v-show="articleList.pages > 1"
-        :total="articleList.total"
-        :page-count="articleList.pages"
+        v-show="list.pages > 1"
+        :total="list.total"
+        :page-count="list.pages"
         v-model:current-page="index"
     />
 </template>

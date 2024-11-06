@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useMainStore} from "@/stores/mainStore";
-import FollowButton from "@/components/other/FollowButton.vue";
+import FollowButton from "@/components/common/FollowButton.vue";
 
 const store = useMainStore()
 const userInfo = defineModel<UserInfo>()

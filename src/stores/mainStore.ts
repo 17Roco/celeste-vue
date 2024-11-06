@@ -64,9 +64,9 @@ export const useMainStore = defineStore('main', () =>{
         follow:async (uid:number,b:boolean)=> {
             return (b ? await follow(uid) : await unfollow(uid)).b
         },
-        getFollowerList:async (uid?:number,index?:number)=>
+        getFollowerList:async (uid:number,index?:number)=>
             (await getFollow(
-                uid || (await getSelfInfo()).uid,
+                uid,
                 index || 1
             )).data
     }

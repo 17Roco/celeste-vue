@@ -67,7 +67,10 @@ const router = createRouter({
       },{
         path:'follow/:uid?',
         beforeEnter:enterNeedLogin,
-        props:route => ({aid: route.params.uid ? parseInt(route.params.uid) : null}),
+        props:route => ({
+          uid: route.params.uid ? parseInt(route.params.uid) : null,
+          index: route.query.p ? parseInt(route.query.p) : null
+        }),
         component:()=>import("@/views/user/UserFollowView.vue")
       },{
         path:'manager',

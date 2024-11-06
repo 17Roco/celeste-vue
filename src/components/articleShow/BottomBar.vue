@@ -20,7 +20,6 @@
             </div>
             <!-- 操作 -->
             <div class="opt">
-<!--                <el-button @click="like">点赞</el-button>-->
                 <LikeButton v-model="article"></LikeButton>
                 <el-button @click="comment">评论</el-button>
             </div>
@@ -30,9 +29,9 @@
 
 <script setup lang="ts">
 import router from "@/router";
-import FollowButton from "@/components/other/FollowButton.vue";
+import FollowButton from "@/components/common/FollowButton.vue";
 import {useMainStore} from "@/stores/mainStore";
-import LikeButton from "@/components/other/LikeButton.vue";
+import LikeButton from "@/components/common/LikeButton.vue";
 
 const props = defineProps<{aid:number}>()
 const article = defineModel<Article>()
@@ -41,10 +40,6 @@ const store = useMainStore()
 
 let toEdit = () => {
     router.push(('/blog/edit/'+props.aid))
-}
-
-let like = () => {
-
 }
 
 let comment = () => {

@@ -41,6 +41,7 @@ interface changePasswordForm{
 interface Page<T> {
     pages:number,
     total:number,
-    index:number,
+    current:number,
+    size?:number,
     records:Array<T>
 }

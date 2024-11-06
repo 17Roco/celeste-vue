@@ -6,7 +6,7 @@
             <!--    排序    -->
             <el-segmented :options="store.filter.order" v-model="filter.order"/>
             <!--    顶部分页    -->
-            <Pagination :article-list="articleList" v-model="filter.index"/>
+            <Pagination list="articleList" v-model="filter.index"/>
             <!--    时间范围    -->
             <DateSelect @change="changeTime"/>
         </div>
@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import TagSelect from "@/components/articleList/filterBar/tagSelect.vue";
-import Pagination from "@/components/articleList/filterBar/Pagination.vue";
+import Pagination from "@/components/common/Pagination.vue";
 import DateSelect from "@/components/articleList/filterBar/DateSelect.vue";
 import {reactive, watchEffect} from "vue";
 import {useRoute} from "vue-router";
