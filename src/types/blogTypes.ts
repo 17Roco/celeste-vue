@@ -22,6 +22,14 @@ interface Filter{
     endTime?:string,
     self?:boolean
 }
+interface ArticleFilter{
+    index?:number,
+    tag?:string,
+    order?:string,
+    beginTime?:string,
+    endTime?:string,
+    self?:boolean
+}
 
 interface ArticleForm {
     img?:string,

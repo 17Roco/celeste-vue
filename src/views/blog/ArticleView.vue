@@ -11,7 +11,3 @@ defineProps<{
 <template>
     <ArticleShow :aid="aid"/>
 </template>
-
-<style scoped>
-
-</style>
