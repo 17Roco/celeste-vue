@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import FilterBar from "./filterBar/FilterBar.vue";
 import ArticleItem from "./ArticleItem.vue";
-import {inject, ref, watchEffect} from "vue";
+import {computed, inject, provide, ref, watchEffect} from "vue";
 import {useRoute} from "vue-router";
 import {useBlogStore} from "@/stores/blogStore";
 import {NP} from "@/util/NP";
@@ -25,16 +25,27 @@ import {SymbolArticleFilter} from "@/types/symbol";
 
 const props = defineProps<{edit:boolean}>()
 const store = useBlogStore()
+const route = useRoute()
+
+// 过滤器
+let filter = computed(() => ({
+    index:      route.query.index     || 1,
+    tag:        route.query.tag       || null,
+    order:      route.query.order     || "最新",
+    beginTime:  route.query.beginTime || null,
+    endTime:    route.query.endTime   || null,
+}))
+
+// 提供文章过滤器
+provide(SymbolArticleFilter,filter)
 
 // 文章列表
 let articleList = ref<Page<Article>|null>(null)
-// 注入文章过滤器
-let filter = inject<ArticleFilter>(SymbolArticleFilter)
+
 // 更新文章列表
 watchEffect(()=>{
     NP(async()=>articleList.value = await store.getArticleList(filter?.value,props.edit))
 })
-
 
 
 </script>

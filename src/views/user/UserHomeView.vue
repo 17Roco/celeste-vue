@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import UserHome from "@/components/userHome/UserHome.vue";
 import {useMainStore} from "@/stores/mainStore";
 
@@ -10,7 +9,3 @@ defineProps<{uid?:number}>()
 <template>
     <UserHome :uid="uid"/>
 </template>
-
-<style>
-
-</style>

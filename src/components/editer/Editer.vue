@@ -32,7 +32,7 @@ import {NP} from "@/util/NP";
 const store = useBlogStore()
 const mainStore = useMainStore()
 const props = defineProps<{
-    aid:number|null
+    aid?:number
 }>()
 
 let load = ref<boolean>(false)

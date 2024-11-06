@@ -15,6 +15,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {path: '/', redirect:'/home'},
+    // home
     {
       path: '/home', redirect:'/home/index',
       component: Frame,
@@ -22,7 +23,9 @@ const router = createRouter({
         path:'index',
         component:HomeView
       }]
-    },{
+    },
+    // about
+    {
       path: '/about', redirect:'/about/index',
       component: Frame,
       children:[{
@@ -52,10 +55,12 @@ const router = createRouter({
         component:()=>import("@/views/blog/ArticleEditView.vue")
       }]
     },
+
     // /user/home
-    // /user/manager
     // /user/follow/:uid?
+    // /user/manager
     // /user/setting
+    // /user/:uid
     {
       path: '/user',
       redirect:'/user/home',
