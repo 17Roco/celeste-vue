@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed, reactive, watchEffect} from "vue";
 import {useMainStore} from "@/stores/mainStore";
-import UserInfoItem from "@/components/common/UserInfoItem.vue";
+import UserInfoItem from "@/components/common/UserInfoShow.vue";
 import {ElMessage} from "element-plus";
 import Pagination from "@/components/common/Pagination.vue";
 import router from "@/router";
@@ -54,6 +54,7 @@ let changePage = (index: number) => router.push({query:{index}})
         <!-- 列表 -->
         <user-info-item
             class="list"
+            follow-opt
             v-if="followerList.records.length > 0"
             v-for="follower in followerList.records" :user="follower" :key="follower.uid"
             @change="follow(follower.uid,$event)"

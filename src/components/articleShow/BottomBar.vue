@@ -25,6 +25,7 @@
             </div>
         </div>
     </div>
+    <comment-view v-model="commentOpen" :aid="aid"/>
 </template>
 
 <script setup lang="ts">
@@ -32,18 +33,21 @@ import router from "@/router";
 import FollowButton from "@/components/common/FollowButton.vue";
 import {useMainStore} from "@/stores/mainStore";
 import LikeButton from "@/components/common/LikeButton.vue";
+import CommentView from "@/components/articleShow/comment/CommentView.vue";
+import {ref} from "vue";
 
 const props = defineProps<{aid:number}>()
 const article = defineModel<Article>()
 const store = useMainStore()
 
+let commentOpen = ref(false)
 
 let toEdit = () => {
     router.push(('/blog/edit/'+props.aid))
 }
 
 let comment = () => {
-
+    commentOpen.value = !commentOpen.value
 }
 </script>
 
