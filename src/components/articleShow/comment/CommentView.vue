@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import CommentInput from "@/components/articleShow/comment/CommentInput.vue";
-import {useCommentStore} from "@/stores/CommentStore";
+import {useCommentStore} from "@/stores/commentStore";
 import {reactive, ref, watchEffect} from "vue";
 import {useRoute} from "vue-router";
 import CommentShow from "@/components/articleShow/comment/CommentShow.vue";

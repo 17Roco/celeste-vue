@@ -5,7 +5,7 @@
         <div class="button-bar">
             <!--    排序    -->
             <el-segmented :options="store.filter.order" v-model="order">
-                <template #default="{item}">{{ item }}</template>
+                <template #default="{item}">{{ store.filter._oder[item] }}</template>
             </el-segmented>
             <!--    分页    -->
             <Pagination :list="articleList" @change="updateFilter({index: $event})" />
@@ -42,7 +42,7 @@ let changeTime = (beginTime:Date,endTime:Date)=>{
 }
 // 排序方式
 let order = computed({
-    get:() => filter.value.order,
+    get:()=>filter.value.order,
     set:(value:string)=> updateFilter({order: value})
 })
 

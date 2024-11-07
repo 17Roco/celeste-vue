@@ -31,7 +31,7 @@ const route = useRoute()
 let filter = computed(() => ({
     index:      route.query.index     || 1,
     tag:        route.query.tag       || null,
-    order:      route.query.order     || "最新",
+    order:      route.query.order     || "new",
     beginTime:  route.query.beginTime || null,
     endTime:    route.query.endTime   || null,
 }))

@@ -36,8 +36,9 @@ interface ArticleForm {
     title?:string,
     context?:string
 }
-interface ChangeTag {
-    tag:string,
-    check:boolean
+interface Tag {
+    title:string,
+    num:number,
+    info:string
 }
 

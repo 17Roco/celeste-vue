@@ -15,7 +15,7 @@ export const deleteArticle      = (aid:number)                        => DELETE(
 export const updateArticleImg   = (file:any,aid:number)               => PUT(`${prefix}/img/${aid}`,file)
 
 // tag
-export const getTags        =()                      => GET<Array<any>>(`tag/list`)
+export const getTags        =()                      => GET<Array<Tag>>(`tag/list`)
 export const likeArticle    =(aid:number)            => POST(`${prefix}/like/${aid}`)
 export const unlikeArticle  =(aid:number)            => POST(`${prefix}/unlike/${aid}`)
 export const addTags        =(aid:number,tag:string) => POST(`${prefix}/add_tag/${aid}/${tag}`)

@@ -1,36 +1,59 @@
 import {defineStore} from "pinia";
-import {deleteArticle, getArticleContent, getArticleInfos, getTags, likeArticle, unlikeArticle} from "@/api/blogApi";
-import {reactive} from "vue";
+import * as api from "@/api/blogApi";
+import {reactive, watchEffect} from "vue";
 
 
 export const useBlogStore = defineStore('blog', () =>{
     // 过滤条件
     let filter = reactive({
         tags:[],
-        order:["最新","高赞","高浏览量"],
-        _order:{"最新":"new","高赞":"like","高浏览量":"watch"}
+        order:["new", "like", "watch"],
+        _oder:{
+            "new":"最新",
+            "like":"高赞",
+            "watch":"高浏览量"
+        }
     })
 
-    // 获取标签
-    let loadTags = async ():Promise<Array<string>> => (await getTags()).data.map(tag=>tag.title)
-    // 获取文章
-    let getArticle = async(aid:number)=> (await getArticleContent(aid)).data
-    // 获取文章列表
-    let getArticleList = async (f:Filter,self:boolean):Promise<Page<Article>> =>{
-        let ff = Object.assign({self,index:1} as Filter,f)
-        if (f.order)
-            ff.order = filter._order[f.order]
-        return (await getArticleInfos(ff)).data
-    }
+    // 自动更新标签
+    watchEffect(async () => {
+        filter.tags = (await api.getTags()).data.map(tag=>tag.title)
+    })
 
-    // 自动获取标签
-    loadTags().then(data =>filter.tags=data)
     return{
         filter,
-        loadTags,
-        getArticle,
-        getArticleList,
-        deleteArticle:async (aid:number) => await deleteArticle(aid),
-        likeArticle:async (aid:number,b:boolean) => (b ? await likeArticle(aid) : await unlikeArticle(aid)).b
+
+        // 获取文章
+        getArticle:async (aid:number)=> {
+            return (await api.getArticleContent(aid)).data
+        },
+        // 获取文章列表
+        getArticleList:async (f:Filter,self:boolean) => {
+            return (await api.getArticleInfos({...f,self})).data
+        },
+
+        // 发布文章
+        saveArticle:async (data:ArticleForm) => {
+            return (await api.saveArticle(data)).data
+        },
+        // 更新文章
+        updateArticle:async (aid:number,data:ArticleForm) => {
+            return (await api.updateArticle(data, aid)).b
+        },
+        // 删除文章
+        deleteArticle:async (aid:number) => {
+            return (await api.deleteArticle(aid)).b
+        },
+
+        // 上传文章图片
+        updateArticleImg:async (aid:number,data:ArticleForm) => {
+            await api.updateArticleImg(aid, data)
+            // todo
+        },
+
+        // 点赞文章
+        likeArticle:async (aid:number,b:boolean) => {
+            return (b ? await api.likeArticle(aid) : await api.unlikeArticle(aid)).b
+        }
     }
 })
