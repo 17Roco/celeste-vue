@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
-import {reactive, ref, watchEffect} from "vue";
-import {follow, getFollow, getSelfInfo, getUser, login, logout, register, unfollow} from "@/api/userApi";
+import {reactive, watchEffect} from "vue";
+import * as api from "@/api/userApi";
 import {ElMessage} from "element-plus";
 import router from "@/router";
 
@@ -28,46 +28,77 @@ export const useMainStore = defineStore('main', () =>{
     })
     // 获取当前用户信息
     let getSelfInfo = async() => {
-        let r = await getUser()
-        r.b || ElMessage("token 失效")
+        let r = await api.getUser()
+        r.b || ElMessage("登录信息失效")
         r.b || (userStatus.token = null)
         return r.data
     }
     watchEffect(async ()=> {
         if (userStatus.token && userStatus.token !== ''){
+            // 保存token
             localStorage.setItem('token',userStatus.token)
             userStatus.userInfo = await getSelfInfo()
         }else {
+            // 清除token
             localStorage.removeItem('token')
             userStatus.userInfo = null
         }
     })
 
     return {
-        menu, userStatus,
+        menu,
+        userStatus,
         getSelfInfo,
-        getUser:async (uid?:number)=> (await getUser(uid)).data,
+
+        // 用户登录
         login:async (form:LoginForm) => {
-            let r = await login(form)
+            let r = await api.login(form)
+            // 保存token
             r.b && (userStatus.token = r.data.token)
-            return r
+            return r.b
         },
-        register:async (form:LoginForm)=> await register(form),
+        // 用户注册
+        register:async (form:LoginForm)=> {
+            return (await api.register(form)).b
+        },
+        // 用户退出
         logout:async ()=> {
-            if((await logout()).b) {
-                userStatus.token = null
-                router.go(0)
-            }else {
-                ElMessage("退出失败")
-            }
+            // 调用接口
+            await api.logout()
+            // 清除token
+            userStatus.token = null
+            // 刷新页面
+            router.go(0)
         },
+
+
+        // 获取用户信息
+        getUser:async (uid?:number)=> {
+            return (await api.getUser(uid)).data
+        },
+
+        // 更新用户信息
+        updateUserInfo:async (form:UserForm)=> {
+            return (await api.updateInfo(form)).b
+        },
+        // 上传头像
+        updateImg:async (file:File)=> {
+            return (await api.updateImg(file)).b
+        },
+
+
+
+
+        // 关注/取消关注
         follow:async (uid:number,b:boolean)=> {
-            return (b ? await follow(uid) : await unfollow(uid)).b
+            return (b ? await api.follow(uid) : await api.unfollow(uid)).b
         },
-        getFollowerList:async (uid:number|null,index?:number)=>
-            (await getFollow(
-                uid || (await getSelfInfo()).uid,
+        // 获取关注列表
+        getFollowerList:async (uid:number|null,index?:number)=> {
+            return (await api.getFollow(
+                uid      || (await getSelfInfo()).uid,
                 index || 1
             )).data
+        }
     }
 })

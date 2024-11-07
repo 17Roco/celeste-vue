@@ -4,8 +4,8 @@ import {DELETE, GET, POST, PUT} from "./request"
 const prefix = "/article"
 
 // 获取文章内容、列表
-export const getArticleContent  = (aid:number)    => GET<Article>(`${prefix}/${aid}`)
-export const getArticleInfos    = (filter:Filter) => GET<Page<Article>>(`${prefix}/filter`, {params:filter})
+export const getArticleContent  = (aid:number)              => GET<Article>(`${prefix}/${aid}`)
+export const getArticleInfos    = (filter:ArticleFilter)    => GET<Page<Article>>(`${prefix}/filter`, {params:filter})
 
 // 新增、修改、删除文章
 export const saveArticle        = (article:ArticleForm)               => POST<{aid:number}>(`${prefix}/context`,article)

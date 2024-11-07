@@ -37,6 +37,13 @@ interface changePasswordForm{
     username:string,
     password:string
 }
+interface UserInfoForm{
+    username:string,
+    img:string,
+    sex:number,
+    birthdate:Date,
+    sign:string,
+}
 
 interface Page<T> {
     pages:number,

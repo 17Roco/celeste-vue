@@ -14,14 +14,6 @@ interface Article {
     idLike:boolean
 }
 
-interface Filter{
-    index?:number,
-    tag?:string,
-    order?:string,
-    beginTime?:string,
-    endTime?:string,
-    self?:boolean
-}
 interface ArticleFilter{
     index?:number,
     tag?:string,

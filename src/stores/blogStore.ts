@@ -28,7 +28,7 @@ export const useBlogStore = defineStore('blog', () =>{
             return (await api.getArticleContent(aid)).data
         },
         // 获取文章列表
-        getArticleList:async (f:Filter,self:boolean) => {
+        getArticleList:async (f:ArticleFilter,self:boolean) => {
             return (await api.getArticleInfos({...f,self})).data
         },
 
