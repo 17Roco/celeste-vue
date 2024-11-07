@@ -5,6 +5,25 @@ interface Result<T = any> {
     msg:string,
     data:T,
 }
+
+interface Page<T> {
+    pages:number,
+    total:number,
+    current:number,
+    size?:number,
+    records:Array<T>
+}
+
+interface Token {
+    token:string,
+}
+
+interface LoginStatus {
+    loginMode:boolean,
+    token:string,
+    userInfo?:UserInfo,
+}
+
 interface UserInfo {
     uid:number,
     username:string,
@@ -17,17 +36,6 @@ interface UserInfo {
     follower:number,
     article:number,
 }
-interface Token {
-    token:string,
-}
-interface LoginStatus {
-    loginMode:boolean,
-    token:string,
-    userInfo?:UserInfo,
-}
-
-
-
 
 interface LoginForm{
     username:string,
@@ -43,12 +51,4 @@ interface UserInfoForm{
     sex:number,
     birthdate:Date,
     sign:string,
-}
-
-interface Page<T> {
-    pages:number,
-    total:number,
-    current:number,
-    size?:number,
-    records:Array<T>
 }

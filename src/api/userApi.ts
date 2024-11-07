@@ -8,7 +8,7 @@ export const getSelfInfo    = ()                => GET<UserInfo>("/self")
 
 const prefix = "/user"
 // 获取用户信息
-export const getUser        = (uid?:number)             => GET<UserInfo>(id ? `${prefix}/${id}` : "/self")
+export const getUser        = (uid?:number)             => GET<UserInfo>(uid ? `${prefix}/${uid}` : "/self")
 // 更新用户信息
 export const updateInfo     = (info:UserInfoForm)       => PUT<boolean>(`${prefix}/info`, info)
 // 更新密码

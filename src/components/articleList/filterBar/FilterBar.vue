@@ -8,7 +8,7 @@
                 <template #default="{item}">{{ store.filter._oder[item] }}</template>
             </el-segmented>
             <!--    分页    -->
-            <Pagination :list="articleList" @change="updateFilter({index: $event})" />
+            <Pagination v-if="articleList" :list="articleList" @change="updateFilter({index: $event})" />
             <!--    时间范围    -->
             <DateSelect @change="changeTime"/>
         </div>
@@ -24,14 +24,17 @@ import {useRoute} from "vue-router";
 import {useBlogStore} from "@/stores/blogStore";
 import {formatDate} from "@/util/TimeUtil";
 import router from "@/router";
-import {SymbolArticleFilter} from "@/types/symbol";
-import {get} from "axios";
+import {SymbolArticleFilter, SymbolArticleList} from "@/types/symbol"
 
-defineProps<{articleList:Page<Article>}>()
 const store = useBlogStore()
 const route = useRoute()
 // 注入文章过滤器
-let filter = inject<ArticleFilter>(SymbolArticleFilter, ref<ArticleFilter>({}))
+let filter = inject<ArticleFilter>(SymbolArticleFilter)
+// 注入文章列表
+let articleList = inject<Page<Article>>(SymbolArticleList)
+
+
+
 
 // 更新时间范围
 let changeTime = (beginTime:Date,endTime:Date)=>{

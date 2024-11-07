@@ -13,7 +13,10 @@
                 <template v-if="article.createTime!=article.updateTime">更新时间：{{ article.updateTime }}</template>
             </p>
             <!--标签-->
-            <tag-show :tags="article.tags"/>
+            <tag-show
+                v-if="article.tags && article.tags.length>0"
+                :tags="article.tags"
+            />
             <!--正文-->
             <p class="context" v-html="article.context"></p>
             <!--底部条-->
@@ -28,14 +31,14 @@ import BottomBar from "./BottomBar.vue";
 import {onMounted, ref} from "vue";
 import {useBlogStore} from "@/stores/blogStore";
 
-
 const store = useBlogStore()
 const props = defineProps<{aid:number}>()
 
-let article = ref<Article|null>(null)
 let status = ref<string>("加载中")
+let article = ref<Article|null>(null)
 
-onMounted(async ()=>{
+onMounted(async ()=> {
+    // 获取文章
     article.value = await store.getArticle(props.aid)
     if(!article.value)
         (status.value = "文章不存在")

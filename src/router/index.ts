@@ -51,7 +51,7 @@ const router = createRouter({
       },{
         path:'edit/:aid?',
         beforeEnter:enterNeedLogin,
-        props:route => ({aid: route.params.aid ? parseInt(route.params.aid) : null}),
+        props:route => ({aid: route.params.aid ? parseInt(route.params.aid) : undefined}),
         component:()=>import("@/views/blog/ArticleEditView.vue")
       }]
     },
@@ -73,8 +73,8 @@ const router = createRouter({
         path:'follow/:uid?',
         beforeEnter:enterNeedLogin,
         props:route => ({
-          uid: route.params.uid ? parseInt(route.params.uid) : null,
-          index: route.query.p ? parseInt(route.query.p) : null
+          uid: route.params.uid ?parseInt(route.params.uid) :undefined,
+          index: route.query.p ? parseInt(route.query.p) : undefined// todo
         }),
         component:()=>import("@/views/user/UserFollowView.vue")
       },{
