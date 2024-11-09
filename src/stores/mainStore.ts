@@ -9,9 +9,9 @@ export const useMainStore = defineStore('main', () =>{
     let menu = reactive({
         cur:'',
         models:[
-            {'title':'Home','path':'/home','img':"https://pinia.vuejs.org/logo.svg"},
-            {'title':'BLog','path':'/blog','img':"https://pinia.vuejs.org/logo.svg"},
-            {'title':'About','path':'/about','img':"https://pinia.vuejs.org/logo.svg"}
+            {'title':'Home','path':'/home','img':"/static/logo.svg"},
+            {'title':'BLog','path':'/blog','img':"/static/logo.svg"},
+            {'title':'About','path':'/about','img':"/static/logo.svg"}
         ],
         userOpe:[
             {'title':'主页','path':'/user/home'},
@@ -29,6 +29,7 @@ export const useMainStore = defineStore('main', () =>{
     // 获取当前用户信息
     let getSelfInfo = async() => {
         let r = await api.getUser()
+        userStatus.userInfo = r.data
         r.b || ElMessage("登录信息失效")
         r.b || (userStatus.token = null)
         return r.data
@@ -55,11 +56,11 @@ export const useMainStore = defineStore('main', () =>{
             let r = await api.login(form)
             // 保存token
             r.b && (userStatus.token = r.data.token)
-            return r.b
+            return r
         },
         // 用户注册
         register:async (form:LoginForm)=> {
-            return (await api.register(form)).b
+            return (await api.register(form))
         },
         // 用户退出
         logout:async ()=> {
@@ -79,11 +80,17 @@ export const useMainStore = defineStore('main', () =>{
 
         // 更新用户信息
         updateUserInfo:async (form:UserForm)=> {
-            return (await api.updateInfo(form)).b
+            let b = (await api.updateInfo(form)).b
+            b || await getSelfInfo()
+            return b
         },
         // 上传头像
-        updateImg:async (file:File)=> {
-            return (await api.updateImg(file)).b
+        updateImg:async (file)=> {
+            let form = new FormData()
+            form.append('file',file)
+            let b = (await api.updateImg(form)).b
+            b || await getSelfInfo()
+            return b
         },
 
 

@@ -1,25 +1,32 @@
 <script setup lang="ts">
 
 import {useBlogStore} from "@/stores/blogStore";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watchEffect} from "vue";
 
 const store = useBlogStore()
 const props = defineProps<{uid?:number}>()
 let articles = ref<Array<Article>>(null)
+let count = ref(-1)
 
 
-
-onMounted(async ()=> {
-    // 获取用户文章列表 todo
-    articles.value = (await store.getArticleList({},true)).records.slice(0,4)
-
+watchEffect(async ()=> {
+    // 获取用户文章列表
+    let r = (await store.getArticleList({uid:props.uid},!props.uid))
+    articles.value = r.records.slice(0,4)
+    count.value = r.total
 })
 </script>
 
 <template>
     <div class="com-user-show-item">
-        <p style="margin: 7px"> 文章 </p>
+        <p style="margin: 7px">
+            文章
+            <span v-show="count>-1">{{count}}</span>
+        </p>
         <div class="items" v-if="articles">
+            <div v-if="articles.length==0">
+                <p>暂无文章</p>
+            </div>
             <router-link class="item" v-for="a in articles" :to="'/blog/article/'+a.aid">
                 <p>{{ a.title }}</p>
                 <!-- todo 图片-->

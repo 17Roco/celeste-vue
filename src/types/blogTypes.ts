@@ -20,7 +20,8 @@ interface ArticleFilter{
     order?:string,
     beginTime?:string,
     endTime?:string,
-    self?:boolean
+    self?:boolean,
+    uid?:number,
 }
 
 interface ArticleForm {

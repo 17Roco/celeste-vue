@@ -28,6 +28,10 @@ export default defineConfig({
         // target:"http://172.21.25.34:80",
         changeOrigin: true, //是否跨域
         rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+      "/static":{
+        target: "http://localhost",
+        changeOrigin: true,
       }
     }
   }

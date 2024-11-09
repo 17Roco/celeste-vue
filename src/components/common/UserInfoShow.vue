@@ -1,10 +1,14 @@
 <script setup lang="ts">
-
 import {useMainStore} from "@/stores/mainStore";
 import SwitchButton from "@/components/common/SwitchButton.vue";
 
 const store = useMainStore();
-defineProps<{user:UserInfo,followOpt?:boolean,mini?:boolean}>()
+defineProps<{
+    user:UserInfo,
+    followOpt?:boolean,
+    avatar?:boolean,
+    text?:boolean
+}>()
 defineEmits<{change:(isFollow:boolean)=>void}>()
 
 </script>
@@ -13,9 +17,9 @@ defineEmits<{change:(isFollow:boolean)=>void}>()
     <div class="com-user-info-item" v-if="user.uid !== store.userStatus?.userInfo?.uid">
         <router-link :to="'/user/' + user.uid" class="info">
             <!-- 头像 -->
-            <el-avatar :src="user.img" v-if="!mini"/>
+            <el-avatar v-if="avatar" :src="user.img"/>
             <!-- 昵称 -->
-            <span style="margin-right: 30px" class="username-span">{{ user.username }}</span>
+            <span v-if="text" style="margin-right: 30px" class="username-span">{{ user.username }}</span>
         </router-link>
         <slot>
             <!-- 关注按钮 -->
@@ -32,9 +36,7 @@ defineEmits<{change:(isFollow:boolean)=>void}>()
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #a9a9a9;
     width: 400px;
-    //padding: 0 40px;
 
     >.info{
         display: flex;

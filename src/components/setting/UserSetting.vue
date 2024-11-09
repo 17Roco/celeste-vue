@@ -6,7 +6,3 @@ import UserInfoSetting from "@/components/setting/UserInfoSetting.vue";
 <template>
     <user-info-setting/>
 </template>
-
-<style>
-
-</style>

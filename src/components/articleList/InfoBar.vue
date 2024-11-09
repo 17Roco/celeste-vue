@@ -1,9 +1,8 @@
 <template>
     <div class="com-info-bar">
-        <p class="info">
+        <div class="info">
             <!--作者信息-->
-<!--            <router-link :to="'/user/'+article.user.uid" v-if="!edit">作者 : {{ article.user.username }} {{ article.user.isFollow? '（已关注）' : ''}} </router-link>-->
-            <UserInfoShow :user="article.user" v-if="!edit" mini>
+            <UserInfoShow :user="article.user" v-if="!edit" text>
             <!--like watch-->
             <span>like:{{ article.likee }} |</span>
             <span>watch:{{ article.watch }} |</span>
@@ -11,7 +10,7 @@
             <span>{{ moment(article.updateTime).format('YYYY-MM-DD') }}</span>
 
             </UserInfoShow>
-        </p>
+        </div>
         <!--编辑按钮-->
         <div v-if="edit" class="opt">
             <el-button size="small" round @click.stop="router.push('/blog/article/'+article.aid)">查看</el-button>
@@ -42,7 +41,6 @@ let delArticle = async () => {
         ElMessage(b ? "删除成功" : "删除失败")
     }
 }
-
 </script>
 
 <style>

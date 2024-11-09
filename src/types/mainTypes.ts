@@ -49,6 +49,6 @@ interface UserInfoForm{
     username:string,
     img:string,
     sex:number,
-    birthdate:Date,
+    birthday:Date,
     sign:string,
 }

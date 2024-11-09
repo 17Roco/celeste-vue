@@ -53,8 +53,8 @@ let changePage = (index: number) => router.push({query:{index}})
         <Pagination :list="followerList" class="pagination" @change="changePage" :current-page="index.value" />
         <!-- 列表 -->
         <user-info-item
-            class="list"
-            follow-opt
+            class="item"
+            follow-opt text avatar
             v-if="followerList.records.length > 0"
             v-for="follower in followerList.records" :user="follower" :key="follower.uid"
             @change="follow(follower.uid,$event)"
@@ -71,6 +71,10 @@ let changePage = (index: number) => router.push({query:{index}})
 
     .pagination{
         margin-bottom: 50px;
+    }
+    >.item{
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
     }
 }
 

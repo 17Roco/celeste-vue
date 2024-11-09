@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {useMainStore} from "@/stores/mainStore";
 import FollowButton from "@/components/common/FollowButton.vue";
+import router from "@/router";
 
 const store = useMainStore()
 const userInfo = defineModel<UserInfo>()
@@ -15,12 +16,12 @@ const userInfo = defineModel<UserInfo>()
                 {{ userInfo.username }}
 
                 <follow-button v-model="userInfo">
-                    <el-button>编辑</el-button>
+                    <el-button @click="router.push('/user/setting')">编辑</el-button>
                 </follow-button>
             </p>
         </div>
         <div class="info">
-            <span>关注：{{ userInfo.follow }} | 粉丝：{{ userInfo.follower }} | 文章：{{ userInfo.article }}</span>
+            <span>关注：{{ userInfo.follow }} | 粉丝：{{ userInfo.followed }}</span>
         </div>
     </div>
 </template>
