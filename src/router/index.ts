@@ -1,8 +1,8 @@
+import type {RouteLocationNormalized} from "vue-router";
 import {createRouter, createWebHistory} from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import Frame from "@/components/frame/Frame.vue";
 import NProgress from 'nprogress'
-import type {RouteLocationNormalized} from "vue-router";
 
 let getToken = () => localStorage.getItem("token");
 let enterNeedLogin = (to:RouteLocationNormalized,form:RouteLocationNormalized)=>{
@@ -103,9 +103,15 @@ const router = createRouter({
 
 
 
-
-
-
+    {
+      path:"/dev",
+      component:Frame,
+      redirect:'/dev/index',
+      children:[{
+        path:'index',
+        component:()=>import("@/views/dev/DevView.vue")
+      }]
+    },
     {
       path:"/404",
       component:()=>import("@/views/NotFound.vue")

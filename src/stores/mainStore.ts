@@ -9,9 +9,9 @@ export const useMainStore = defineStore('main', () =>{
     let menu = reactive({
         cur:'',
         models:[
-            {'title':'Home','path':'/home','img':"/static/logo.svg"},
-            {'title':'BLog','path':'/blog','img':"/static/logo.svg"},
-            {'title':'About','path':'/about','img':"/static/logo.svg"}
+            {'title':'Home','path':'/home','img':"/static/logo.png"},
+            {'title':'BLog','path':'/blog','img':"/static/logo.png"},
+            {'title':'About','path':'/about','img':"/static/logo.png"}
         ],
         userOpe:[
             {'title':'主页','path':'/user/home'},
