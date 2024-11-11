@@ -3,6 +3,7 @@ import {reactive, watchEffect} from "vue";
 import * as api from "@/api/userApi";
 import {ElMessage} from "element-plus";
 import router from "@/router";
+import type {UploadRawFile} from "element-plus/lib/components";
 
 export const useMainStore = defineStore('main', () =>{
     // 菜单
@@ -79,18 +80,18 @@ export const useMainStore = defineStore('main', () =>{
         },
 
         // 更新用户信息
-        updateUserInfo:async (form:UserForm)=> {
+        updateUserInfo:async (form:UserInfoForm)=> {
             let b = (await api.updateInfo(form)).b
             b || await getSelfInfo()
             return b
         },
         // 上传头像
-        updateImg:async (file)=> {
+        updateImg:async (file:UploadRawFile)=> {
             let form = new FormData()
             form.append('file',file)
-            let b = (await api.updateImg(form)).b
-            b || await getSelfInfo()
-            return b
+            let r = (await api.updateImg(form))
+            r.b || await getSelfInfo()
+            return r
         },
 
 

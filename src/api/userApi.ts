@@ -12,9 +12,9 @@ export const getUser        = (uid?:number)             => GET<UserInfo>(uid ? `
 // 更新用户信息
 export const updateInfo     = (info:UserInfoForm)       => PUT<boolean>(`${prefix}/info`, info)
 // 更新密码
-export const updatePw       = (form:changePasswordForm) => PUT<boolean>(`${prefix}/pw`,form)
+export const updatePw       = (form:changePasswordForm) => PUT(`${prefix}/pw`,form)
 // 更新头像 todo 上传图片
-export const updateImg     = (file:any)                 => PUT<boolean>(`${prefix}/img`, file)
+export const updateImg     = (file:any)                 => PUT<string>(`${prefix}/img`, file)
 
 
 // 获取关注列表

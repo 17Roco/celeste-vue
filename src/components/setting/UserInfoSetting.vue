@@ -1,28 +1,38 @@
 <script setup lang="ts">
 
-import {computed, onMounted, reactive, ref, watchEffect} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {useMainStore} from "@/stores/mainStore";
 import {ElMessage} from "element-plus";
-import type {UploadRequestOptions} from "element-plus/lib/components";
+import type {UploadRawFile} from "element-plus/lib/components";
 import {Plus} from "@element-plus/icons-vue";
+import {formatDate} from "@/util/TimeUtil";
 
 const store = useMainStore()
-let userInfo = ref<UserInfo|null>(null)
-let oldUserInfo:userInfo|null = null
+let newInfo = ref<UserInfoForm|null>(null)
+let oldInfo = ref<UserInfoForm|null>(null)
 
 onMounted(async ()=> {
-    oldUserInfo = await store.getSelfInfo()
-    userInfo.value = oldUserInfo
+    let {username,img,sex,birthday,sign} = await store.getSelfInfo()
+    newInfo.value = {username,img,sex,sign,birthday:formatDate(birthday)}
+    oldInfo.value = {username,img,sex,sign,birthday:formatDate(birthday)}
 })
 
-let change = computed(()=>({
+let isChange = computed(()=>{
+    if(!newInfo.value ||!oldInfo.value)
+        return false
+    if(newInfo.value.username!== oldInfo.value.username)
+        return true
+    else if(newInfo.value.sex!== oldInfo.value.sex)
+        return true
+    else if(newInfo.value.birthday!== oldInfo.value.birthday)
+        return true
+    else if(newInfo.value.sign!== oldInfo.value.sign)
+        return true
+    return false
+})
 
-}))
 
-
-
-const beforeUpload = (rawFile) => {
-    console.log(change)
+const beforeUpload = (rawFile:UploadRawFile) => {
     if (rawFile.type !== 'image/jpeg') {
         ElMessage.error('Avatar picture must be JPG format!')
         return false
@@ -32,23 +42,25 @@ const beforeUpload = (rawFile) => {
     }
     return true
 }
-let updateAvatar = async (file:UploadRequestOptions)=> {
-    let b = (await store.updateImg(file))
-    ElMessage(`${b}`)
+let updateAvatar = async (file:UploadRawFile)=> {
+    let r = (await store.updateImg(file))
+    newInfo.value.img = r.data
+    ElMessage(r.b ? '更新成功' : '更新失败')
 }
 
 let update = async()=> {
-
+    let  b = await store.updateUserInfo({...(newInfo.value as UserInfoForm),birthday:formatDate(newInfo.value.birthday)})
+    ElMessage(b ? '更新成功' : '更新失败')
 }
 </script>
 
 <template>
-    <div v-if="!userInfo">
+    <div v-if="!newInfo">
         加载中...
     </div>
     <div v-else>
         <h1>用户信息</h1>
-        <el-form :model="userInfo" label-width="auto" style="max-width: 400px;">
+        <el-form :model="newInfo" label-width="auto" style="max-width: 400px;">
             <!--  头像上传 -->
             <el-form-item label="头像">
                 <el-upload
@@ -57,33 +69,33 @@ let update = async()=> {
                     :before-upload="updateAvatar"
                     auto-upload :show-file-list="false"
                 >
-                    <el-image style="width:100px;height: 100px" :src="userInfo.img"/>
+                    <el-image style="width:100px;height: 100px" :src="newInfo.img"/>
                     <div style="display: flex;justify-content: end;height: 100%"><el-button circle><el-icon><Plus/></el-icon></el-button></div>
                 </el-upload>
             </el-form-item>
             <!--用户名-->
             <el-form-item label="用户名">
-                <el-input v-model="userInfo.username"/>
+                <el-input v-model="newInfo.username"/>
             </el-form-item>
             <!--性别-->
             <el-form-item label="性别">
-                <el-radio-group v-model="userInfo.sex">
+                <el-radio-group v-model="newInfo.sex">
                     <el-radio :value="1">男</el-radio>
                     <el-radio :value="0">女</el-radio>
                 </el-radio-group>
             </el-form-item>
             <!--生日-->
             <el-form-item label="生日">
-                <el-date-picker v-model="userInfo.birthday" type="date" placeholder="选择日期" :disabled-date="(date) => (date > new Date())">
+                <el-date-picker v-model="newInfo.birthday" type="date" placeholder="选择日期" :disabled-date="(date: Date) => (date > new Date())">
                 </el-date-picker>
             </el-form-item>
             <!--签名-->
             <el-form-item label="个性签名">
-                <el-input v-model="userInfo.sign" type="textarea" :rows="4" resize="none"/>
+                <el-input v-model="newInfo.sign" type="textarea" :rows="4" resize="none"/>
             </el-form-item>
             <!--保存-->
             <el-form-item label="">
-                <el-button type="primary" @click="update">保存</el-button>
+                <el-button type="primary" @click="update" :disabled="!isChange">保存</el-button>
             </el-form-item>
         </el-form>
     </div>

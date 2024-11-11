@@ -29,12 +29,13 @@ interface UserInfo {
     username:string,
     img:string,
     sex:number,
+    birthday:Date,
+    sign:string,
     phone:string,
     email:string,
-    isFollow?:boolean,
     follow:number
-    follower:number,
-    article:number,
+    followed:number,
+    isFollow?:boolean,
 }
 
 interface LoginForm{
@@ -49,6 +50,6 @@ interface UserInfoForm{
     username:string,
     img:string,
     sex:number,
-    birthday:Date,
+    birthday:String,
     sign:string,
 }
