@@ -10,6 +10,8 @@ export const getArticleComment  = (aid:number,index:number)    => GET<Page<Artic
 
 // 发表评论
 export const commentArticle = (data:CommentForm)               => POST(`${prefix}/article`,data)
+// 发表评论
+export const commentChildren= (data:CommentForm)               => POST(`${prefix}/children`,data)
 // 删除评论
 export const deleteComment  = (cid:number)                     => DELETE(`${prefix}/${cid}`)
 

@@ -36,7 +36,6 @@ defineEmits<{change:(isFollow:boolean)=>void}>()
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 400px;
 
     >.info{
         display: flex;
