@@ -1,8 +1,7 @@
-import { fileURLToPath, URL } from 'node:url'
+import {fileURLToPath, URL} from 'node:url'
 
-import { defineConfig } from 'vite'
+import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
-import {viteMockServe} from "vite-plugin-mock";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -24,14 +23,14 @@ export default defineConfig({
     open: true,
     proxy: {
       "/api": {
-        target: "http://localhost",
-        // target:"http://172.21.25.34:80",
+        // target: "http://localhost",
+        target:"http://110.40.143.143",
         changeOrigin: true, //是否跨域
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        // rewrite: (path) => path.replace(/^\/api/, ""),
       },
       "/static":{
-        target: "http://localhost",
-        changeOrigin: true,
+        target:"http://110.40.143.143",
+        changeOrigin: true, //是否跨域
       }
     }
   }

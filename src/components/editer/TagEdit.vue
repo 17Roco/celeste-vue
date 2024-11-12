@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import {useBlogStore} from "@/stores/blogStore.ts";
+import {useBlogStore} from "@/stores/blogStore";
 import {computed} from "vue";
 import {ElMessageBox} from "element-plus";
 

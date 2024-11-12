@@ -57,7 +57,7 @@ let inputs = [
 ]
 let toDown = (num:number)=>{if(num>=0 && num<3) (inputs[num+1] ? inputs[num+1].value?.focus(): toDown(num+1))}
 let toUp   = (num:number)=>{if(num>=0 && num<3) (inputs[num-1] ? inputs[num-1].value?.focus(): toUp(num-1))}
-let nextFocus = (num:number,val:string)=> {
+let nextFocus = (num:number,val?:string)=> {
     if (num === 2)
         props.isRegister ? register() : login()
     else if (val !== "")

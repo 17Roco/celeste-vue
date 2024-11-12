@@ -4,7 +4,7 @@ import {onMounted, onUnmounted, ref} from "vue";
 import Router from "@/router";
 
 let number = ref(5)
-let interval = null
+let interval = -1
 
 onMounted(()=>{
     interval = setInterval(()=>{

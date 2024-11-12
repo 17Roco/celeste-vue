@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import {useMainStore} from "@/stores/mainStore.ts";
+import {useMainStore} from "@/stores/mainStore";
 import router from "@/router";
 
 const store = useMainStore()

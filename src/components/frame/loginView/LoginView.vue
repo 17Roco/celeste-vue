@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import {useMainStore} from "@/stores/mainStore.ts";
+import {useMainStore} from "@/stores/mainStore";
 import {ref} from "vue";
 import Login from "@/components/frame/loginView/Login.vue";
 

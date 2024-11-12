@@ -1,14 +1,14 @@
+import type {AxiosRequestConfig} from "axios";
 import axios from "axios";
 import {ElMessage} from 'element-plus'
 import NProgress from 'nprogress'
-import type {AxiosRequestConfig} from "axios";
 
 
 let getToken = () => localStorage.getItem("token");
 
 const request = axios.create({
-    // baseURL: 'http://localhost',
-    baseURL:"/api",
+    baseURL: 'http://110.40.143.143/api',
+    // baseURL:"/api",
     timeout:5000
 })
 

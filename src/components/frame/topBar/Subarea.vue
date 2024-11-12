@@ -20,7 +20,7 @@
 <script setup>
 
 import {useRoute} from "vue-router";
-import {useMainStore} from "@/stores/mainStore.ts";
+import {useMainStore} from "@/stores/mainStore";
 
 const store = useMainStore()
 const route = useRoute();
