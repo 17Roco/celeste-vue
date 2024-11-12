@@ -10,5 +10,6 @@ interface Comment {
     time:Date,
     user:UserInfo,
     text:string,
+    childrenCount:number,
     comments?:Array<Comment>,
 }

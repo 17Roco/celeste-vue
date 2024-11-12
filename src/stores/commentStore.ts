@@ -1,6 +1,5 @@
 import {defineStore} from "pinia";
 import * as api from "@/api/commentApi";
-import {commentChildren} from "@/api/commentApi";
 
 
 export const useCommentStore = defineStore('comment',() => {
@@ -9,12 +8,12 @@ export const useCommentStore = defineStore('comment',() => {
 
     return {
         // 获取子评论
-        getChildComments: async (cid: number) => {
-            return (await api.getChildComment(cid,1)).data
+        getChildComments: async (cid: number,index: number) => {
+            return (await api.getChildComment(cid,index)).data
         },
         // 获取文章评论
         getArticleComments: async (aid: number,index: number) => {
-            return (await api.getArticleComment(aid,1)).data
+            return (await api.getArticleComment(aid,index)).data
         },
 
         // 发表评论

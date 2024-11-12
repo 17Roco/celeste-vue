@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, reactive, ref} from "vue";
 import {useMainStore} from "@/stores/mainStore";
 import {ElMessage} from "element-plus";
 import type {UploadRawFile} from "element-plus/lib/components";
@@ -10,6 +10,10 @@ import {formatDate} from "@/util/TimeUtil";
 const store = useMainStore()
 let newInfo = ref<UserInfoForm|null>(null)
 let oldInfo = ref<UserInfoForm|null>(null)
+let loading = reactive<{
+    img: boolean
+    info: boolean
+}>({img: false, info: false})
 
 onMounted(async ()=> {
     let {username,img,sex,birthday,sign} = await store.getSelfInfo()
@@ -31,23 +35,34 @@ let isChange = computed(()=>{
     return false
 })
 
-
+// 验证文件格式和大小
 const beforeUpload = (rawFile:UploadRawFile) => {
-    if (rawFile.type !== 'image/jpeg') {
-        ElMessage.error('Avatar picture must be JPG format!')
+    if (rawFile.type !== 'image/jpeg' && rawFile.type !== 'image/png' && rawFile.type !== 'image/webp') {
+        ElMessage.error('不支持该格式')
         return false
     } else if (rawFile.size / 1024 / 1024 > 2) {
-        ElMessage.error('Avatar picture size can not exceed 2MB!')
+        ElMessage.error('文件大小不能超过2M')
         return false
     }
     return true
 }
+
+// 更新头像
 let updateAvatar = async (file:UploadRawFile)=> {
+    // 验证文件格式和大小
+    if (!beforeUpload(file))
+        return
+    // 上传头像
+    loading.img = true
     let r = (await store.updateImg(file))
-    newInfo.value.img = r.data
+    loading.img = false
+    // 更新头像
+    if(r.b)
+        newInfo.value.img = r.data
     ElMessage(r.b ? '更新成功' : '更新失败')
 }
 
+// 更新用户信息
 let update = async()=> {
     let  b = await store.updateUserInfo({...(newInfo.value as UserInfoForm),birthday:formatDate(newInfo.value.birthday)})
     ElMessage(b ? '更新成功' : '更新失败')
@@ -65,11 +80,13 @@ let update = async()=> {
             <el-form-item label="头像">
                 <el-upload
                     :limit='1'
-                    :http-request="(a)=>{console.log(a)}"
                     :before-upload="updateAvatar"
+                    :http-request="()=>{}"
+                    accept="image/jpeg,image/jpg,image/png,image/webp"
                     auto-upload :show-file-list="false"
+                    :disabled="loading.img"
                 >
-                    <el-image style="width:100px;height: 100px" :src="newInfo.img"/>
+                    <el-image style="width:100px;height: 100px" :src="newInfo.img" v-loading="loading.img"/>
                     <div style="display: flex;justify-content: end;height: 100%"><el-button circle><el-icon><Plus/></el-icon></el-button></div>
                 </el-upload>
             </el-form-item>

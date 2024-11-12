@@ -3,7 +3,7 @@ import {Close} from '@element-plus/icons-vue'
 import {inject, ref} from "vue";
 
 const emit = defineEmits<{
-    comment(comment: string): void
+    (event: "comment",text: string): void
 }>()
 
 let text = ref('')

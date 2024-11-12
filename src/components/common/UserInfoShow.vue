@@ -9,7 +9,9 @@ defineProps<{
     avatar?:boolean,
     text?:boolean
 }>()
-defineEmits<{change:(isFollow:boolean)=>void}>()
+defineEmits<{
+    (event: 'change',isFollow:boolean):void
+}>()
 
 </script>
 
@@ -18,8 +20,10 @@ defineEmits<{change:(isFollow:boolean)=>void}>()
         <router-link :to="'/user/' + user.uid" class="info">
             <!-- 头像 -->
             <el-avatar v-if="avatar" :src="user.img"/>
-            <!-- 昵称 -->
-            <span v-if="text" style="margin-right: 30px" class="username-span">{{ user.username }}</span>
+            <!-- 信息 -->
+            <div v-if="text" style="margin-right: 30px" class="text">
+                <span>{{ user.username }}</span>
+            </div>
         </router-link>
         <slot>
             <!-- 关注按钮 -->
@@ -42,7 +46,7 @@ defineEmits<{change:(isFollow:boolean)=>void}>()
         align-items: center;
         justify-content: space-between;
 
-        >.username-span{
+        >.text{
             padding-left: 20px;
         }
     }

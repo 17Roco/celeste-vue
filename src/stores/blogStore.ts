@@ -34,7 +34,7 @@ export const useBlogStore = defineStore('blog', () =>{
 
         // 发布文章
         saveArticle:async (data:ArticleForm) => {
-            return (await api.saveArticle(data)).data
+            return (await api.saveArticle(data))
         },
         // 更新文章
         updateArticle:async (aid:number,data:ArticleForm) => {
@@ -54,6 +54,15 @@ export const useBlogStore = defineStore('blog', () =>{
         // 点赞文章
         likeArticle:async (aid:number,b:boolean) => {
             return (b ? await api.likeArticle(aid) : await api.unlikeArticle(aid)).b
+        },
+
+        // 添加标签
+        addTag:async (aid:number,title:string) => {
+            return (await api.addTags(aid, title)).b
+        },
+        // 删除标签
+        deleteTag:async (aid:number,title:string) => {
+            return (await api.deleteTag(aid, title)).b
         }
     }
 })

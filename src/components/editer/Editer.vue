@@ -19,11 +19,10 @@
 </template>
 
 <script setup lang="ts">
-import {shallowRef, onBeforeUnmount, onMounted, reactive, ref} from "vue";
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import {onBeforeUnmount, reactive, ref, shallowRef, watchEffect} from "vue";
+import {Editor, Toolbar} from '@wangeditor/editor-for-vue'
 import TagEdit from "@/components/editer/TagEdit.vue";
 import {useBlogStore} from "@/stores/blogStore";
-import {addTags, deleteTag, saveArticle, updateArticle} from "@/api/blogApi";
 import {ElMessage} from "element-plus";
 import {useMainStore} from "@/stores/mainStore";
 import router from "@/router";
@@ -54,7 +53,7 @@ onBeforeUnmount(() => {
 
 
 // 获取文章
-onMounted( async ()=>{
+watchEffect( async ()=>{
     // aid 为 null
     if (!props.aid)
         return
@@ -75,7 +74,7 @@ onMounted( async ()=>{
     }
 })
 let changeTag = async(b:boolean,tag:string)=>{
-    let bb = b ? await addTags(props.aid, tag) : await deleteTag(props.aid, tag)
+    let bb = b ? await store.addTag(props.aid, tag) : await store.deleteTag(props.aid, tag)
     if (bb){
         b ? article.tags.push(tag) : article.tags = article.tags.filter(t=>t!==tag)
         ElMessage(b ? "添加成功" : "删除成功")
@@ -84,11 +83,19 @@ let changeTag = async(b:boolean,tag:string)=>{
     }
 }
 let save = async () => {
-    NP(async ()=>ElMessage(await updateArticle(article,props.aid) ? "保存成功" : "保存失败"))
+    NP(async ()=>ElMessage(await store.updateArticle(article,props.aid) ? "保存成功" : "保存失败"))
 
 }
 let release = async () => {
-    NP(async ()=> ElMessage(await saveArticle(article) ? "发布成功" : "发布失败"))
+    NP(async ()=> {
+      let res = await store.saveArticle(article)
+      if (res.b){
+        // todo 返回结果不一致
+        router.push("/blog/edit/" + res.data.aid.aid).then(()=>ElMessage("发布成功"))
+      }else {
+        ElMessage("发布失败")
+      }
+    })
 }
 
 

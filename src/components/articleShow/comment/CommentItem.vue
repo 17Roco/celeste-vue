@@ -1,40 +1,73 @@
 <script setup lang="ts">
 
 import UserInfoShow from "@/components/common/UserInfoShow.vue";
-import {inject, ref} from "vue";
+import {inject, ref, watch, watchEffect} from "vue";
 import CommentShow from "@/components/articleShow/comment/CommentShow.vue";
-import CommentInput from "@/components/articleShow/comment/CommentInput.vue";
 import {useCommentStore} from "@/stores/commentStore";
 import {useMainStore} from "@/stores/mainStore";
+import {ElMessage, ElMessageBox} from "element-plus";
+
 const store = useCommentStore()
 const mainStore = useMainStore()
 const props = defineProps<{
     comment: Comment,
-    children:boolean
+    children?:boolean
 }>()
-
+// 回复评论id
 let replyId = inject<number>("replyId")
+// 评论列表索引
+let index = ref(1)
+// 是否显示子评论
+let showReply = ref(false)
+// 子评论列表
 let childrenCommentList = ref<Page<Comment>|null>()
 
-let getChildrenComment = async ()=>{
-    childrenCommentList.value = await store.getChildComments(props.comment.cid)
+// 监听是否显示子评论
+watchEffect(async ()=>{
+    if (showReply.value && props.comment.childrenCount !== childrenCommentList.value?.total) {
+        childrenCommentList.value = await store.getChildComments(props.comment.cid,index.value)
+    }
+})
+// 监听回复评论页面
+watch(index,async ()=>{
+    childrenCommentList.value = await store.getChildComments(props.comment.cid,index.value)
+})
+
+// 删除评论
+let deleteComment = async () => {
+    let value = await ElMessageBox.confirm('你确定要删除这条评论吗？', '警告', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).catch(()=>{})
+    if (value) {
+    let b = await store.deleteComment(props.comment.cid)
+    ElMessage(b ? "删除成功" : "删除失败")
+    }
 }
+
 </script>
 
 <template>
+    <!-- 评论 -->
     <div class="com-comment-item">
-        <user-info-show user="comment.user" avatar/>
+        <!-- 评论用户信息  -->
+        <user-info-show :user="comment.user" avatar text class="user-info"/>
+        <!-- 评论内容 -->
         <div class="content">
+            <!-- 评论内容 -->
             <span class="text">{{comment.text}}</span>
-            <div class="time">
+            <!-- 评论操作 -->
+            <div class="opt">
+                <!-- 评论时间 -->
                 <span>{{comment.time}}</span>
-                <el-button v-if="!children" @click="replyId = comment.id" link>回复</el-button>
-                <el-button v-if="!children" @click="getChildrenComment" link>查看回复</el-button>
+                <!-- 回复按钮 -->
+                <el-button v-if="!children" @click="replyId = comment.cid" link>回复</el-button>
+                <!-- 显示子评论 -->
+                <el-button v-if="!children && comment.childrenCount>0" @click="showReply =!showReply" link>查看回复</el-button>
+                <!-- 点赞按钮 -->
                 <el-button link>点赞</el-button>
-                <el-button v-if="mainStore.userStatus.userInfo && comment.user?.uid === mainStore.userStatus.userInfo.uid" link>删除</el-button>
+                <!-- 删除按钮 -->
+                <el-button v-if="mainStore.userStatus.userInfo && comment.user?.uid === mainStore.userStatus.userInfo.uid" @click="deleteComment" link>删除</el-button>
             </div>
-
-            <comment-show v-if="childrenCommentList" :list="childrenCommentList" children/>
+            <!-- 子评论 -->
+            <comment-show v-if="childrenCommentList" v-show="showReply" :list="childrenCommentList" children @change="index=$event"/>
         </div>
     </div>
 </template>
@@ -42,21 +75,29 @@ let getChildrenComment = async ()=>{
 <style>
 .com-comment-item{
     display: flex;
+    flex-direction: column;
     border-bottom: 1px solid #ccc;
     align-items: start;
     padding: 10px 0;
+
+    >.user-info{
+        span{
+            color: #b7b7bc;
+        }
+    }
+
     >.content{
-        width: 100%;
+        //width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
-        padding-left: 5px;
+        padding-left: 70px;
         >.text{
             width: 100%;
             word-wrap: break-word;
             overflow-wrap: break-word;
             white-space: normal;
         }
-        >.time{
+        >.opt{
             font-size: 12px;
             color: #999;
             margin-top: 10px;
