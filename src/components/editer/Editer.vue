@@ -8,6 +8,20 @@
             <el-button type="warning" round v-if="aid" @click="save">保存</el-button>
             <el-button type="warning" round v-else @click="release">发布</el-button>
         </div>
+        <!--  图片上传  -->
+        <div>
+            <el-upload
+                v-if="aid"
+                :limit='1'
+                :before-upload="updateImg"
+                :http-request="()=>{}"
+                accept="image/jpeg,image/jpg,image/png,image/webp"
+                auto-upload :show-file-list="false"
+            >
+                <el-image style="width:800px;height: 320px" :src="article.img"/>
+                <div style="display: flex;justify-content: end;height: 100%"><el-button circle><el-icon><Plus/></el-icon></el-button></div>
+            </el-upload>
+        </div>
         <!--   标题+编辑器     -->
         <el-input v-model="article.title" input-style="font-size: 2em;text-align:center;margin: 10px;" class="title-input"
             :disabled="load"  :placeholder="load ? '加载中':'请输入标题'"/>
@@ -27,6 +41,8 @@ import {ElMessage} from "element-plus";
 import {useMainStore} from "@/stores/mainStore";
 import router from "@/router";
 import {NP} from "@/util/NP";
+import {Plus} from "@element-plus/icons-vue";
+import type {UploadRawFile} from "element-plus/lib/components";
 
 const store = useBlogStore()
 const mainStore = useMainStore()
@@ -38,7 +54,8 @@ let load = ref<boolean>(false)
 let article = reactive<ArticleForm>({
     title:"",
     context:"",
-    tags:[]
+    tags:[],
+    img:""
 })
 
 const editorRef = shallowRef()
@@ -69,6 +86,7 @@ watchEffect( async ()=>{
     }else {
         article.title=data.title
         article.context=data.context
+        article.img=data.img
         data.tags.forEach(t => article.tags.push(t))
         load.value = false
     }
@@ -88,17 +106,42 @@ let save = async () => {
 }
 let release = async () => {
     NP(async ()=> {
-      let res = await store.saveArticle(article)
-      if (res.b){
-        // todo 返回结果不一致
-        router.push("/blog/edit/" + res.data.aid.aid).then(()=>ElMessage("发布成功"))
-      }else {
-        ElMessage("发布失败")
-      }
+        let res = await store.saveArticle(article)
+        if (res.b){
+            // todo 返回结果不一致
+            router.push("/blog/edit/" + res.data.aid.aid).then(()=>ElMessage("发布成功"))
+        }else {
+            ElMessage("发布失败")
+        }
     })
 }
 
+// 验证文件格式和大小
+const beforeUpload = (rawFile:UploadRawFile) => {
+    if (rawFile.type !== 'image/jpeg' && rawFile.type !== 'image/png' && rawFile.type !== 'image/webp') {
+        ElMessage.error('不支持该格式')
+        return false
+    } else if (rawFile.size / 1024 / 1024 > 2) {
+        ElMessage.error('文件大小不能超过2M')
+        return false
+    }
+    return true
+}
 
+// 更新头像
+let updateImg = async (file:UploadRawFile)=> {
+    // 验证文件格式和大小
+    if (!beforeUpload(file))
+        return
+    // 上传头像
+    // loading.img = true
+    let r = (await store.updateArticleImg(props.aid, file))
+    // loading.img = false
+    // 更新头像
+    if(r.b)
+        article.img = r.data
+    ElMessage(r.b ? '更新成功' : '更新失败')
+}
 
 </script>
 

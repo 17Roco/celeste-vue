@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
 import * as api from "@/api/blogApi";
 import {reactive, watchEffect} from "vue";
+import type {UploadRawFile} from "element-plus/lib/components";
 
 
 export const useBlogStore = defineStore('blog', () =>{
@@ -46,9 +47,12 @@ export const useBlogStore = defineStore('blog', () =>{
         },
 
         // 上传文章图片
-        updateArticleImg:async (aid:number,data:ArticleForm) => {
-            await api.updateArticleImg(aid, data)
+        updateArticleImg:async (aid:number,file:UploadRawFile) => {
+            // return await api.updateArticleImg(aid, data)
             // todo
+            let form = new FormData()
+            form.append('file',file)
+            return (await api.updateArticleImg(aid, form))
         },
 
         // 点赞文章

@@ -2,7 +2,7 @@
 
 import {computed, onMounted, reactive, ref} from "vue";
 import {useMainStore} from "@/stores/mainStore";
-import {ElMessage} from "element-plus";
+import {ElMessage, type UploadRequestOptions} from "element-plus";
 import type {UploadRawFile} from "element-plus/lib/components";
 import {Plus} from "@element-plus/icons-vue";
 import {formatDate} from "@/util/TimeUtil";

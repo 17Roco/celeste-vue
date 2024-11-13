@@ -102,7 +102,7 @@ export const useMainStore = defineStore('main', () =>{
             return (b ? await api.follow(uid) : await api.unfollow(uid)).b
         },
         // 获取关注列表
-        getFollowerList:async (uid:number|null,index?:number)=> {
+        getFollowerList:async (uid?:number,index?:number)=> {
             return (await api.getFollow(
                 uid      || (await getSelfInfo()).uid,
                 index || 1

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
 defineProps<{
-  list:Page<any>,
-  children?:boolean
+    list:Page<any>,
+    children?:boolean
 }>()
 defineEmits<{
     (event:'change',index:number):void
