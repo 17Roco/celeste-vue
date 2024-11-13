@@ -7,8 +7,8 @@ import NProgress from 'nprogress'
 let getToken = () => localStorage.getItem("token");
 
 const request = axios.create({
-    baseURL: 'http://110.40.143.143/api',
-    // baseURL:"/api",
+    // baseURL: 'http://110.40.143.143/api',
+    baseURL:"/api",
     timeout:5000
 })
 

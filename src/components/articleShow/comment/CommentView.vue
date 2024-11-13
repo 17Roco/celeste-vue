@@ -4,7 +4,7 @@ import {useCommentStore} from "@/stores/commentStore";
 import {provide, ref, watchEffect} from "vue";
 import {useRoute} from "vue-router";
 import CommentShow from "@/components/articleShow/comment/CommentShow.vue";
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 const open = defineModel<boolean>()
 const props = defineProps<{aid: number}>()
@@ -15,6 +15,16 @@ let commentList = ref<Page<Comment>>()
 let replyId = ref<number|null>(null)
 let index = ref<number>(1)
 provide("replyId", replyId)
+provide("deleteComment",async (cid:number)=>{
+    let value = await ElMessageBox.confirm('你确定要删除这条评论吗？', '警告', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).catch(()=>{})
+    if (value) {
+        let b = await store.deleteComment(cid)
+        ElMessage(b ? "删除成功" : "删除失败")
+        //刷新评论列表
+        if (b && commentList.value)
+            commentList.value.records = commentList.value.records.filter(item => item.cid!== cid)
+    }
+})
 
 // 自动刷新评论列表
 watchEffect(async () => {

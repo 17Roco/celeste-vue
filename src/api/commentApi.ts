@@ -19,4 +19,4 @@ export const deleteComment  = (cid:number)                     => DELETE(`${pref
 // 点赞评论
 export const likeComment    = (cid:number)                     => POST(`${prefix}/like/${cid}`)
 // 取消点赞评论
-export const unlikeComment  = (cid:number)                     => DELETE(`${prefix}/unlike/${cid}`)
+export const unlikeComment  = (cid:number)                     => POST(`${prefix}/unlike/${cid}`)

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import UserInfoShow from "@/components/common/UserInfoShow.vue";
-import {inject, ref, watch, watchEffect} from "vue";
+import {inject, onMounted, ref, watch, watchEffect} from "vue";
 import CommentShow from "@/components/articleShow/comment/CommentShow.vue";
 import {useCommentStore} from "@/stores/commentStore";
 import {useMainStore} from "@/stores/mainStore";
@@ -13,6 +13,9 @@ const props = defineProps<{
     comment: Comment,
     children?:boolean
 }>()
+let deleteComment = inject("deleteComment")
+
+
 // 回复评论id
 let replyId = inject<number>("replyId")
 // 评论列表索引
@@ -33,12 +36,14 @@ watch(index,async ()=>{
     childrenCommentList.value = await store.getChildComments(props.comment.cid,index.value)
 })
 
-// 删除评论
-let deleteComment = async () => {
-    let value = await ElMessageBox.confirm('你确定要删除这条评论吗？', '警告', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).catch(()=>{})
-    if (value) {
-    let b = await store.deleteComment(props.comment.cid)
-    ElMessage(b ? "删除成功" : "删除失败")
+
+// 点赞
+let like = async () => {
+    let b = await store.likeComment(props.comment.cid,!props.comment.isLike)
+    ElMessage((!props.comment.isLike ? '点赞' : '取消点赞')  + (b ? '成功' : '失败'))
+    if (b){
+        props.comment.isLike = !props.comment.isLike
+        props.comment.likee +=  props.comment.isLike ? 1 : -1
     }
 }
 
@@ -62,9 +67,9 @@ let deleteComment = async () => {
                 <!-- 显示子评论 -->
                 <el-button v-if="!children && comment.childrenCount>0" @click="showReply =!showReply" link>查看回复</el-button>
                 <!-- 点赞按钮 -->
-                <el-button link>点赞</el-button>
+                <el-button link @click="like">{{ comment.isLike ? "取消点赞" : "点赞" }} ({{comment.likee}})</el-button>
                 <!-- 删除按钮 -->
-                <el-button v-if="mainStore.userStatus.userInfo && comment.user?.uid === mainStore.userStatus.userInfo.uid" @click="deleteComment" link>删除</el-button>
+                <el-button v-if="mainStore.userStatus.userInfo && comment.user?.uid === mainStore.userStatus.userInfo.uid" @click="deleteComment(comment.cid)" link>删除</el-button>
             </div>
             <!-- 子评论 -->
             <comment-show v-if="childrenCommentList" v-show="showReply" :list="childrenCommentList" children @change="index=$event"/>

@@ -16,7 +16,7 @@ defineEmits<{
 </script>
 
 <template>
-    <div class="com-user-info-item" v-if="user.uid !== store.userStatus?.userInfo?.uid">
+    <div class="com-user-info-item" v-if="!followOpt || user.uid !== store.userStatus?.userInfo?.uid">
         <router-link :to="'/user/' + user.uid" class="info">
             <!-- 头像 -->
             <el-avatar v-if="avatar" :src="user.img"/>

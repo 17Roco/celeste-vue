@@ -4,7 +4,7 @@ import {useBlogStore} from "@/stores/blogStore";
 import {ElMessage} from "element-plus";
 import {useMainStore} from "@/stores/mainStore";
 import SwitchButton from "@/components/common/SwitchButton.vue";
-import {computed, reactive} from "vue";
+import {computed} from "vue";
 
 const article = defineModel<Article>()
 const store = useBlogStore()

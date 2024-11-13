@@ -11,7 +11,6 @@ defineProps<{
     children?:boolean
 }>()
 
-
 </script>
 
 <template>
@@ -24,7 +23,7 @@ defineProps<{
         </div>
         <!-- 评论列表 -->
         <div class="content">
-            <comment-item v-for="item in list.records" :key="item.cid" :comment="item" :children="children" />
+            <comment-item v-for="item in list.records" :key="item.cid" :comment="item" :children="children"/>
         </div>
         <Pagination :list="list" :children="children" @change="$emit('change',$event)"/>
     </div>
