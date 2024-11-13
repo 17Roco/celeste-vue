@@ -13,6 +13,9 @@ export default defineConfig({
     //   mockPath: "./mock/" // 文件位置
     // })
   ],
+  build: {
+    outDir: 'dist',
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
