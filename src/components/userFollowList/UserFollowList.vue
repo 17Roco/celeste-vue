@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, reactive, ref, watchEffect} from "vue";
+import {computed, reactive, ref, watch, watchEffect} from "vue";
 import {useMainStore} from "@/stores/mainStore";
 import UserInfoItem from "@/components/common/UserInfoShow.vue";
 import {ElMessage} from "element-plus";
@@ -30,15 +30,21 @@ let follow = async (uid: number, isFollow: boolean) => {
 
 // 监听用户列表
 watchEffect(async () => {
-    list.value = await store.getFollowerList(props.uid, props.index)
-    list.value.records.forEach(u => u.isFollow = true)
+    if (!props.followed) {
+        list.value = await store.getFollowerList(props.uid, props.index)
+        list.value.records.forEach(u => u.isFollow = true)
+    }else {
+        list.value = await store.getFollowedList(props.uid, props.index)
+    }
 })
 
 
 let changePage = (index: number) => router.push({query:{index}})
 
 let options = ref<string>(props.followed? '被关注' : '关注')
-// todo: 优化代码
+watch(options,() => {
+    router.push({query:{followed: options.value === "被关注"}})
+})
 </script>
 
 <template>

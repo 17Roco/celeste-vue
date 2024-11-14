@@ -18,7 +18,8 @@ export const updateImg     = (file:any)                 => PUT<string>(`${prefix
 
 
 // 获取关注列表
-export const getFollow      = (id:number,index:number)  => GET<Page<UserInfo>>(`${prefix}/follow/${id}` + (index ? `/${index}` : ""))
+export const getFollow      = (id:number,index:number)  => GET<Page<UserInfo>>(`${prefix}/follow/${id}/${index}`)
+export const getFollowed    = (id:number,index:number)  => GET<Page<UserInfo>>(`${prefix}/followed/${id}/${index}`)
 
 // 关注/取消关注
 export const follow         = (id:number)               => POST<boolean>(`${prefix}/follow/${id}`)

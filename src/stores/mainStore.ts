@@ -107,6 +107,13 @@ export const useMainStore = defineStore('main', () =>{
                 uid      || (await getSelfInfo()).uid,
                 index || 1
             )).data
+        },
+        // 获取被关注列表
+        getFollowedList:async (uid?:number,index?:number)=> {
+            return (await api.getFollowed(
+                uid      || (await getSelfInfo()).uid,
+                index || 1
+            )).data
         }
     }
 })
