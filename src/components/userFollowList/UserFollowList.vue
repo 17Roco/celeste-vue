@@ -30,28 +30,23 @@ let follow = async (uid: number, isFollow: boolean) => {
 
 // 监听用户列表
 watchEffect(async () => {
-    if (!props.followed) {
+    if (props.followed) {
+        list.value = await store.getFollowedList(props.uid, props.index)
+    }else {
         list.value = await store.getFollowerList(props.uid, props.index)
         list.value.records.forEach(u => u.isFollow = true)
-    }else {
-        list.value = await store.getFollowedList(props.uid, props.index)
     }
 })
 
 
 let changePage = (index: number) => router.push({query:{index}})
 
-let options = ref<string>(props.followed? '被关注' : '关注')
-watch(options,() => {
-    router.push({query:{followed: options.value === "被关注"}})
-})
 </script>
 
 <template>
     <div class="com-user-follow-list">
         <!-- 标题 -->
-        <h1>关注列表 {{options}}</h1>
-        <el-segmented v-model="options" :options="['关注','被关注']" block  style="width: 600px;"/>
+        <h1>{{ followed ? '被' : ''}}关注列表</h1>
         <!-- 分页 -->
         <Pagination v-if="list" :list="list" class="pagination" @change="changePage" :current-page="index" />
         <!-- 列表 -->
@@ -63,7 +58,7 @@ watch(options,() => {
             @change="follow(follower.uid,$event)"
         />
         <div v-else>
-            <p>暂无关注用户</p>
+            <p>{{ followed ? '暂无被用户关注' : '暂无关注用户'}}</p>
         </div>
     </div>
 </template>

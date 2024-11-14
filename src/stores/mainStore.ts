@@ -16,7 +16,8 @@ export const useMainStore = defineStore('main', () =>{
         ],
         userOpe:[
             {'title':'主页','path':'/user/home'},
-            {'title':'关注/粉丝','path':'/user/follow'},
+            {'title':'关注','path':'/user/follow'},
+            {'title':'被关注','path':'/user/followed'},
             {'title':'文章管理','path':'/user/manager'},
             {'title':'设置','path':'/user/setting'}
         ]

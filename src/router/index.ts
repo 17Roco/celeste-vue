@@ -75,10 +75,17 @@ const router = createRouter({
         beforeEnter:enterNeedLogin,
         props:route => ({
           uid: route.params.uid ?parseInt(route.params.uid as string) :undefined,
-          index: route.query.index ? parseInt(route.query.index as string) : 1,
-          followed: (!!route.query.followed) as boolean
+          index: route.query.index ? parseInt(route.query.index as string) : 1
         }),
         component:()=>import("@/views/user/UserFollowView.vue")
+      },{
+        path:'followed/:uid?',
+        beforeEnter:enterNeedLogin,
+        props:route => ({
+          uid: route.params.uid ?parseInt(route.params.uid as string) :undefined,
+          index: route.query.index ? parseInt(route.query.index as string) : 1
+        }),
+        component:()=>import("@/views/user/UserFollowedView.vue")
       },{
         path:'manager',
         beforeEnter:enterNeedLogin,

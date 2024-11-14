@@ -6,5 +6,5 @@ defineProps<{
 </script>
 
 <template>
-    <UserFollowList :uid="uid" />
+    <UserFollowList :uid="uid" followed/>
 </template>
