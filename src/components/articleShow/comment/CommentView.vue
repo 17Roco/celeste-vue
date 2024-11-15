@@ -14,6 +14,7 @@ const route = useRoute()
 let commentList = ref<Page<Comment>>()
 let replyId = ref<number|null>(null)
 let index = ref<number>(1)
+
 provide("replyId", replyId)
 provide("deleteComment",async (cid:number)=>{
     let value = await ElMessageBox.confirm('你确定要删除这条评论吗？', '警告', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).catch(()=>{})

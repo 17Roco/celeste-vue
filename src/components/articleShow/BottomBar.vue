@@ -20,7 +20,7 @@
             </div>
             <!-- 操作 -->
             <div class="opt">
-                <el-button @click="likeOps">点赞 ({{ article.likee }})</el-button>
+                <el-button @click="likeOps">{{ article.isLike ? "已" : ""}}点赞 ({{ article.likee }})</el-button>
                 <el-button @click="comment">评论</el-button>
             </div>
         </div>

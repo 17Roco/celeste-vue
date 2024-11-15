@@ -1,11 +1,11 @@
 <script setup lang="ts">
 
 import UserInfoShow from "@/components/common/UserInfoShow.vue";
-import {inject, onMounted, ref, watch, watchEffect} from "vue";
+import {inject, ref, watch, watchEffect} from "vue";
 import CommentShow from "@/components/articleShow/comment/CommentShow.vue";
 import {useCommentStore} from "@/stores/commentStore";
 import {useMainStore} from "@/stores/mainStore";
-import {ElMessage, ElMessageBox} from "element-plus";
+import {ElMessage} from "element-plus";
 
 const store = useCommentStore()
 const mainStore = useMainStore()
@@ -13,7 +13,7 @@ const props = defineProps<{
     comment: Comment,
     children?:boolean
 }>()
-let deleteComment = inject("deleteComment")
+let deleteComment = inject<(cid: number) => void>("deleteComment",()=>{})
 
 
 // 回复评论id
@@ -69,7 +69,7 @@ let like = async () => {
                 <!-- 点赞按钮 -->
                 <el-button link @click="like">{{ comment.isLike ? "取消点赞" : "点赞" }} ({{comment.likee}})</el-button>
                 <!-- 删除按钮 -->
-                <el-button v-if="mainStore.userStatus.userInfo && comment.user?.uid === mainStore.userStatus.userInfo.uid" @click="deleteComment(comment.cid)" link>删除</el-button>
+                <el-button v-if="comment.user?.uid === mainStore.self?.uid" @click="deleteComment(comment.cid)" link>删除</el-button>
             </div>
             <!-- 子评论 -->
             <comment-show v-if="childrenCommentList" v-show="showReply" :list="childrenCommentList" children @change="index=$event"/>

@@ -47,7 +47,10 @@ provide("likeOps", async ()=>{
     if(!article.value) return
     let b = await store.likeArticle(props.aid,!article.value.isLike)
     ElMessage((!article.value.isLike ? '点赞' : '取消点赞') + (b ? '成功' : '失败'))
-    if(b) article.value.isLike =!article.value.isLike
+    if(b && article.value) {
+        article.value.isLike =!article.value.isLike
+        article.value.likee += (article.value.isLike ? 1 : -1)
+    }
 })
 
 

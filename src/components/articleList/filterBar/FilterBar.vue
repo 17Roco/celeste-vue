@@ -19,12 +19,11 @@
 import TagSelect from "@/components/articleList/filterBar/tagSelect.vue";
 import Pagination from "@/components/common/Pagination.vue";
 import DateSelect from "@/components/articleList/filterBar/DateSelect.vue";
-import {computed, inject, reactive, ref, watchEffect} from "vue";
+import {computed, inject} from "vue";
 import {useRoute} from "vue-router";
 import {useBlogStore} from "@/stores/blogStore";
 import {formatDate} from "@/util/TimeUtil";
 import router from "@/router";
-import {SymbolArticleFilter, SymbolArticleList} from "@/types/symbol"
 
 const store = useBlogStore()
 const route = useRoute()
