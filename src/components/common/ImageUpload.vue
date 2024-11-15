@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {Plus} from "@element-plus/icons-vue";
-import {UploadRawFile} from "element-plus/lib/components";
 import {ElMessage, ElUpload} from "element-plus";
 import {ref} from "vue";
 
