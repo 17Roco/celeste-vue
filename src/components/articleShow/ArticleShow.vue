@@ -11,10 +11,7 @@
                     <template v-if="article.createTime!==article.updateTime">更新时间：{{ article.updateTime }}</template>
                 </p>
                 <!--标签-->
-                <tag-show
-                    v-if="article?.tags && article.tags.length>0"
-                    :tags="article.tags"
-                />
+                <tag-show v-if="article?.tags && article.tags.length>0" :tags="article.tags"/>
                 <!--正文-->
                 <p class="context" v-html="article?.context"></p>
                 <!--底部条-->

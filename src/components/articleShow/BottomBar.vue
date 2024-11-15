@@ -12,7 +12,7 @@
                     <span style="margin-right: 30px">{{ article.user.username }}</span>
                 </router-link>
                 <!-- 关注按钮 -->
-                <FollowButton  :user="article.user"/>
+                <FollowButton :user="article.user"/>
             </div>
             <!-- 编辑按钮 -->
             <div class="user-info" v-else>
@@ -20,8 +20,7 @@
             </div>
             <!-- 操作 -->
             <div class="opt">
-                <!-- 点赞按钮  todo-->
-<!--                <LikeButton v-model="article"></LikeButton>-->
+                <el-button @click="likeOps">点赞 ({{ article.likee }})</el-button>
                 <el-button @click="comment">评论</el-button>
             </div>
         </div>
@@ -34,13 +33,12 @@ import CommentView from "@/components/articleShow/comment/CommentView.vue";
 import FollowButton from "@/components/common/button/FollowButton.vue";
 import {useMainStore} from "@/stores/mainStore";
 import router from "@/router";
-import {ref} from "vue";
+import {inject, ref} from "vue";
 
 const props = defineProps<{article:Article}>()
-
 const store = useMainStore()
-
 let commentOpen = ref(false)
+const likeOps = inject<()=>void>("likeOps")
 
 let toEdit = () => {
     router.push(('/blog/edit/'+props.article.aid))
@@ -49,6 +47,7 @@ let toEdit = () => {
 let comment = () => {
     commentOpen.value = !commentOpen.value
 }
+
 </script>
 
 <style>
