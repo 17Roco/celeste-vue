@@ -2,7 +2,7 @@
     <div class="com-info-bar">
         <div class="info">
             <!--作者信息-->
-            <UserInfoShow :user="article.user" v-if="!edit" text>
+            <UserInfoShow v-if="!edit" :user="article.user" text>
             <!--like watch-->
             <span>like:{{ article.likee }} |</span>
             <span>watch:{{ article.watch }} |</span>

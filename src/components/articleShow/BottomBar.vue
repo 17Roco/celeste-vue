@@ -2,7 +2,7 @@
     <div class="com-bottom-bar">
         <div class="body">
             <!-- 作者信息 -->
-            <div class="user-info" v-if="article.user.uid !== store.userStatus?.userInfo?.uid">
+            <div class="user-info" v-if="article.user.uid !== store.self?.uid">
                 <!-- 头像 -->
                 <router-link :to="'/user/' + article.user.uid">
                     <el-avatar :src="article.user.img" size="default"/>
@@ -12,7 +12,7 @@
                     <span style="margin-right: 30px">{{ article.user.username }}</span>
                 </router-link>
                 <!-- 关注按钮 -->
-                <FollowButton v-model="article.user"/>
+                <FollowButton  :user="article.user"/>
             </div>
             <!-- 编辑按钮 -->
             <div class="user-info" v-else>
@@ -20,30 +20,30 @@
             </div>
             <!-- 操作 -->
             <div class="opt">
-                <LikeButton v-model="article"></LikeButton>
+                <!-- 点赞按钮  todo-->
+<!--                <LikeButton v-model="article"></LikeButton>-->
                 <el-button @click="comment">评论</el-button>
             </div>
         </div>
     </div>
-    <comment-view v-model="commentOpen" :aid="aid"/>
+    <comment-view v-model="commentOpen" :aid="article.aid"/>
 </template>
 
 <script setup lang="ts">
-import router from "@/router";
-import FollowButton from "@/components/common/FollowButton.vue";
-import {useMainStore} from "@/stores/mainStore";
-import LikeButton from "@/components/common/LikeButton.vue";
 import CommentView from "@/components/articleShow/comment/CommentView.vue";
+import FollowButton from "@/components/common/button/FollowButton.vue";
+import {useMainStore} from "@/stores/mainStore";
+import router from "@/router";
 import {ref} from "vue";
 
-const props = defineProps<{aid:number}>()
-const article = defineModel<Article>()
+const props = defineProps<{article:Article}>()
+
 const store = useMainStore()
 
 let commentOpen = ref(false)
 
 let toEdit = () => {
-    router.push(('/blog/edit/'+props.aid))
+    router.push(('/blog/edit/'+props.article.aid))
 }
 
 let comment = () => {

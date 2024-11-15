@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import {useMainStore} from "@/stores/mainStore";
-import FollowButton from "@/components/common/FollowButton.vue";
 import router from "@/router";
+import {inject} from "vue";
+import {useMainStore} from "@/stores/mainStore";
+import FollowButton from "@/components/common/button/FollowButton.vue";
 
+defineProps<{userInfo: UserInfo}>()
 const store = useMainStore()
-const userInfo = defineModel<UserInfo>()
-
+let followOps = inject<() => void>("followOps")
 </script>
 
 <template>
@@ -14,10 +15,16 @@ const userInfo = defineModel<UserInfo>()
             <el-avatar :src="userInfo.img" size="large" class="img-avatar"/>
             <p>
                 {{ userInfo.username }}
-
-                <follow-button v-model="userInfo">
-                    <el-button @click="router.push('/user/setting')">编辑</el-button>
-                </follow-button>
+                <!-- 关注按钮 todo -->
+<!--                <el-button-->
+<!--                    v-if="userInfo.uid!== store.self?.uid"-->
+<!--                    @click="followOps"-->
+<!--                >{{ userInfo.isFollow? "已关注" : "关注" }}</el-button>-->
+                <follow-button :user="userInfo" @follow="b => followOps()"/>
+                <el-button
+                    v-else
+                    @click="router.push('/user/setting')"
+                >编辑</el-button>
             </p>
         </div>
         <div class="info">

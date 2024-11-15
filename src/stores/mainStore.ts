@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {reactive, watchEffect} from "vue";
+import {reactive, ref, watchEffect} from "vue";
 import * as api from "@/api/userApi";
 import {ElMessage} from "element-plus";
 import router from "@/router";
@@ -25,13 +25,13 @@ export const useMainStore = defineStore('main', () =>{
     // 用户登录状态
     let userStatus = reactive<LoginStatus>({
         loginMode:false,
-        token:localStorage.getItem("token") || '',
-        userInfo:null
+        token:localStorage.getItem("token") || ''
     })
+    let self = ref<UserInfo|null>(null)
     // 获取当前用户信息
     let getSelfInfo = async() => {
         let r = await api.getUser()
-        userStatus.userInfo = r.data
+        self.value = r.data
         r.b || ElMessage("登录信息失效")
         r.b || (userStatus.token = null)
         return r.data
@@ -40,11 +40,11 @@ export const useMainStore = defineStore('main', () =>{
         if (userStatus.token && userStatus.token !== ''){
             // 保存token
             localStorage.setItem('token',userStatus.token)
-            userStatus.userInfo = await getSelfInfo()
+            self.value = await getSelfInfo()
         }else {
             // 清除token
             localStorage.removeItem('token')
-            userStatus.userInfo = null
+            self.value = null
         }
     })
 
@@ -52,7 +52,7 @@ export const useMainStore = defineStore('main', () =>{
         menu,
         userStatus,
         getSelfInfo,
-
+        self,
         // 用户登录
         login:async (form:LoginForm) => {
             let r = await api.login(form)

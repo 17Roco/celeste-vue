@@ -6,7 +6,7 @@
         <!--用户菜单-->
         <el-dropdown trigger="hover">
             <!--用户头像-->
-            <el-avatar :size="50" :src="store.userStatus.userInfo?.img ||''" v-loading="!store.userStatus.userInfo"/>
+            <el-avatar :size="50" :src="store.self?.img ||''" v-loading="!store.self"/>
             <!--菜单列表-->
             <template #dropdown>
                 <el-dropdown-menu>

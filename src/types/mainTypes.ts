@@ -20,8 +20,7 @@ interface Token {
 
 interface LoginStatus {
     loginMode:boolean,
-    token:string,
-    userInfo?:UserInfo,
+    token:string|null,
 }
 
 interface UserInfo {

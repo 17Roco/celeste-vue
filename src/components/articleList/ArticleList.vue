@@ -3,33 +3,31 @@
     <div class="com-article-list">
         <!-- 过滤条 -->
         <filter-bar :articleList="articleList"/>
-        <div v-if="articleList == null" class="com-article-list" style="text-align: center">加载中...</div>
-        <!--    文章列表 为空   -->
-        <div v-if="articleList &&(articleList as Page<Article>).records.length === 0" style="text-align: center">空</div>
-        <!--    文章列表 -->
-        <article-item
-            v-if="articleList &&(articleList as Page<Article>).records.length > 0"
-            v-for="a in articleList.records" :v-key="a.title"
-            :article="a" :edit="edit"
-        />
+        <!-- 文章列表 -->
+        <PageShowBox :object="articleList">
+            <article-item
+                v-for="a in articleList?.records"
+                :v-key="a.title"
+                :article="a"
+                :edit="edit"
+            />
+        </PageShowBox>
     </div>
 </template>
 
 <script setup lang="ts">
 import FilterBar from "./filterBar/FilterBar.vue";
 import ArticleItem from "./ArticleItem.vue";
+import PageShowBox from "@/components/common/showBox/PageShowBox.vue";
 import {computed,  provide, ref, watchEffect} from "vue";
 import {useRoute} from "vue-router";
 import {useBlogStore} from "@/stores/blogStore";
 import {NP} from "@/util/NP";
-import {SymbolArticleFilter, SymbolArticleList} from "@/types/symbol";
 
 const props = defineProps<{edit:boolean}>()
 const store = useBlogStore()
 const route = useRoute()
 
-// 文章列表
-let articleList = ref<Page<Article>|null>(null)
 // 过滤器
 let filter = computed(() => ({
     index:      route.query.index     || 1,
@@ -37,17 +35,20 @@ let filter = computed(() => ({
     order:      route.query.order     || "new",
     beginTime:  route.query.beginTime || null,
     endTime:    route.query.endTime   || null,
-}))
+} as ArticleFilter))
 
-// 提供文章过滤器
-provide(SymbolArticleFilter,filter)
-// 提供文章列表
-provide(SymbolArticleList,articleList)
-
+// 文章列表
+let articleList = ref<Page<Article>|null>(null)
 // 更新文章列表
 watchEffect(()=>{
     NP(async()=>articleList.value = await store.getArticleList(filter?.value,props.edit))
 })
+
+
+// 提供文章过滤器
+provide("articleFilter",filter)
+// 提供文章列表
+provide("articleList",articleList)
 
 
 </script>

@@ -18,7 +18,7 @@ export const useBlogStore = defineStore('blog', () =>{
 
     // 自动更新标签
     watchEffect(async () => {
-        filter.tags = (await api.getTags()).data.map(tag=>tag.title)
+        filter.tags = (await api.getTags()).data.map(tag=>tag.title) as [];
     })
 
     return{

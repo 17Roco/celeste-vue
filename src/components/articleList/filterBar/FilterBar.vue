@@ -1,7 +1,7 @@
 <template>
     <div class="com-filter-bar">
         <!--    tag    -->
-        <tag-select :tag="filter.tag" @change="updateFilter({tag: $event})" />
+        <tag-select :tag="filter?.tag" @change="updateFilter({tag: $event})" />
         <div class="button-bar">
             <!--    排序    -->
             <el-segmented :options="store.filter.order" v-model="order">
@@ -28,12 +28,11 @@ import {SymbolArticleFilter, SymbolArticleList} from "@/types/symbol"
 
 const store = useBlogStore()
 const route = useRoute()
+
 // 注入文章过滤器
-let filter = inject<ArticleFilter>(SymbolArticleFilter)
+let filter = inject<ArticleFilter>("articleFilter")
 // 注入文章列表
-let articleList = inject<Page<Article>>(SymbolArticleList)
-
-
+let articleList = inject<Page<Article>>("articleList")
 
 
 // 更新时间范围
@@ -45,7 +44,7 @@ let changeTime = (beginTime:Date,endTime:Date)=>{
 }
 // 排序方式
 let order = computed({
-    get:()=>filter.value.order,
+    get:() => filter.value.order,
     set:(value:string)=> updateFilter({order: value})
 })
 

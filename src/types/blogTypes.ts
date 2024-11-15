@@ -11,7 +11,7 @@ interface Article {
     updateTime:string,
     tags:Array<string>,
     user:UserInfo,
-    idLike:boolean
+    isLike:boolean
 }
 
 interface ArticleFilter{
