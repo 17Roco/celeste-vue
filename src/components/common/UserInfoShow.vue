@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {useMainStore} from "@/stores/mainStore";
-import SwitchButton from "@/components/common/SwitchButton.vue";
+import FollowButton from "@/components/common/button/FollowButton.vue";
+import {inject} from "vue";
 
 const store = useMainStore();
 defineProps<{
@@ -9,14 +10,13 @@ defineProps<{
     avatar?:boolean,
     text?:boolean
 }>()
-defineEmits<{
-    (event: 'change',isFollow:boolean):void
-}>()
+
+let updateFollow = inject<(uid:number, follow:boolean) => void>("updateFollow", () => {})
 
 </script>
 
 <template>
-    <div class="com-user-info-item" v-if="!followOpt || user.uid !== store.userStatus?.userInfo?.uid">
+    <div class="com-user-info-item" v-if="!followOpt || user.uid !== store.self?.uid">
         <router-link :to="'/user/' + user.uid" class="info">
             <!-- 头像 -->
             <el-avatar v-if="avatar" :src="user.img"/>
@@ -28,7 +28,7 @@ defineEmits<{
         <slot>
             <!-- 关注按钮 -->
             <template v-if="followOpt">
-                <switch-button :is="user.isFollow" :label="['取消关注', '关注']" @change="$emit('change', $event as boolean)"/>
+                <follow-button :user="user" @follow="b => updateFollow(user.uid, b)"/>
             </template>
         </slot>
     </div>

@@ -35,15 +35,17 @@ import {useMainStore} from "@/stores/mainStore";
 import router from "@/router";
 import {inject, ref} from "vue";
 
-const props = defineProps<{article:Article}>()
 const store = useMainStore()
+const props = defineProps<{article:Article}>()
 let commentOpen = ref(false)
 const likeOps = inject<()=>void>("likeOps")
 
+// 编辑按钮
 let toEdit = () => {
     router.push(('/blog/edit/'+props.article.aid))
 }
 
+// 评论按钮
 let comment = () => {
     commentOpen.value = !commentOpen.value
 }

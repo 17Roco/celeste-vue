@@ -4,6 +4,7 @@ import {ref} from "vue";
 import {ElMessage} from "element-plus";
 
 const store = useMainStore()
+
 const props = defineProps<{
     user:UserInfo
 }>()
@@ -14,9 +15,11 @@ let loading = ref(false)
 
 let follow = async () => {
     loading.value = true
-    await store.follow(props.user.uid,!props.user.isFollow)
-    emit("follow",!user.isFollow)
-    ElMessage((!article.value.isLike ? '关注' : '取消关注') + (b ? '成功' : '失败'))
+    // 关注/取消关注
+    let b = await store.follow(props.user.uid,!props.user.isFollow)
+    ElMessage((!props.user.isFollow ? '关注' : '取消关注') + (b ? '成功' : '失败'))
+    // 触发事件，通知父组件
+    emit("follow",!props.user.isFollow)
     loading.value = false
 }
 </script>

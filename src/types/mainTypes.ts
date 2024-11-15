@@ -47,7 +47,6 @@ interface changePasswordForm{
 }
 interface UserInfoForm{
     username:string,
-    img:string,
     sex:number,
     birthday:String,
     sign:string,

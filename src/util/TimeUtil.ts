@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export const formatDate = (date: Date|string) => {
+export const formatDate = (date?: Date|string) => {
     if (!date)
         return '';
     if (typeof date ==='string')

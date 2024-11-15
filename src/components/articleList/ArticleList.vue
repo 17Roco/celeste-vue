@@ -4,22 +4,23 @@
         <!-- 过滤条 -->
         <filter-bar :articleList="articleList"/>
         <!-- 文章列表 -->
-        <PageShowBox :object="articleList">
+        <div class="list" v-if="articleList">
             <article-item
-                v-for="a in articleList?.records"
+                v-for="a in articleList.records"
                 :v-key="a.title"
                 :article="a"
                 :edit="edit"
             />
-        </PageShowBox>
+        </div>
+        <EmptyBox :object="articleList"/>
     </div>
 </template>
 
 <script setup lang="ts">
 import FilterBar from "./filterBar/FilterBar.vue";
 import ArticleItem from "./ArticleItem.vue";
-import PageShowBox from "@/components/common/showBox/PageShowBox.vue";
-import {computed,  provide, ref, watchEffect} from "vue";
+import EmptyBox from "@/components/common/EmptyBox.vue";
+import {computed, provide, ref, watchEffect} from "vue";
 import {useRoute} from "vue-router";
 import {useBlogStore} from "@/stores/blogStore";
 import {NP} from "@/util/NP";

@@ -6,27 +6,30 @@ import FollowButton from "@/components/common/button/FollowButton.vue";
 
 defineProps<{userInfo: UserInfo}>()
 const store = useMainStore()
-let followOps = inject<() => void>("followOps")
+let updateFollow = inject<() => void>("updateFollow", () => {})
 </script>
 
 <template>
     <div class="com-user-info-show" style="background:url('/bkg7.png');background-size: 100%">
+        <!-- 用户信息 -->
         <div class="info">
             <el-avatar :src="userInfo.img" size="large" class="img-avatar"/>
             <p>
                 {{ userInfo.username }}
-                <!-- 关注按钮 todo -->
-<!--                <el-button-->
-<!--                    v-if="userInfo.uid!== store.self?.uid"-->
-<!--                    @click="followOps"-->
-<!--                >{{ userInfo.isFollow? "已关注" : "关注" }}</el-button>-->
-                <follow-button :user="userInfo" @follow="b => followOps()"/>
+                <!-- 关注按钮 -->
+                <follow-button
+                    :user="userInfo"
+                    v-if="userInfo.uid !== store.self?.uid"
+                    @follow="b => updateFollow(b)"
+                />
+                <!-- 编辑按钮 -->
                 <el-button
                     v-else
                     @click="router.push('/user/setting')"
                 >编辑</el-button>
             </p>
         </div>
+        <!-- 关注数、粉丝数 -->
         <div class="info">
             <span>关注：{{ userInfo.follow }} | 粉丝：{{ userInfo.followed }}</span>
         </div>

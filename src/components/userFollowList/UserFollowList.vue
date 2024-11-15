@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {computed, reactive, ref, watch, watchEffect} from "vue";
+import {computed, provide, ref, watchEffect} from "vue";
 import {useMainStore} from "@/stores/mainStore";
 import UserInfoItem from "@/components/common/UserInfoShow.vue";
-import {ElMessage} from "element-plus";
 import Pagination from "@/components/common/Pagination.vue";
 import router from "@/router";
 import {useRoute} from "vue-router";
+import EmptyBox from "@/components/common/EmptyBox.vue";
 
 const store = useMainStore()
 const route = useRoute()
@@ -19,14 +19,11 @@ let index = computed(()=> route.query.index || 1)
 
 let list = ref<Page<UserInfo>|null>(null)
 
-// 关注/取消关注
-let follow = async (uid: number, isFollow: boolean) => {
-    let b = await store.follow(uid, isFollow)
-    // 显示提示信息
-    ElMessage((isFollow ? '关注' : '取消关注') + list.value.records.find(u => u.uid === uid).username + (b ? '成功' : '失败'))
+// 更新关注/取消关注
+provide("updateFollow",(uid: number, isFollow: boolean) => {
     // 更新用户信息
     list.value.records.find(u => u.uid === uid).isFollow = isFollow
-}
+})
 
 // 监听用户列表
 watchEffect(async () => {
@@ -55,11 +52,12 @@ let changePage = (index: number) => router.push({query:{index}})
             follow-opt text avatar
             v-if="list && list.records.length > 0"
             v-for="follower in list.records" :user="follower" :key="follower.uid"
-            @change="follow(follower.uid,$event)"
         />
-        <div v-else>
-            <p>{{ followed ? '暂无被用户关注' : '暂无关注用户'}}</p>
-        </div>
+        <EmptyBox :object="list">
+            <template #empty>
+                <p>{{ followed ? '暂无被用户关注' : '暂无关注用户'}}</p>
+            </template>
+        </EmptyBox>
     </div>
 </template>
 
