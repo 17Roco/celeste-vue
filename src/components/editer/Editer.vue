@@ -25,9 +25,9 @@
         <!--   标题+编辑器     -->
         <el-input v-model="article.title" input-style="font-size: 2em;text-align:center;margin: 10px;" class="title-input"
             :disabled="load"  :placeholder="load ? '加载中':'请输入标题'"/>
-        <div style="border: 1px solid #ccc">
+        <div class="editor">
             <Toolbar style="border-bottom: 1px solid #ccc" :editor="editorRef"/>
-            <Editor style="min-height: 600px" :defaultConfig="{ placeholder: '请输入内容...' }" v-model="article.context" @onCreated="handleCreated"/>
+            <Editor :defaultConfig="{ placeholder: '请输入内容...',autoFocus: true }" v-model="article.context" @onCreated="handleCreated"/>
         </div>
     </div>
 </template>
@@ -147,6 +147,9 @@ let updateImg = async (file:UploadRawFile)=> {
 
 <style>
 .view-editor{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     >.top-bar{
         width:100%;
         display: flex;
@@ -157,6 +160,10 @@ let updateImg = async (file:UploadRawFile)=> {
     padding: 10px;
     .vuepress-markdown-body>*{
         text-align: left;
+    }
+    .editor{
+        flex: 1;
+        border: 1px solid #ccc
     }
 }
 </style>

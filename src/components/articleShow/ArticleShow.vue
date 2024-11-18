@@ -66,6 +66,7 @@ provide("likeOps", async ()=>{
     line-height: 1.5;
     padding-bottom: 90px;
     width: 100%;
+    min-height: 70vh;
     >.view-article {
         > h1 {
             text-align: center;

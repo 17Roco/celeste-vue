@@ -2,25 +2,26 @@
     <div class="com-bottom-bar">
         <div class="body">
             <!-- 作者信息 -->
-            <div class="user-info" v-if="article.user.uid !== store.self?.uid">
-                <!-- 头像 -->
-                <router-link :to="'/user/' + article.user.uid">
-                    <el-avatar :src="article.user.img" size="default"/>
-                </router-link>
-                <!-- 昵称 -->
-                <router-link :to="'/user/' + article.user.uid">
-                    <span style="margin-right: 30px">{{ article.user.username }}</span>
-                </router-link>
-                <!-- 关注按钮 -->
-                <FollowButton :user="article.user"/>
-            </div>
-            <!-- 编辑按钮 -->
-            <div class="user-info" v-else>
-                <el-button @click="toEdit">编辑</el-button>
-            </div>
+<!--            <div class="user-info" v-if="article.user.uid !== store.self?.uid">-->
+<!--                &lt;!&ndash; 头像 &ndash;&gt;-->
+<!--                <router-link :to="'/user/' + article.user.uid">-->
+<!--                    <el-avatar :src="article.user.img" size="default"/>-->
+<!--                </router-link>-->
+<!--                &lt;!&ndash; 昵称 &ndash;&gt;-->
+<!--                <router-link :to="'/user/' + article.user.uid">-->
+<!--                    <span style="margin-right: 30px">{{ article.user.username }}</span>-->
+<!--                </router-link>-->
+<!--                &lt;!&ndash; 关注按钮 &ndash;&gt;-->
+<!--                <FollowButton :user="article.user"/>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; 编辑按钮 &ndash;&gt;-->
+<!--            <div class="user-info" v-else>-->
+<!--                <el-button @click="toEdit">编辑</el-button>-->
+<!--            </div>-->
+            <user-info-show :user="article.user" avatar text follow-opt/>
             <!-- 操作 -->
             <div class="opt">
-                <el-button @click="likeOps">{{ article.isLike ? "已" : ""}}点赞 ({{ article.likee }})</el-button>
+                <el-button @click="likeOps" v-if="store.self">{{ article.isLike ? "已" : ""}}点赞 ({{ article.likee }})</el-button>
                 <el-button @click="comment">评论</el-button>
             </div>
         </div>
@@ -34,6 +35,8 @@ import FollowButton from "@/components/common/button/FollowButton.vue";
 import {useMainStore} from "@/stores/mainStore";
 import router from "@/router";
 import {inject, ref} from "vue";
+import UserInfoShow from "@/components/common/UserInfoShow.vue";
+import UserOpsButton from "@/components/common/button/UserOpsButton.vue";
 
 const store = useMainStore()
 const props = defineProps<{article:Article}>()

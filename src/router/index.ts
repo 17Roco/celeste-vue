@@ -4,11 +4,14 @@ import HomeView from '@/views/HomeView.vue'
 import Frame from '@/components/frame/Frame.vue'
 
 import NProgress from 'nprogress';
+import {ElMessage} from "element-plus";
 
 let getToken = () => localStorage.getItem("token");
 let enterNeedLogin = (to:RouteLocationNormalized,form:RouteLocationNormalized)=>{
-  if (!getToken())
-    return {path:"/"}
+  if (!getToken()) {
+    ElMessage.error("请先登录！");
+    return {path: "/"}
+  }
   return true
 }
 

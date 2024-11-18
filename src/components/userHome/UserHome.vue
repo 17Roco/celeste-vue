@@ -2,7 +2,7 @@
 
 import {useMainStore} from "@/stores/mainStore";
 import {provide, ref, watchEffect} from "vue";
-import UserInfoShow from "@/components/userHome/UserInfoShow.vue";
+import UserInfoShow from "@/components/userHome/UserHomeShow.vue";
 import UserShowItem from "@/components/userHome/UserArticleShow.vue";
 import EmptyBox from "@/components/common/EmptyBox.vue";
 

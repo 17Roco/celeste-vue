@@ -3,6 +3,7 @@ import router from "@/router";
 import {inject} from "vue";
 import {useMainStore} from "@/stores/mainStore";
 import FollowButton from "@/components/common/button/FollowButton.vue";
+import UserOpsButton from "@/components/common/button/UserOpsButton.vue";
 
 defineProps<{userInfo: UserInfo}>()
 const store = useMainStore()
@@ -16,17 +17,19 @@ let updateFollow = inject<() => void>("updateFollow", () => {})
             <el-avatar :src="userInfo.img" size="large" class="img-avatar"/>
             <p>
                 {{ userInfo.username }}
-                <!-- 关注按钮 -->
-                <follow-button
-                    :user="userInfo"
-                    v-if="userInfo.uid !== store.self?.uid"
-                    @follow="b => updateFollow(b)"
-                />
-                <!-- 编辑按钮 -->
-                <el-button
-                    v-else
-                    @click="router.push('/user/setting')"
-                >编辑</el-button>
+                <user-ops-button>
+                    <!-- 关注按钮 -->
+                    <follow-button
+                        :user="userInfo"
+                        v-if="userInfo.uid !== store.self?.uid"
+                        @follow="b => updateFollow(b)"
+                    />
+                    <!-- 编辑按钮 -->
+                    <el-button
+                        v-else
+                        @click="router.push('/user/setting')"
+                    >编辑</el-button>
+                </user-ops-button>
             </p>
         </div>
         <!-- 关注数、粉丝数 -->

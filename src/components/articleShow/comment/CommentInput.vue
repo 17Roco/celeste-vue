@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import {Close} from '@element-plus/icons-vue'
 import {inject, ref} from "vue";
+import {useMainStore} from "@/stores/mainStore";
+import UserOpsButton from "@/components/common/button/UserOpsButton.vue";
 
 const emit = defineEmits<{
     (event: "comment",text: string): void
 }>()
-
 let text = ref('')
 let replyId = inject<number|null>("replyId")
 
@@ -27,13 +28,15 @@ let comment = ()=>{
             placeholder="评论框"
             resize="none"
         />
-        <div class="opt">
-            <el-button-group v-show="replyId !== null">
-                <el-button type="primary" round @click="comment">回复</el-button>
-                <el-button type="primary" round @click="replyId = null"><el-icon><Close /></el-icon></el-button>
-            </el-button-group>
-            <el-button v-show="replyId === null" type="primary" round @click="comment">发表评论</el-button>
-        </div>
+        <UserOpsButton btn-class="opt" login-btn>
+            <div class="opt">
+                <el-button-group v-show="replyId !== null">
+                    <el-button type="primary" round @click="comment">回复</el-button>
+                    <el-button type="primary" round @click="replyId = null"><el-icon><Close /></el-icon></el-button>
+                </el-button-group>
+                <el-button v-show="replyId === null" type="primary" round @click="comment">发表评论</el-button>
+            </div>
+        </UserOpsButton>
     </div>
 </template>
 

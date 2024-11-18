@@ -53,6 +53,15 @@ export const useMainStore = defineStore('main', () =>{
         userStatus,
         getSelfInfo,
         self,
+
+        needLogin:()=> {
+            if (!self.value){
+                ElMessage("请先登录")
+                userStatus.loginMode = true
+                return false
+            }return true
+        },
+
         // 用户登录
         login:async (form:LoginForm) => {
             let r = await api.login(form)

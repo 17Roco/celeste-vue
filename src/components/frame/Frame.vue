@@ -14,6 +14,7 @@ import LoginView from "@/components/frame/loginView/LoginView.vue";
 </script>
 <style>
 .com-frame{
+    min-height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -25,7 +26,6 @@ import LoginView from "@/components/frame/loginView/LoginView.vue";
     margin-bottom: 30px;
     margin-top: 70px;
     padding: 30px;
-    //width: 1100px;
     width: 90%;
     /**/
     display: flex;
@@ -37,7 +37,8 @@ import LoginView from "@/components/frame/loginView/LoginView.vue";
     background: white;
     border-radius: 10px;
     border: 1px solid #b7b7bc;
-
+    /**/
+    flex: 1;
 }
 /**/
 @media (min-width: 1200px) {

@@ -2,13 +2,14 @@
 import {useMainStore} from "@/stores/mainStore";
 import FollowButton from "@/components/common/button/FollowButton.vue";
 import {inject} from "vue";
+import UserOpsButton from "@/components/common/button/UserOpsButton.vue";
 
 const store = useMainStore();
 defineProps<{
     user:UserInfo,
     followOpt?:boolean,
     avatar?:boolean,
-    text?:boolean
+    text?:boolean,
 }>()
 
 let updateFollow = inject<(uid:number, follow:boolean) => void>("updateFollow", () => {})
@@ -28,7 +29,9 @@ let updateFollow = inject<(uid:number, follow:boolean) => void>("updateFollow", 
         <slot>
             <!-- 关注按钮 -->
             <template v-if="followOpt">
-                <follow-button :user="user" @follow="b => updateFollow(user.uid, b)"/>
+                <user-ops-button>
+                    <follow-button :user="user" @follow="b => updateFollow(user.uid, b)"/>
+                </user-ops-button>
             </template>
         </slot>
     </div>

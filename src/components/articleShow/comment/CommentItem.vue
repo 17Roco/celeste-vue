@@ -39,6 +39,8 @@ watch(index,async ()=>{
 
 // 点赞
 let like = async () => {
+    if (!mainStore.needLogin())
+        return
     let b = await store.likeComment(props.comment.cid,!props.comment.isLike)
     ElMessage((!props.comment.isLike ? '点赞' : '取消点赞')  + (b ? '成功' : '失败'))
     if (b){
