@@ -29,9 +29,8 @@ watchEffect(async ()=> {
             </div>
             <router-link class="item" v-for="a in articles" :to="'/blog/article/'+a.aid">
                 <p>{{ a.title }}</p>
-                <!-- todo 图片-->
-                <img :src="a.img || 'https://media.prts.wiki/f/fb/%E4%B8%BB%E9%A2%98%E5%9B%BE_%E8%90%A8%E5%8D%A1%E5%85%B9%E7%9A%84%E6%97%A0%E7%BB%88%E5%A5%87%E8%AF%AD.png'" alt=""/>
-                <span >{{ a.context }}</span>
+                <img v-if="a.img" :src="a.img" alt=""/>
+                <span v-else>{{ a.context }}</span>
             </router-link>
         </div>
         <div v-else>加载中</div>
@@ -51,18 +50,31 @@ watchEffect(async ()=> {
         border-top:1px black solid;
         .item{
             margin: 10px;
-            flex: 1;
-            max-width: 240px;
+            width: 240px;
             height: 180px;
             border-radius: 10px;
             border: 2px solid #ccc;
             overflow: hidden;
             >p{
-                margin: 10px 5px;
+                margin: 5px;
+                white-space: nowrap; /* 不换行 */
+                overflow: hidden; /* 隐藏超出部分 */
+                text-overflow: ellipsis; /* 超出部分显示为... */
             }
             >img{
-                width: 100%;
-                height: auto;
+                border-radius: 5px;
+                width: 240px; /* 根据容器宽度自动调整 */
+                height: 150px; /* 自动高度，保持比例 */
+                max-height: 200px; /* 设置最大高度，比如200px */
+                object-fit: cover; /* 保持比例，裁剪多余部分 */
+            }
+            span {
+                display: -webkit-box; /* 适配多行 */
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 4; /* 最多显示3行 */
+                overflow: hidden; /* 隐藏超出部分 */
+                text-overflow: ellipsis; /* 超出部分显示为... */
+                margin-top: 10px;
             }
         }
     }

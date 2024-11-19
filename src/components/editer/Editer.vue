@@ -8,19 +8,19 @@
             <el-button type="warning" round v-if="aid" @click="save">保存</el-button>
             <el-button type="warning" round v-else @click="release">发布</el-button>
         </div>
-        <!--  图片上传  -->
-        <div>
-            <el-upload
-                v-if="aid"
-                :limit='1'
-                :before-upload="updateImg"
-                :http-request="()=>{}"
-                accept="image/jpeg,image/jpg,image/png,image/webp"
-                auto-upload :show-file-list="false"
-            >
-                <el-image style="width:800px;height: 320px" :src="article.img"/>
-                <div style="display: flex;justify-content: end;height: 100%"><el-button circle><el-icon><Plus/></el-icon></el-button></div>
-            </el-upload>
+        <div style="display:flex" CLASS="top-bar">
+            <!-- 文章封面 -->
+            <el-image
+                style="width:160px;height: 90px;border-radius: 5px;margin-right: 10px;margin-bottom: 10px"
+                v-if="article.img"
+                :src="article.img"
+                :preview-src-list="[article.img]"
+            />
+            <div v-else></div>
+            <!-- 上传图片 -->
+            <ImageUpload @update="updateImg">
+                <el-button type="warning" round>{{article.img? '修改封面' : '上传封面'}}</el-button>
+            </ImageUpload>
         </div>
         <!--   标题+编辑器     -->
         <el-input v-model="article.title" input-style="font-size: 2em;text-align:center;margin: 10px;" class="title-input"
@@ -43,6 +43,7 @@ import router from "@/router";
 import {NP} from "@/util/NP";
 import {Plus} from "@element-plus/icons-vue";
 import type {UploadRawFile} from "element-plus/lib/components";
+import ImageUpload from "@/components/common/ImageUpload.vue";
 
 const store = useBlogStore()
 const mainStore = useMainStore()
@@ -116,30 +117,12 @@ let release = async () => {
     })
 }
 
-// 验证文件格式和大小
-const beforeUpload = (rawFile:UploadRawFile) => {
-    if (rawFile.type !== 'image/jpeg' && rawFile.type !== 'image/png' && rawFile.type !== 'image/webp') {
-        ElMessage.error('不支持该格式')
-        return false
-    } else if (rawFile.size / 1024 / 1024 > 2) {
-        ElMessage.error('文件大小不能超过2M')
-        return false
-    }
-    return true
-}
 
 // 更新头像
 let updateImg = async (file:UploadRawFile)=> {
-    // 验证文件格式和大小
-    if (!beforeUpload(file))
-        return
-    // 上传头像
-    // loading.img = true
     let r = (await store.updateArticleImg(props.aid, file))
-    // loading.img = false
-    // 更新头像
     if(r.b)
-        article.img = r.data
+        article.img = r.data.img
     ElMessage(r.b ? '更新成功' : '更新失败')
 }
 

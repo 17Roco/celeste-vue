@@ -11,7 +11,7 @@ let updateFollow = inject<() => void>("updateFollow", () => {})
 </script>
 
 <template>
-    <div class="com-user-info-show" style="background:url('/bkg7.png');background-size: 100%">
+    <div class="com-user-home-show" style="background:url('/bkg7.png') center top no-repeat;">
         <!-- 用户信息 -->
         <div class="info">
             <el-avatar :src="userInfo.img" size="large" class="img-avatar"/>
@@ -41,7 +41,7 @@ let updateFollow = inject<() => void>("updateFollow", () => {})
 
 <style>
 
-.com-user-info-show{
+.com-user-home-show{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -51,6 +51,10 @@ let updateFollow = inject<() => void>("updateFollow", () => {})
     padding-bottom: 20px;
     margin-top: var(--frame-padding-);
     margin-left: var(--frame-padding-);
+
+
+
+
     >.info{
         display: flex;
         margin-left: 30px;

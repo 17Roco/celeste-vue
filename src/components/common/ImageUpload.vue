@@ -43,8 +43,10 @@ let updateAvatar = async (file:UploadRawFile)=> {
         auto-upload :show-file-list="false"
         :disabled="uploading"
     >
-        <slot/>
-        <div style="display: flex;justify-content: end;height: 100%"><el-button circle><el-icon><Plus/></el-icon></el-button></div>
+        <slot>
+            <div style="display: flex;justify-content: end;height: 100%"><el-button circle><el-icon><Plus/></el-icon></el-button></div>
+        </slot>
+
     </el-upload>
 </template>
 
