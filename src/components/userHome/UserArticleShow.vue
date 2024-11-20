@@ -55,6 +55,7 @@ watchEffect(async ()=> {
             border-radius: 10px;
             border: 2px solid #ccc;
             overflow: hidden;
+            box-shadow: 0 0 3px #d2d2d5;
             >p{
                 margin: 5px;
                 white-space: nowrap; /* 不换行 */

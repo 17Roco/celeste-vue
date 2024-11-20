@@ -3,12 +3,12 @@
         <div class="info">
             <!--作者信息-->
             <UserInfoShow v-if="!edit" :user="article.user" text>
-            <!--like watch-->
-            <span>like:{{ article.likee }} |</span>
-            <span>watch:{{ article.watch }} |</span>
-            <!--更新时间-->
-            <span>{{ moment(article.updateTime).format('YYYY-MM-DD') }}</span>
-
+            <!-- 点赞 阅读量 发布时间-->
+            <div class="spans">
+                <span>点赞:{{ article.likee }} </span>
+                <span>浏览量:{{ article.watch }} </span>
+                <span> 更新时间:{{ moment(article.updateTime).format('YYYY-MM-DD') }}</span>
+            </div>
             </UserInfoShow>
         </div>
         <!--编辑按钮-->
@@ -52,16 +52,37 @@ let delArticle = async () => {
     > .info {
         color: #9b9ba0;
         padding: 0 5px;
+        .spans {
+            font-size: 14px;
+            white-space: nowrap;
+            span {
+                margin-right: 10px;
+            }
+        }
+
     }
     >.opt {
         display: flex;
         flex-wrap: nowrap;
     }
 }
-
-@media (max-width: 768px) {
-    .com-info-bar {
-        margin-left: -120px;
+@media (max-width: 576px) {
+    .com-info-bar{
+        >.info{
+            span{
+                font-size: 11px;
+            }
+        }
+    }
+}
+@media (max-width: 414px) {
+    .com-info-bar{
+        .spans{
+            margin-left: -20px;
+            span{
+                margin-right: 3px;
+            }
+        }
     }
 }
 </style>

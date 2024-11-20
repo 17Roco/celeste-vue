@@ -2,23 +2,8 @@
     <div class="com-bottom-bar">
         <div class="body">
             <!-- 作者信息 -->
-<!--            <div class="user-info" v-if="article.user.uid !== store.self?.uid">-->
-<!--                &lt;!&ndash; 头像 &ndash;&gt;-->
-<!--                <router-link :to="'/user/' + article.user.uid">-->
-<!--                    <el-avatar :src="article.user.img" size="default"/>-->
-<!--                </router-link>-->
-<!--                &lt;!&ndash; 昵称 &ndash;&gt;-->
-<!--                <router-link :to="'/user/' + article.user.uid">-->
-<!--                    <span style="margin-right: 30px">{{ article.user.username }}</span>-->
-<!--                </router-link>-->
-<!--                &lt;!&ndash; 关注按钮 &ndash;&gt;-->
-<!--                <FollowButton :user="article.user"/>-->
-<!--            </div>-->
-<!--            &lt;!&ndash; 编辑按钮 &ndash;&gt;-->
-<!--            <div class="user-info" v-else>-->
-<!--                <el-button @click="toEdit">编辑</el-button>-->
-<!--            </div>-->
             <user-info-show :user="article.user" avatar text follow-opt/>
+            <el-button v-if="store.self && store.self.uid== article.user.uid" @click="toEdit">编辑</el-button>
             <!-- 操作 -->
             <div class="opt">
                 <el-button @click="likeOps" v-if="store.self">{{ article.isLike ? "已" : ""}}点赞 ({{ article.likee }})</el-button>
@@ -59,32 +44,34 @@ let comment = () => {
 .com-bottom-bar{
     position: fixed;
     left: 50%;
-    bottom: 0;
-    width: 1240px;
-    margin-left: -620px;
+    bottom: 10px;
+    width: 90%;
+    margin-left: -45%;
+    border-radius: 25px;
 
     display: flex;
     justify-content: center;
     border: 1px #b7b7bc solid;
-    border-bottom: 0;
-    border-radius:15px 15px 0 0;
     background: #e9ecef;
+    transition: transform 0.5s ease;
 
     >.body{
-        width: 1000px;
         height: 50px;
+        width: 90%;
 
         display: flex;
         align-items: center;
         justify-content: space-between;
-        >.user-info{
-            display: flex;
-            align-items: center;
-        }
     }
 }
-
+.com-bottom-bar:hover{
+    transform: scale(1.07);
+    box-shadow: 0 0 10px #b7b7bc;
+}
 @media (min-width: 1200px) {
-    width: 1200px;
+    .com-bottom-bar {
+        width: 1100px;
+        margin-left: -551px;
+    }
 }
 </style>

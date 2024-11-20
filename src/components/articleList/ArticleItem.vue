@@ -5,15 +5,18 @@
         <!--   摘要     -->
         <div class="context">
             <!-- 图片 -->
-            <router-link :to="path"><img v-if="article.img" :src="article.img" alt="" /></router-link>
+            <router-link :to="path">
+                <el-image class="img" v-if="article.img" :src="article.img" alt=""/>
+            </router-link>
             <!-- 内容 -->
             <div class="text">
                 <!-- 内容 -->
                 <span><router-link :to="path">{{ article.context }}</router-link></span>
                 <!-- 作者 -->
-                <InfoBar :article="article" :edit="edit" v-if="article.user"/>
+                <InfoBar :article="article" :edit="edit" v-if="article.user" style="margin-left: -50px"/>
             </div>
         </div>
+        <InfoBar :article="article" :edit="edit" v-if="article.user" class="small-info-bar"/>
     </div>
 </template>
 
@@ -33,7 +36,8 @@ let path = computed(()=>'/blog/article/'+prop.article.aid)
 
 <style lang="less">
 .com-article-item:hover{
-    border: rgba(44, 62, 80, 1) 1px solid;
+    box-shadow: 0 0 10px #b7b7bc;
+    transform: scale(1.01);
 }
 
 .com-article-item{
@@ -44,6 +48,10 @@ let path = computed(()=>'/blog/article/'+prop.article.aid)
     display: flex;
     flex-direction: column;
     text-decoration: none;
+
+    transition: transform 0.2s ease;
+    box-shadow: 0 0 3px #b7b7bc;
+
     >.title{
         margin: 0 20px;
         padding: 10px;
@@ -56,7 +64,8 @@ let path = computed(()=>'/blog/article/'+prop.article.aid)
     >.context{
         display: flex;
         padding: 0 10px;
-        img{
+        min-height: 100px;
+        .img{
             float: left;
             border-radius: 5px;
             margin: 0 10px 10px;
@@ -84,14 +93,16 @@ let path = computed(()=>'/blog/article/'+prop.article.aid)
             }
         }
     }
-
+    >.small-info-bar{
+        display: none;
+    }
 }
 
 @media (max-width: 768px) {
     .com-article-item{
         margin: 10px;
         >.context{
-            img{
+            .img{
                 width: 100px;
                 height: 70px;
             }
@@ -101,6 +112,12 @@ let path = computed(()=>'/blog/article/'+prop.article.aid)
 @media (max-width:576px) {
     .com-article-item {
         margin: 10px 0;
+        .com-info-bar{
+            display: none;
+        }
+        .small-info-bar{
+            display: block;
+        }
     }
 }
 

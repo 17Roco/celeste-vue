@@ -17,7 +17,6 @@ body{
 
 a {
     text-decoration: none;
-    //color: hsla(160, 100%, 37%, 1);
     color: #181818;
     transition: 0.4s;
     padding: 3px;
@@ -25,9 +24,9 @@ a {
 
 
 :root{
-    --frame-padding:30px;
+    --frame-padding:30px;/* frame body 内边距 */
     --frame-padding-:-30px;
-    --frame-border-color:b7b7bc;
+    --frame-border-color:#b7b7bc; /* frame 边框颜色 */
 }
 @media (min-width: 1200px) {
     :root{

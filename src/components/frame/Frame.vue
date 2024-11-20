@@ -40,6 +40,7 @@ import LoginView from "@/components/frame/loginView/LoginView.vue";
     /**/
     flex: 1;
 }
+
 /**/
 @media (min-width: 1200px) {
     .com-frame-body {

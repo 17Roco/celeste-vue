@@ -32,7 +32,6 @@ import User from "./UserMenu.vue";
         align-items: center;
         width: 0;
         flex: 1;
-        padding: 0 10px;
     }
 }
 @media (min-width: 1200px) {
@@ -41,5 +40,13 @@ import User from "./UserMenu.vue";
             padding: 0 80px;
         }
     }
+}
+
+
+@media (max-width: 576px) {
+    .com-top-bar {
+        padding-bottom: 5px;
+    }
+
 }
 </style>

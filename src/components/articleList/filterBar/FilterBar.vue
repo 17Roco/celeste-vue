@@ -1,16 +1,17 @@
 <template>
     <div class="com-filter-bar">
         <!--    tag    -->
-        <tag-select :tag="filter?.tag" @change="updateFilter({tag: $event})" />
+        <tag-select :tag="filter?.tag" @change="updateFilter({tag: $event})"/>
         <div class="button-bar">
             <!--    排序    -->
             <el-segmented :options="store.filter.order" v-model="order">
                 <template #default="{item}">{{ store.filter._oder[item] }}</template>
             </el-segmented>
-            <!--    分页    -->
-            <Pagination v-if="articleList" :list="articleList" @change="updateFilter({index: $event})" />
             <!--    时间范围    -->
             <DateSelect @change="changeTime"/>
+        </div>
+        <div style="width:100%;display:flex;justify-content: center;">
+            <Pagination v-if="articleList" :list="articleList" @change="updateFilter({index: $event})" />
         </div>
     </div>
 </template>
@@ -57,7 +58,7 @@ let updateFilter = (filter:ArticleFilter) =>
 
 <style lang="less">
 .com-filter-bar{
-    margin: 10px 60px;
+    margin: 10px 30px;
     display: flex;
     flex-direction: column;
     >.button-bar{
@@ -65,6 +66,20 @@ let updateFilter = (filter:ArticleFilter) =>
         width: 100%;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 10px;
+    }
+}
+
+
+/**/
+@media (max-width: 400px) {
+    .com-filter-bar {
+        >.button-bar{
+            flex-direction: column;
+            >div{
+                margin-bottom: 10px;
+            }
+        }
     }
 }
 </style>

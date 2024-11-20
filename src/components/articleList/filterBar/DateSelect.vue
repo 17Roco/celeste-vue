@@ -32,8 +32,16 @@ watchEffect(() => emit("change",beginTime.value,endTime.value))
 .com-date-select{
     margin-right: -10px;
     >.select{
-        width: 160px;
+        width: 100px;
         margin-right: 5px;
+    }
+}
+@media (max-width: 576px) {
+    .com-date-select{
+        >.select{
+            width: 35px;
+            margin-right: 15px;
+        }
     }
 }
 </style>

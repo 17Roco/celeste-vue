@@ -8,7 +8,8 @@
             <el-button type="warning" round v-if="aid" @click="save">保存</el-button>
             <el-button type="warning" round v-else @click="release">发布</el-button>
         </div>
-        <div style="display:flex" CLASS="top-bar">
+        <!-- 文章封面上传 -->
+        <div style="display:flex" CLASS="top-bar" v-if="aid">
             <!-- 文章封面 -->
             <el-image
                 style="width:160px;height: 90px;border-radius: 5px;margin-right: 10px;margin-bottom: 10px"
@@ -102,7 +103,7 @@ let changeTag = async(b:boolean,tag:string)=>{
     }
 }
 let save = async () => {
-    NP(async ()=>ElMessage(await store.updateArticle(article,props.aid) ? "保存成功" : "保存失败"))
+    NP(async ()=>ElMessage(await store.updateArticle(props.aid,article) ? "保存成功" : "保存失败"))
 
 }
 let release = async () => {
