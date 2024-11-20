@@ -45,7 +45,7 @@ let comment = async (text: string) =>{
 </script>
 
 <template>
-    <el-drawer v-model="open" direction="rtl">
+    <el-drawer v-model="open" direction="rtl" size="375px">
         <comment-input @comment="comment"/>
         <comment-show v-if="commentList" :list="commentList" @change="index = $event"/>
         <div v-else>

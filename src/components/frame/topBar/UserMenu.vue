@@ -37,6 +37,7 @@ const store = useMainStore()
 .com-user{
     display: flex;
     align-items: center;
+    padding-right: 10px;
     >.commit-but{
         margin-right: 20px;
     }

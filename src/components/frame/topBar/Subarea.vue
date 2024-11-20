@@ -57,6 +57,7 @@ const route = useRoute();
             background: lightblue;
             color: white;
             transition: all 0.2s ease;
+            box-shadow: 0 0 7px lightsteelblue;
         }
         >.ico:hover{
             background: #37abd5;

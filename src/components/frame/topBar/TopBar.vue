@@ -30,14 +30,15 @@ import User from "./UserMenu.vue";
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 0;
-        flex: 1;
+        width: 90%;
+        max-width: 1200px;
     }
 }
 @media (min-width: 1200px) {
     .com-top-bar {
         .top-bar-body {
             padding: 0 80px;
+            Width: 80%;
         }
     }
 }
@@ -45,7 +46,7 @@ import User from "./UserMenu.vue";
 
 @media (max-width: 576px) {
     .com-top-bar {
-        padding-bottom: 5px;
+        padding: 5px;
     }
 
 }

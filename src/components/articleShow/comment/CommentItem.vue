@@ -6,6 +6,8 @@ import CommentShow from "@/components/articleShow/comment/CommentShow.vue";
 import {useCommentStore} from "@/stores/commentStore";
 import {useMainStore} from "@/stores/mainStore";
 import {ElMessage} from "element-plus";
+import {Comment, DeleteFilled} from "@element-plus/icons-vue";
+import {formatDate} from "../../../util/TimeUtil";
 
 const store = useCommentStore()
 const mainStore = useMainStore()
@@ -63,18 +65,38 @@ let like = async () => {
             <!-- 评论操作 -->
             <div class="opt">
                 <!-- 评论时间 -->
-                <span>{{comment.time}}</span>
-                <!-- 回复按钮 -->
-                <el-button v-if="!children" @click="replyId = comment.cid" link>回复</el-button>
+                <span>{{ formatDate(comment.time) }}</span>
+
                 <!-- 显示子评论 -->
-                <el-button v-if="!children && comment.childrenCount>0" @click="showReply =!showReply" link>查看回复</el-button>
+                <el-button
+                    v-if="!children && comment.childrenCount>0"
+                    @click="showReply =!showReply" link>
+                    {{showReply ? "收起" : "查看"}}回复
+                </el-button>
+
                 <!-- 点赞按钮 -->
-                <el-button link @click="like">{{ comment.isLike ? "取消点赞" : "点赞" }} ({{comment.likee}})</el-button>
+                <el-button link @click="like">
+                    {{ comment.isLike ? "已点赞" : "点赞" }} ({{comment.likee}})
+                </el-button>
+
+                <!-- 回复按钮 -->
+                <el-button
+                    v-if="!children"
+                    @click="replyId = comment.cid"
+                    link>
+                    <el-icon size="16"><el-icon><Comment /></el-icon></el-icon>
+                </el-button>
+
                 <!-- 删除按钮 -->
-                <el-button v-if="comment.user?.uid === mainStore.self?.uid" @click="deleteComment(comment.cid)" link>删除</el-button>
+                <el-button
+                    v-if="comment.user?.uid === mainStore.self?.uid"
+                    @click="deleteComment(comment.cid)"
+                    link>
+                    <el-icon size="16"><DeleteFilled /></el-icon>
+                </el-button>
             </div>
             <!-- 子评论 -->
-            <comment-show v-if="childrenCommentList" v-show="showReply" :list="childrenCommentList" children @change="index=$event"/>
+            <comment-show v-if="childrenCommentList" v-show="showReply" :list="childrenCommentList" children @change="index=$event" class="children-comment-list"/>
         </div>
     </div>
 </template>
@@ -83,7 +105,7 @@ let like = async () => {
 .com-comment-item{
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
     align-items: start;
     padding: 10px 0;
 
@@ -94,7 +116,6 @@ let like = async () => {
     }
 
     >.content{
-        //width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
         padding-left: 70px;
@@ -110,8 +131,12 @@ let like = async () => {
             margin-top: 10px;
             >.el-button{
                 font-size: 12px;
+                margin-right: 5px;
             }
         }
+    }
+    .children-comment-list{
+        margin-left: -45px;
     }
 }
 </style>

@@ -54,4 +54,19 @@ let updateFollow = inject<(uid:number, follow:boolean) => void>("updateFollow", 
         }
     }
 }
+
+@media (max-width: 576px) {
+    .com-user-info-item{
+        >.info{
+            display: block;
+            > .text{
+                padding-left: 0;
+                > span{
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
 </style>

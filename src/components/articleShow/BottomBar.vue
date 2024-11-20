@@ -3,10 +3,16 @@
         <div class="body">
             <!-- 作者信息 -->
             <user-info-show :user="article.user" avatar text follow-opt/>
-            <el-button v-if="store.self && store.self.uid== article.user.uid" @click="toEdit">编辑</el-button>
+            <el-button v-if="store.self && store.self.uid== article.user.uid" @click="toEdit" round>编辑</el-button>
             <!-- 操作 -->
             <div class="opt">
-                <el-button @click="likeOps" v-if="store.self">{{ article.isLike ? "已" : ""}}点赞 ({{ article.likee }})</el-button>
+                <el-button
+                    v-if="store.self"
+                    @click="likeOps"
+                    style="margin-right: 5px"
+                    >
+                    {{ article.isLike ? "已" : ""}}点赞 ({{ article.likee }})
+                </el-button>
                 <el-button @click="comment">评论</el-button>
             </div>
         </div>
@@ -42,6 +48,7 @@ let comment = () => {
 
 <style>
 .com-bottom-bar{
+
     position: fixed;
     left: 50%;
     bottom: 10px;

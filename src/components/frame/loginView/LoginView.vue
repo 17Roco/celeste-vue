@@ -1,5 +1,5 @@
 <template>
-    <el-drawer v-model="store.userStatus.loginMode" direction="rtl" class="com-login-view">
+    <el-drawer v-model="store.userStatus.loginMode" direction="rtl" class="com-login-view" size="375px">
         <el-tabs v-model="tab">
             <!--    登录页面        -->
             <el-tab-pane label="登陆" name="login" class="form-view">
@@ -25,6 +25,7 @@ let tab = ref<string>('login')
 
 <style>
 .com-login-view{
+
     .form-view{
         display: flex;
         justify-content: center;
