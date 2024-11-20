@@ -24,14 +24,14 @@ import User from "./UserMenu.vue";
     top: 0;
     z-index: 1000;
     /**/
-    background: white;
-    border-bottom: 1px solid #b7b7bc;
+    background: #404040;
+    /*border-bottom: 1px solid #b7b7bc;*/
     .top-bar-body {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 90%;
-        max-width: 1200px;
+        max-width: 1400px;
     }
 }
 @media (min-width: 1200px) {

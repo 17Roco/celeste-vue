@@ -11,7 +11,7 @@
             active-text-color="#00965e">
             <el-menu-item v-for="sub in store.menu.models" :key="sub.path" :index="sub.path">
                 <img v-if="sub.img" :src="sub.img" alt="" width="20px" style="margin-right: 10px"/>
-                {{ sub.title }}
+                <span class="text">{{ sub.title }}</span>
             </el-menu-item>
         </el-menu>
         <el-dropdown placement="top-start" class="menu2" type="success">
@@ -21,7 +21,7 @@
                     <el-dropdown-item v-for="sub in store.menu.models" :key="sub.path" >
                         <router-link :to="sub.path">
                             <img v-if="sub.img" :src="sub.img" alt="" width="20px" style="margin-right: 10px"/>
-                            <span>{{ sub.title }}</span>
+                            <span class="text">{{ sub.title }}</span>
                         </router-link>
                     </el-dropdown-item>
                 </el-dropdown-menu>
@@ -45,6 +45,10 @@ const route = useRoute();
 <style>
 
 .com-subarea{
+    .text{
+        color:white;
+    }
+
     > .menu2{
         display: none;
         margin-left: 10px;

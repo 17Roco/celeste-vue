@@ -6,7 +6,7 @@
         <!--用户菜单-->
         <el-dropdown trigger="hover">
             <!--用户头像-->
-            <el-avatar :size="50" :src="store.self?.img ||''" v-loading="!store.self"/>
+            <el-avatar :size="50" :src="store.self?.img ||''" v-loading="!store.self" class="avatar"/>
             <!--菜单列表-->
             <template #dropdown>
                 <el-dropdown-menu>
@@ -38,8 +38,12 @@ const store = useMainStore()
     display: flex;
     align-items: center;
     padding-right: 10px;
+
     >.commit-but{
         margin-right: 20px;
+    }
+    .avatar{
+        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
     }
 }
 </style>

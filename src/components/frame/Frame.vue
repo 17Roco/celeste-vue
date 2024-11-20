@@ -34,11 +34,13 @@ import LoginView from "@/components/frame/loginView/LoginView.vue";
     position: relative;
     overflow: hidden;
     /**/
-    background: white;
     border-radius: 10px;
     border: 1px solid #b7b7bc;
     /**/
     flex: 1;
+
+    background: #f8f8f8;
+    box-shadow: inset  0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 /**/
