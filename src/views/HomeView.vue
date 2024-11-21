@@ -3,5 +3,17 @@
 </script>
 
 <template>
-    <h1>home</h1>
+    <div class="view-home">
+        <h1>HOME</h1>
+    </div>
 </template>
+
+<style>
+.view-home {
+
+ h1{
+     text-align: center;
+ }
+}
+
+</style>

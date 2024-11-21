@@ -11,7 +11,7 @@ let updateFollow = inject<() => void>("updateFollow", () => {})
 </script>
 
 <template>
-    <div class="com-user-home-show" style="background:url('/bkg7.png') center top no-repeat;">
+    <div class="com-user-home-show" style="background:url('/bkg7.jpg') center top no-repeat;">
         <!-- 用户信息 -->
         <div class="info">
             <el-avatar :src="userInfo.img" size="large" class="img-avatar"/>
