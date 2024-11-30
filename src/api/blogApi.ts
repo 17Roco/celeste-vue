@@ -1,5 +1,4 @@
 import {DELETE, GET, POST, PUT} from "./request"
-import type {UploadRawFile} from "element-plus/lib/components";
 
 
 const prefix = "/article"
@@ -13,14 +12,15 @@ export const saveArticle        = (article:ArticleForm)               => POST<{a
 export const updateArticle      = (article:ArticleForm,aid:number)    => PUT(`${prefix}/context/${aid}`,article)
 export const deleteArticle      = (aid:number)                        => DELETE(`${prefix}/${aid}`)
 // 上传图片 todo
-export const updateArticleImg   = (aid:number,file:a)     => PUT(`${prefix}/img/${aid}`,file)
+export const updateArticleImg   = (aid:number,file:any)     => PUT(`${prefix}/img/${aid}`,file)
 
 // tag
 export const getTags        =()                      => GET<Array<Tag>>(`tag/list`)
 export const likeArticle    =(aid:number)            => POST(`${prefix}/like/${aid}`)
 export const unlikeArticle  =(aid:number)            => POST(`${prefix}/unlike/${aid}`)
-export const addTags        =(aid:number,tag:string) => POST(`${prefix}/add_tag/${aid}/${tag}`)
-export const deleteTag      =(aid:number,tag:string) => POST(`${prefix}/del_tag/${aid}/${tag}`)
+
+export const addTags        =(aid:number,tag:string) => POST(`${prefix}/add_tag/${aid}`,{},{params: {tag}})
+export const deleteTag      =(aid:number,tag:string) => POST(`${prefix}/del_tag/${aid}`,{},{params: {tag}})
 
 
 

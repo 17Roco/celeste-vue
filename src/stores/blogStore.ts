@@ -62,10 +62,12 @@ export const useBlogStore = defineStore('blog', () =>{
 
         // 添加标签
         addTag:async (aid:number,title:string) => {
+            title = encodeURI(title)
             return (await api.addTags(aid, title)).b
         },
         // 删除标签
         deleteTag:async (aid:number,title:string) => {
+            title = encodeURI(title)
             return (await api.deleteTag(aid, title)).b
         }
     }
