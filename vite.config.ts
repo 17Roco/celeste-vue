@@ -12,6 +12,7 @@ export default defineConfig({
     //   mockPath: "./mock/" // 文件位置
     // })
   ],
+  base: './',
   build: {
     outDir: 'dist',
   },
